@@ -16,6 +16,7 @@ const routes: Routes = [
     {path: 'identity', loadChildren: './business/identity/identity.module#IdentityModule'},
     {path: 'volumeGroupDetails/:groupId', loadChildren: './business/block/volume-group-detail/volume-group-detail.module#VolumeGroupDetailModule'},
     {path: 'block/:fromRoute', loadChildren: './business/block/block.module#BlockModule'},
+    {path: 'dataflow', loadChildren: './business/dataflow/dataflow.module#DataflowModule'},
 ];
 
 @NgModule({

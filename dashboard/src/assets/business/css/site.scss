@@ -1559,5 +1559,14 @@ a {
 .line-arrow-right.enabled::before{ 
     border-left-color: #438bd3; 
 }
-
+@mixin textadapt{
+    font-size: 14px;
+    & > div{
+        padding:5px 0px;
+    }
+}
+.ui-text-adapt{@include textadapt;}
+.ui-block-align-center{
+    transform: translateY(50%);
+}
 /* custom breadcrumb end */

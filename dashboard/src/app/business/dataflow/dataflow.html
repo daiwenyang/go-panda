@@ -1,0 +1,12 @@
+<div class="content-header">
+    <h1>Data flow</h1>
+    <p>Data flow through buckets by migration / replication capability.</p>
+</div>
+<p-tabView styleClass="ui-tabview-large">
+    <p-tabPanel header="Migrations(0)">
+        <migration-list></migration-list>
+    </p-tabPanel>
+    <p-tabPanel header="Replications(0)" [selected]="fromGroup">
+        <replication-list ></replication-list>
+    </p-tabPanel>
+</p-tabView>

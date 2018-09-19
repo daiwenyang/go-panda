@@ -65,22 +65,22 @@ export class AppComponent implements OnInit, AfterViewInit{
             "routerLink": "/home"
         },
         {
-            "title": "Volume",
-            "description": "Block storage resources",
+            "title": "Resource",
+            "description": "Volumes / Blocks",
             "routerLink": "/block"
         },
-        // {
-        //     "title": "Multi-Cloud Service",
-        //     "description": "5 replications, 1 migrations",
-        //     "routerLink": "/cloud"
-        // },
+        {
+            "title": "Dataflow",
+            "description": "Through migration / replication capability.",
+            "routerLink": "/dataflow"
+        },
         {
             "title": "Profile",
             "description": "Block profiles",
             "routerLink": "/profile"
         },
         {
-            "title": "Resource",
+            "title": "Infrastructure",
             "description": "Regions, availability zones and storages",
             "routerLink": "/resource"
         },
@@ -203,54 +203,60 @@ export class AppComponent implements OnInit, AfterViewInit{
     }
     
     login() {
-        let request: any = { auth: {} };
-        request.auth = {
-            "identity": {
-                "methods": [
-                    "password"
-                ],
-                "password":{
-                    "user": {
-                        "name": this.username,
-                        "domain": {
-                            "name": "Default"
-                        },
-                        "password": this.password
-                    }
-                }
-            }
-        }
+        this.hideLoginForm = true;
+        this.menuItems = this.menuItems_admin;
+        this.isLogin = true;
+        this.router.navigateByUrl("home");
+        this.activeItem = this.menuItems[0];
+        this.showLoginAnimation = true;
+    //     let request: any = { auth: {} };
+    //     request.auth = {
+    //         "identity": {
+    //             "methods": [
+    //                 "password"
+    //             ],
+    //             "password":{
+    //                 "user": {
+    //                     "name": this.username,
+    //                     "domain": {
+    //                         "name": "Default"
+    //                     },
+    //                     "password": this.password
+    //                 }
+    //             }
+    //         }
+    //     }
 
-        this.http.post("/v3/auth/tokens", request).subscribe((res)=>{
-            //set token period start
-            let token = res.json().token;
-            let expires_at = token.expires_at;
-            let issued_at = token.issued_at;
-            let tokenPeriod = Date.parse(expires_at) - Date.parse(issued_at);
-            if(tokenPeriod >= this.minExpireTime){
-                this.paramStor.TOKEN_PERIOD(tokenPeriod);
-            }
-            //set token period end
-            this.paramStor.AUTH_TOKEN(res.headers.get('x-subject-token'));
-            this.paramStor.PASSWORD(this.password);
-            let user = res.json().token.user;
-            this.AuthWithTokenScoped(user);
-            this.showErrorMsg = false;
-        },
-        error=>{
-            switch(error.status){
-                case 401:
-                    this.errorMsg = this.I18N.keyID['sds_login_error_msg_401'];
-                    break;
-                case 503:
-                    this.errorMsg = this.I18N.keyID['sds_login_error_msg_503'];
-                    break;
-                default:
-                    this.errorMsg = this.I18N.keyID['sds_login_error_msg_default'];                
-            }
-            this.showErrorMsg = true;
-        });
-    }
+    //     this.http.post("/v3/auth/tokens", request).subscribe((res)=>{
+    //         //set token period start
+    //         let token = res.json().token;
+    //         let expires_at = token.expires_at;
+    //         let issued_at = token.issued_at;
+    //         let tokenPeriod = Date.parse(expires_at) - Date.parse(issued_at);
+    //         if(tokenPeriod >= this.minExpireTime){
+    //             this.paramStor.TOKEN_PERIOD(tokenPeriod);
+    //         }
+    //         //set token period end
+    //         this.paramStor.AUTH_TOKEN(res.headers.get('x-subject-token'));
+    //         this.paramStor.PASSWORD(this.password);
+    //         let user = res.json().token.user;
+    //         this.AuthWithTokenScoped(user);
+    //         this.showErrorMsg = false;
+    //     },
+    //     error=>{
+    //         switch(error.status){
+    //             case 401:
+    //                 this.errorMsg = this.I18N.keyID['sds_login_error_msg_401'];
+    //                 break;
+    //             case 503:
+    //                 this.errorMsg = this.I18N.keyID['sds_login_error_msg_503'];
+    //                 break;
+    //             default:
+    //                 this.errorMsg = this.I18N.keyID['sds_login_error_msg_default'];                
+    //         }
+    //         this.showErrorMsg = true;
+    //     });
+     }
 
     AuthWithTokenScoped(user, tenant?){
         if(this.interval){
@@ -363,26 +369,26 @@ export class AppComponent implements OnInit, AfterViewInit{
     }
 
     logout() {
-        this.paramStor.AUTH_TOKEN("");
-        this.paramStor.CURRENT_USER("");
-        this.paramStor.CURRENT_TENANT("");
-        this.paramStor.PASSWORD("");
-        this.paramStor.TOKEN_PERIOD("");
-        if(this.interval){
-            clearInterval(this.interval);
-        }
-        if(this.intervalRefreshToken){
-            clearInterval(this.intervalRefreshToken);
-        }
-        // annimation for after logout
-        this.hideLoginForm = false;
-        this.showLogoutAnimation = true;
-        setTimeout(() => {
-            this.showLogoutAnimation = false;
-            this.username = "";
-            this.password = "";
-            this.isLogin = false;
-        }, 500);
+        // this.paramStor.AUTH_TOKEN("");
+        // this.paramStor.CURRENT_USER("");
+        // this.paramStor.CURRENT_TENANT("");
+        // this.paramStor.PASSWORD("");
+        // this.paramStor.TOKEN_PERIOD("");
+        // if(this.interval){
+        //     clearInterval(this.interval);
+        // }
+        // if(this.intervalRefreshToken){
+        //     clearInterval(this.intervalRefreshToken);
+        // }
+        // // annimation for after logout
+        // this.hideLoginForm = false;
+        // this.showLogoutAnimation = true;
+        // setTimeout(() => {
+        //     this.showLogoutAnimation = false;
+        //     this.username = "";
+        //     this.password = "";
+        //     this.isLogin = false;
+        // }, 500);
 
     }
 
