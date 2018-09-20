@@ -6,6 +6,8 @@ import { VolumeListModule } from './volumeList.module';
 import { VolumeGroupModule } from './volumeGroup.module';
 import { BucketsModule } from './buckets.module';
 import { CreateVolumeGroupComponent } from './create-volume-group/create-volume-group.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 let routers = [{
   path: '',
@@ -23,7 +25,10 @@ let routers = [{
     VolumeGroupModule,
     TabViewModule,
     ButtonModule,
-    BucketsModule
+    BucketsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule
   ],
   providers: []
 })

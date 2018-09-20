@@ -1569,4 +1569,36 @@ a {
 .ui-block-align-center{
     transform: translateY(50%);
 }
+.ui-block-backend-toggle{
+    float:left;
+    height:100px;
+    width:200px;
+
+}
+.ui-block-count-container{
+    display:flex;
+    margin:20px;
+    margin-bottom: 30px;
+    height:100px;
+    border-radius: 10px;
+    background: #f3f6f7;
+}
+.ui-block-count-item{
+    flex:1;
+    margin:10px;
+}
+.ui-block-count-item-img{
+    width:80px;
+    float:left;
+}
+.ui-block-count-item-text{
+    float:left;
+    text-align:center;
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+.ui-block-count-item-border{
+    border-right:1px solid #d4d4d4;
+}
 /* custom breadcrumb end */

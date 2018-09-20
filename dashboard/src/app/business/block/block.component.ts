@@ -37,6 +37,7 @@ import { I18nPluralPipe } from '@angular/common';
 export class BlockComponent implements OnInit{
     fromGroup:boolean=false;
     fromBuckets:boolean = false;
+    countItems = [];
     constructor(
         public I18N: I18NService,
         private router: Router,
@@ -50,6 +51,33 @@ export class BlockComponent implements OnInit{
                 this.fromBuckets = params.fromRoute === "fromBuckets";
             }
           );
+        this.countItems = [
+            {
+                url:"Tenants",
+                size:1,
+                label:"Volumes"
+            },
+            {
+                url:"Tenants",
+                size:1,
+                label:"Volumes"
+            },
+            {
+                url:"Tenants",
+                size:1,
+                label:"Volumes"
+            },
+            {
+                url:"Tenants",
+                size:1,
+                label:"Volumes"
+            },
+            {
+                url:"Tenants",
+                size:1,
+                label:"Volumes"
+            }
+        ]
     }
 
 }
