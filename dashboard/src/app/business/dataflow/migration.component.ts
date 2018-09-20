@@ -19,6 +19,7 @@ let _ = require("underscore");
 export class MigrationListComponent implements OnInit {
     allMigrations = [];
     selectedMigrations = [];
+    createMigrateShow = false;
     constructor(
         public I18N: I18NService,
         private router: Router,
