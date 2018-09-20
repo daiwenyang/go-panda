@@ -1575,6 +1575,25 @@ a {
     width:200px;
 
 }
+.ui-block-backend-toggle > ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.ui-block-backend-dropdown{
+    position: absolute;
+    background-color: #ffffff;
+    width:150px;
+    box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 100;
+    border-radius: 4px;
+}
+.ui-block-backend-select{
+    display:inline-block;
+    margin:10px;
+}
 .ui-block-count-container{
     display:flex;
     margin:20px;

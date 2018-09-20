@@ -1,6 +1,15 @@
 <div>
-    <div class="ui-block-backend-toggle">
-
+    <div class="ui-block-backend-toggle ">
+        <div class="ui-block-backend-select"><img src="assets/business/images/home_admin/Tenants.png" (click)="showDropDown=!showDropDown"></div>
+        <div style="position:relative;bottom:20px" class="ui-block-backend-select fa fa-chevron-down" (click)="showDropDown=!showDropDown"></div>
+        <div class="ui-block-backend-dropdown" *ngIf="showDropDown">
+            <ul>
+                <li style="border-bottom: 1px solid #ccc"><img src="assets/business/images/home_admin/Tenants.png"></li>
+                <li style="border-bottom: 1px solid #ccc"><img src="assets/business/images/home_admin/Tenants.png"></li>
+                <li style="border-bottom: 1px solid #ccc"><img src="assets/business/images/home_admin/Tenants.png"></li>
+                <li style="border-bottom: 1px solid #ccc"><img src="assets/business/images/home_admin/Tenants.png"></li>
+            </ul>
+        </div>
     </div>
     <div class="ui-block-count-container">
         <div class="ui-block-count-item" *ngFor="let item of countItems; index as i" [ngClass]="{'ui-block-count-item-border': i==2}">
