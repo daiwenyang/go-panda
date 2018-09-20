@@ -4,9 +4,11 @@ import { I18NService } from 'app/shared/api';
 import { AppService } from 'app/app.service';
 import { trigger, state, style, transition, animate} from '@angular/animations';
 import { I18nPluralPipe } from '@angular/common';
+import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
-    templateUrl: './block.html',
+    selector: 'bucket-list',
+    templateUrl: './buckets.html',
     styleUrls: [],
     animations: [
         trigger('overlayState', [
@@ -34,22 +36,47 @@ import { I18nPluralPipe } from '@angular/common';
         ])
     ]
 })
-export class BlockComponent implements OnInit{
-    fromGroup:boolean=false;
-    fromBuckets:boolean = false;
+export class BucketsComponent implements OnInit{
+    selectedBuckets=[];
+    allBuckets = [];
+    createBucketForm:FormGroup;
+    errorMessage = [];
+    createBucketDisplay=false;
+    backendsOption = [];
     constructor(
         public I18N: I18NService,
         private router: Router,
-        private ActivatedRoute:ActivatedRoute
-    ){}
+        private ActivatedRoute:ActivatedRoute,
+        private fb:FormBuilder
+    ){
+        this.createBucketForm = this.fb.group({
+            "backend":[""],
+            "name":[""]
+        });
+    }
 
     ngOnInit() {
-        this.ActivatedRoute.params.subscribe(
-            (params) => {
-                this.fromGroup = params.fromRoute === "fromGroup";
-                this.fromBuckets = params.fromRoute === "fromBuckets";
+        this.allBuckets = [
+            {
+                name:"test",
+                backend:"OS_ch_beijing_eastern",
+                created:"2018-02-25 07:30:12",
+            },
+            {
+                name:"bucket_s3",
+                backend:"OS_ch_beijing_western",
+                created:"2018-02-25 07:30:12",
             }
-          );
+        ];
+        this.backendsOption = [
+            {
+                label:"All Backends",
+                value:"All Backends",
+            }
+        ];
+    }
+    showCreateForm(){
+        this.createBucketDisplay = true;
     }
 
 }
