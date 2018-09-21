@@ -1,5 +1,5 @@
-<div class="home-font-color-class" *ngIf="showAdminStatis">
-    <div>
+<div class="home-font-color-class" *ngIf="true">
+    <!-- <div>
         <header>
             <h2 class="header-h2-title-font">{{I18N.keyID["sds_home_overvew"]}}</h2>
             <p class="header-p-text">{{I18N.keyID["sds_home_update"]}}</p>
@@ -42,17 +42,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="ui-g-12 ui-md-4">
-                <div class="img-item-div-height img-item-div statisBg">
-                    <div>
-                        <img-item [item]="items[7]"></img-item>
-                    </div>
-                    <div class="home-img-item-margin">
-                        <img-item [item]="items[8]"></img-item>
-                    </div>
-                </div>
-            </div> -->
             <div class="ui-helper-clearfix"></div>
         </div>
     </div>
@@ -74,10 +63,70 @@
             <p-chart [options]="chartBarOpion" type="bar" [data]="chartDatasbar"></p-chart>
         </div>
         <div class="ui-helper-clearfix"></div>
+    </div> -->
+    <div style="min-height:500px;height:60%;border:1px solid #ccc;">
+
+    </div>
+    <div style="display:flex;">
+        <div style="flex:1;padding:20px;">
+            <p-card title="Resource" styleClass="ui-card-shadow">
+                <div class="ui-home-card">
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+        <div style="flex:1;padding:20px;">
+            <p-card title="Dataflow Capacity" styleClass="ui-card-shadow" >
+                <div class="ui-home-card">
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+        <div style="flex:1;padding:20px;">
+            <p-card title="Dataflow Quantity" styleClass="ui-card-shadow">
+                <div class="ui-home-card">
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                    <div class="ui-home-card-count">
+                        <div class="ui-home-card-text">10</div>
+                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+
     </div>
 </div>
 
-<div class="home-font-color-class" *ngIf="!showAdminStatis">
+<div class="home-font-color-class" *ngIf="false">
         <div>
             <header>
                 <h2 class="header-h2-title-font">Overview</h2>

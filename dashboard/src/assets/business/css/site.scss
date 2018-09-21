@@ -1620,4 +1620,16 @@ a {
 .ui-block-count-item-border{
     border-right:1px solid #d4d4d4;
 }
+.ui-home-card{
+    display:table;
+    width:100%;
+}
+.ui-home-card-count{
+    display:table-cell;
+    padding:20px;
+}
+.ui-home-card-text{
+    font-size: 2em; 
+    text-align: center;
+}
 /* custom breadcrumb end */

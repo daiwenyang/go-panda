@@ -6,7 +6,7 @@ import { ProfileService } from 'app/business/profile/profile.service';
 import { HttpService } from 'app/shared/service/Http.service';
 
 import { RouterModule } from '@angular/router';
-import { ButtonModule, ChartModule } from '../../components/common/api';
+import { ButtonModule, ChartModule,CardModule } from '../../components/common/api';
 
 let routers = [{
   path: '',
@@ -21,7 +21,8 @@ let routers = [{
   imports: [
     RouterModule.forChild(routers), ButtonModule,
     CommonModule,
-    ChartModule
+    ChartModule,
+    CardModule
   ],
   providers: [HttpService, ProfileService]
 })
