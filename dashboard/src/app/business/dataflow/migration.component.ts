@@ -37,6 +37,39 @@ export class MigrationListComponent implements OnInit {
             source:"bucket_hwc_dr",
             destination:"bucket_s3",
             rule:"files/doc/; files/obj;"
+        },{
+            name:"migration_for_analytics",
+            status:"Completed",
+            source:"bucket_hwc_dr",
+            destination:"bucket_s3",
+            rule:"files/doc/; files/obj;"
         }]
+    }
+    deleteMigrate(migrate){
+        let msg = "<div>Are you sure you want to delete the Migration ?</div><h3>[ "+ migrate.name +" ]</h3>";
+        let header ="Delete";
+        let acceptLabel = "Delete";
+        let warming = true;
+        this.confirmDialog([msg,header,acceptLabel,warming,"delete"])
+    }
+    confirmDialog([msg,header,acceptLabel,warming=true,func]){
+        this.confirmationService.confirm({
+            message: msg,
+            header: header,
+            acceptLabel: acceptLabel,
+            isWarning: warming,
+            accept: ()=>{
+                try {
+                    
+                }
+                catch (e) {
+                    console.log(e);
+                }
+                finally {
+                    
+                }
+            },
+            reject:()=>{}
+        })
     }
 }

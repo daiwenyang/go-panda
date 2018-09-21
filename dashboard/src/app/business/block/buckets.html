@@ -21,10 +21,10 @@
         <p-column field="backend" header="Default Backend" ></p-column>
         <p-column field="created" header="Created At"></p-column>
         <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width': '335px'}">
-            <ng-template pTemplate="body" let-volume="rowData" let-i="rowIndex">
-                <a >Configure Lifecycle</a>
+            <ng-template pTemplate="body" let-bucket="rowData" let-i="rowIndex">
+                <a class="a-rep-disabled">Configure Lifecycle</a>
                 <a >Migrate</a>
-                <a >Delete</a>
+                <a (click)="deleteBucket(bucket)">Delete</a>
             </ng-template>
         </p-column>
     </p-dataTable>
@@ -46,5 +46,4 @@
         </p-footer>
     </p-dialog>
     <p-confirmDialog></p-confirmDialog>
-    
 </div>

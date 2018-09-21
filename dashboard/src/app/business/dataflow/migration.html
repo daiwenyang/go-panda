@@ -22,9 +22,9 @@
     <p-column field="destination" header="Destination Bucket"></p-column>
     <p-column field="rule" header="Rules"></p-column>
     <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width': '335px'}">
-        <ng-template pTemplate="body" let-volume="rowData" let-i="rowIndex">
-            <a >Suspend</a>
-            <a >Delete</a>
+        <ng-template pTemplate="body" let-migrate="rowData" let-i="rowIndex">
+            <a (click)="deleteMigrate(migrate)">Delete</a>
+            <a *ngIf="migrate.status ==='Completed'">Remigrate</a>
         </ng-template>
     </p-column>
     <ng-template pTemplate="rowexpansion">
@@ -32,23 +32,6 @@
     </ng-template>
 </p-dataTable>
 <p-dialog header="Migrate" [(visible)]="createMigrateShow" [width]="650" modal="modal">
-    <!-- <form [grid]="{label: 'ui-g-5', content:'ui-g-20'}" [formGroup]="expandFormGroup" [errorMessage]="errorMessage">
-        <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-            <span class="text-only">{{selectedVolume.name}}</span>
-        </form-item>
-        <form-item label="{{I18N.keyID['sds_block_volume_curr_capa']}}">
-            <span class="text-only">{{selectedVolume.size}}</span>
-        </form-item>
-        <form-item label="{{I18N.keyID['sds_block_volume_expandby']}}" >
-            <div style="display: inline-flex;" class="ui-fluid">
-                    <input type="text" pInputText formControlName="expandSize" style="width: 150px; margin-right: 10px;" />
-                    <p-dropdown [style]="{'min-width':150}" [options]="capacityOptions" formControlName="capacityOption"></p-dropdown>
-            </div>
-        </form-item>
-        <form-item label="{{I18N.keyID['sds_block_volume_totalcapa']}}" >
-                <span class="text-only">{{newVolumeSizeFormat}}</span>
-        </form-item>
-    </form> -->
     <form [grid]="{label: 'ui-g-3', content:'ui-g-20'}"  >
         <div style="margin-bottom: 18px;"><span style="font-size: 16px;font-style: normal">Basic Information</span></div>
         <form-item label="Plan Name" >
@@ -77,3 +60,4 @@
         <button type="button" pButton (click)="createMigrateShow=false" label="{{I18N.keyID['cancel']}}"></button>
     </p-footer>
 </p-dialog>
+<p-confirmDialog></p-confirmDialog>

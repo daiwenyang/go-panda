@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class ReplicationComponent implements OnInit{
     allReplications = [];
     selectedReplications = [];
+    createReplicationShow = false;
     constructor(
         public I18N: I18NService,
         private router: Router,

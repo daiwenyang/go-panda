@@ -5,11 +5,13 @@ import { AppService } from 'app/app.service';
 import { trigger, state, style, transition, animate} from '@angular/animations';
 import { I18nPluralPipe } from '@angular/common';
 import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { MenuItem ,ConfirmationService} from '../../components/common/api';
 
 @Component({
     selector: 'bucket-list',
     templateUrl: './buckets.html',
     styleUrls: [],
+    providers: [ConfirmationService],
     animations: [
         trigger('overlayState', [
             state('hidden', style({
@@ -47,6 +49,7 @@ export class BucketsComponent implements OnInit{
         public I18N: I18NService,
         private router: Router,
         private ActivatedRoute:ActivatedRoute,
+        private confirmationService: ConfirmationService,
         private fb:FormBuilder
     ){
         this.createBucketForm = this.fb.group({
@@ -77,6 +80,33 @@ export class BucketsComponent implements OnInit{
     }
     showCreateForm(){
         this.createBucketDisplay = true;
+    }
+    deleteBucket(bucket){
+        let msg = "<div>Are you sure you want to delete the Bucket ?</div><h3>[ "+ bucket.name +" ]</h3>";
+        let header ="Delete";
+        let acceptLabel = "Delete";
+        let warming = true;
+        this.confirmDialog([msg,header,acceptLabel,warming,"delete"])
+    }
+    confirmDialog([msg,header,acceptLabel,warming=true,func]){
+        this.confirmationService.confirm({
+            message: msg,
+            header: header,
+            acceptLabel: acceptLabel,
+            isWarning: warming,
+            accept: ()=>{
+                try {
+                    
+                }
+                catch (e) {
+                    console.log(e);
+                }
+                finally {
+                    
+                }
+            },
+            reject:()=>{}
+        })
     }
 
 }
