@@ -89,18 +89,7 @@
         <div style="flex:1;padding:20px;">
             <p-card title="Dataflow Capacity" styleClass="ui-card-shadow" >
                 <div class="ui-home-card">
-                    <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
-                    </div>
-                    <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
-                    </div>
-                    <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
-                    </div>
+                    <p-chart [height]="'100%'" type="line" [options]='lineOption' [data]="lineData"></p-chart>
                 </div>
             </p-card>
         </div>
@@ -122,7 +111,6 @@
                 </div>
             </p-card>
         </div>
-
     </div>
 </div>
 

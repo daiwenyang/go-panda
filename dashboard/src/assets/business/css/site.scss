@@ -1623,6 +1623,7 @@ a {
 .ui-home-card{
     display:table;
     width:100%;
+    min-height:200px;
 }
 .ui-home-card-count{
     display:table-cell;
@@ -1631,5 +1632,8 @@ a {
 .ui-home-card-text{
     font-size: 2em; 
     text-align: center;
+}
+.ui-card{
+    border-radius: 4px;
 }
 /* custom breadcrumb end */
