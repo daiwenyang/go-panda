@@ -7,6 +7,7 @@ import { HttpService } from 'app/shared/service/Http.service';
 
 import { RouterModule } from '@angular/router';
 import { ButtonModule, ChartModule,CardModule } from '../../components/common/api';
+import { DataTableModule, DropMenuModule,HomeDialogModule, DialogModule, FormModule, InputTextModule, InputTextareaModule, DropdownModule ,ConfirmationService,ConfirmDialogModule} from '../../components/common/api';
 
 let routers = [{
   path: '',
@@ -22,7 +23,12 @@ let routers = [{
     RouterModule.forChild(routers), ButtonModule,
     CommonModule,
     ChartModule,
-    CardModule
+    CardModule,
+    HomeDialogModule,
+    FormModule,
+    InputTextModule, 
+    InputTextareaModule, 
+    DropdownModule ,
   ],
   providers: [HttpService, ProfileService]
 })

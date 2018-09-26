@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
     tenants =[];
     lineData ={};
     lineOption = {};
+    showRgister = false;
     constructor(
         private http: Http,
         private paramStor: ParamStorService,

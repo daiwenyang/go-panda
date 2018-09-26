@@ -1636,4 +1636,18 @@ a {
 .ui-card{
     border-radius: 4px;
 }
+.ui-home-backend-container{
+    min-height:500px;
+    height:60%;
+    position:relative;
+}
+.ui-home-backend-count{
+    position:absolute;
+    top:-100%;
+    left:100%;
+    width:30px;
+    height:30px;
+    border:1px solid #333;
+    border-radius: 50% 50%;
+}
 /* custom breadcrumb end */
