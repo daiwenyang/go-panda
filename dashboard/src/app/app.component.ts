@@ -65,22 +65,22 @@ export class AppComponent implements OnInit, AfterViewInit{
             "routerLink": "/home"
         },
         {
-            "title": "Volume",
-            "description": "Block storage resources",
+            "title": "Resource",
+            "description": "Volumes / Blocks",
             "routerLink": "/block"
         },
-        // {
-        //     "title": "Multi-Cloud Service",
-        //     "description": "5 replications, 1 migrations",
-        //     "routerLink": "/cloud"
-        // },
+        {
+            "title": "Dataflow",
+            "description": "Through migration / replication capability.",
+            "routerLink": "/dataflow"
+        },
         {
             "title": "Profile",
             "description": "Block profiles",
             "routerLink": "/profile"
         },
         {
-            "title": "Resource",
+            "title": "Infrastructure",
             "description": "Regions, availability zones and storages",
             "routerLink": "/resource"
         },
