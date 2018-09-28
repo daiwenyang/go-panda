@@ -60,6 +60,7 @@ export class BucketsComponent implements OnInit{
     ){
         this.createBucketForm = this.fb.group({
             "backend":[""],
+            "backend_type":[""],
             "name":[""]
         });
     }
@@ -130,17 +131,29 @@ export class BucketsComponent implements OnInit{
             });
         });
     }
-
-    onSubmit(value) {
+    creatBucket(){
+        console.log(this.createBucketForm.value);
         let param = {
-            "name": this.createBucketForm.value["name"],
-            "backend": this.createBucketForm.value["backend"],
-        }
-        this.BucketService.createBucket(param).subscribe((res) => {
+            name:this.createBucketForm.value.name,
+            backend_type:this.createBucketForm.value.backend_type,
+            backend:this.createBucketForm.value.backend,
+        };
+        this.BucketService.createBucket(param).subscribe(()=>{
             this.createBucketDisplay = false;
-            this.ngOnInit();
+            this.getBuckets();
         });
+        
     }
+    // onSubmit(value) {
+    //     let param = {
+    //         "name": this.createBucketForm.value["name"],
+    //         "backend": this.createBucketForm.value["backend"],
+    //     }
+    //     this.BucketService.createBucket(param).subscribe((res) => {
+    //         this.createBucketDisplay = false;
+    //         this.ngOnInit();
+    //     });
+    // }
 
     showCreateForm(){
         this.createBucketDisplay = true;
