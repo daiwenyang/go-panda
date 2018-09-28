@@ -87,6 +87,7 @@ export class TenantListComponent implements OnInit {
         }];
         this.selectedTenants = [];
         return;
+        /*
         this.sortField = "name";
 
         let request: any = { params:{} };
@@ -103,6 +104,7 @@ export class TenantListComponent implements OnInit {
                 }
             })
         });
+        */
     }
 
     showCreateTenant(tenant?) {
@@ -130,6 +132,7 @@ export class TenantListComponent implements OnInit {
     createTenant(){
         this.createTenantDisplay = false;
         return;
+        /*
         let request: any = { project:{} };
         request.project = {
             "domain_id": "default",
@@ -177,11 +180,13 @@ export class TenantListComponent implements OnInit {
                 this.tenantFormGroup.controls[i].markAsTouched();
             }
         }
+        */
     }
 
     updateTenant(){
         this.createTenantDisplay = false;
         return;
+        /*
         let request: any = { project:{} };
         request.project = {
             "domain_id": "default",
@@ -195,6 +200,7 @@ export class TenantListComponent implements OnInit {
                 this.listTenants();
             });
         }
+        */
     }
 
     deleteTenant(tenants){

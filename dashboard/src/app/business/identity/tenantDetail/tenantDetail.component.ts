@@ -91,6 +91,7 @@ export class TenantDetailComponent implements OnInit {
         }
         this.isDetailFinished = true;
         return;
+        /*
         this.http.get("/v3/role_assignments?scope.project.id="+ this.projectID).subscribe((res)=>{
             let arr = res.json().role_assignments;
             let newarr = [];
@@ -131,6 +132,7 @@ export class TenantDetailComponent implements OnInit {
                 this.listUsers();
             })
         })
+        */
     }
 
     showAddUsers(){
@@ -141,6 +143,7 @@ export class TenantDetailComponent implements OnInit {
     addUsers(){
         this.addUserDisplay = false;
         return;
+        /*
         let group_id;
         this.projectGroups.forEach((item)=>{
             if(item.grouprole.name == "Member"){
@@ -157,7 +160,7 @@ export class TenantDetailComponent implements OnInit {
                 }
             })
         });
-
+        */
     }
 
     listAllUsers(){
@@ -196,6 +199,7 @@ export class TenantDetailComponent implements OnInit {
             })
         }
         return;
+        /*
         let request: any = { params:{} };
         request.params = {
             "domain_id": "default"
@@ -226,6 +230,7 @@ export class TenantDetailComponent implements OnInit {
             }
 
         });
+        */
     }
 
     listUsers(){

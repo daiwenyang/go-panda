@@ -162,6 +162,7 @@ export class UserListComponent implements OnInit, AfterViewChecked {
     createUser(){
         this.createUserDisplay = false;
         return;
+        /*
         let request: any = { user:{} };
         request.user = {
             "domain_id": "default",
@@ -205,11 +206,13 @@ export class UserListComponent implements OnInit, AfterViewChecked {
                 this.myFormGroup.controls[i].markAsTouched();
             }
         }
+        */
     }
 
     updateUser(){
         this.createUserDisplay = false;
         return;
+        /*
         let request: any = { user:{} };
         request.user = {
             "description": this.myFormGroup.value.form_description
@@ -242,7 +245,7 @@ export class UserListComponent implements OnInit, AfterViewChecked {
                 }
             }
         }
-
+        */
 
     }
 
