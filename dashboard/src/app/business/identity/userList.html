@@ -17,7 +17,7 @@
 </div>
 
 <p-dataTable [globalFilter]="searchByName" [immutable]="false" [(selection)]="selectedUsers" [sortField]="sortField" [value]="tenantUsers" [showHeaderCheckbox]="true" expandableRows="true" rowExpandMode="single" [rows]="10" [paginator]="true" (onPage)="tablePaginate()" [pageLinks]="3" [rowsPerPageOptions]="[10,20,50,100]" (onRowExpand)="onRowExpand($event)">
-    <p-column expander="true" styleClass="table-col-expander" ></p-column>
+    <!--<p-column expander="true" styleClass="table-col-expander" ></p-column>-->
     <p-column selectionMode="multiple" styleClass="table-col-selection" ></p-column>
     <p-column field="username" header="{{I18N.keyID['sds_identity_user_name']}}"></p-column>
     <p-column header="{{I18N.keyID['sds_block_volume_status']}}">
@@ -25,7 +25,8 @@
             <div class="badge-inline" [pBadge] status="{{(user.enabled == true) ? 'success' : 'default'}}" text="{{(user.enabled == true) ? 'Enabled' : 'Disabled'}}"></div>
         </ng-template>
     </p-column>
-    <p-column field="description" header="{{I18N.keyID['sds_block_volume_descri']}}"></p-column>
+    <p-column field="tenant" header="{{I18N.keyID['sds_identity_tenant']}}"></p-column>
+    <p-column field="role" header="Role"></p-column>
     <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width': '20%'}">
         <ng-template let-user="rowData" pTemplate="body" >
             <a *ngIf="user.username!='admin'&&user.username!='opensds'" (click)="showUserForm(user)">{{I18N.keyID['sds_block_volume_modify']}}</a>

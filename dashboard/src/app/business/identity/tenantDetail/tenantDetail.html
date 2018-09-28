@@ -21,10 +21,10 @@
             </ng-template>
         </p-column>
         <p-column field="role" header="Role"></p-column>
-        <p-column field="description" header="Description"></p-column>
+        <!--<p-column field="description" header="Description"></p-column>-->
         <p-column header="Operation" [style]="{'width': '20%'}" *ngIf="projectName!='admin' && projectName!='service'">
             <ng-template let-user="rowData" pTemplate="body">
-                <a (click)="removeUser(user)">Remove</a>
+                <a *ngIf="user.name!='admin'&&user.name!='opensds'" (click)="removeUser(user)">Remove</a>
             </ng-template>
         </p-column>
     </p-dataTable>

@@ -58,6 +58,39 @@ export class TenantDetailComponent implements OnInit {
     }
 
     listProjectGroup(){
+        // 预置假数据
+        if (this.projectID == "tenant001") {
+            this.users = [{
+                enabled: true,
+                name: "admin",
+                tenant: "All",
+                role: "System Administrator"
+            },{
+                enabled: true,
+                name: "jack",
+                tenant: "Business Group",
+                role: "Teneat User"
+            }];
+        } else {
+            this.users = [{
+                enabled: true,
+                name: "admin",
+                tenant: "All",
+                role: "System Administrator"
+            },{
+                enabled: true,
+                name: "cloud_admin",
+                tenant: "Finance Group",
+                role: "Teneat User"
+            },{
+                enabled: true,
+                name: "jones",
+                tenant: "Finance Group",
+                role: "Tenant User"
+            }];
+        }
+        this.isDetailFinished = true;
+        return;
         this.http.get("/v3/role_assignments?scope.project.id="+ this.projectID).subscribe((res)=>{
             let arr = res.json().role_assignments;
             let newarr = [];
@@ -106,7 +139,8 @@ export class TenantDetailComponent implements OnInit {
     }
 
     addUsers(){
-        
+        this.addUserDisplay = false;
+        return;
         let group_id;
         this.projectGroups.forEach((item)=>{
             if(item.grouprole.name == "Member"){
@@ -128,7 +162,40 @@ export class TenantDetailComponent implements OnInit {
 
     listAllUsers(){
         this.popSelectedUsers = [];
-        this.allUsers = [];
+        this.allUsers = [{
+            enabled: true,
+            name: "admin",
+            tenant: "All",
+            role: "System Administrator"
+        },{
+            enabled: true,
+            name: "cloud_admin",
+            tenant: "Finanace Group",
+            role: "Storage Administrator"
+        },{
+            enabled: true,
+            name: "jack",
+            tenant: "Business Group",
+            role: "Teneat User"
+        },{
+            enabled: true,
+            name: "jones",
+            tenant: "Finance Group",
+            role: "Tenant User"
+        }];
+        //Filter added users
+        if(this.users.length > 0){
+            this.users.forEach((addedUser) => {
+                this.allUsers = this.allUsers.filter((user, idx, arr)=>{
+                    return (user.name != 'admin' && user.name != 'opensds'  && user.name != addedUser.name);
+                })
+            })
+        }else{
+            this.allUsers = this.allUsers.filter((user, idx, arr)=>{
+                return (user.name != 'admin' && user.name != 'opensds');
+            })
+        }
+        return;
         let request: any = { params:{} };
         request.params = {
             "domain_id": "default"
