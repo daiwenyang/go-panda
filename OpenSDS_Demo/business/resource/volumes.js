@@ -11,36 +11,4 @@ module.exports = function(router){
   });
   
   router.restful(models.volumes, '/v1beta/:projectId/block/');
-
-  // router.get('/v1beta/:projectId/profiles', (req, res)=>{
-  //   res.send({"a":"b"});
-  // });
-
-  // router.post(`/v1beta/:projectId/volume`, async (req, res) => {
-  //   let model = models.volume;
-  //   let rs = await Promise.all( req.body.volumes.map(e => model.insert(e)) );
-
-  //   res.send(rs);
-  // });
-
-  // router.get(`/v1beta/:projectId/volume`, async (req, res) => {
-
-  //   let rs = await Promise.all( req.body.volumes.map(e => model.insert(e)) );
-
-  //   res.send(rs);
-  // });
-
-  // router.get(`/v1beta/:projectId/volume/id`, async (req, res) => {
-
-  //   let rs = await Promise.all( req.body.volumes.map(e => model.insert(e)) );
-
-  //   res.send(rs);
-  // });
-
-  // router.put(`/v1beta/:projectId/volume/id`, async (req, res) => {
-
-  //   let rs = await Promise.all( req.body.volumes.map(e => model.insert(e)) );
-
-  //   res.send(rs);
-  // });
 }
