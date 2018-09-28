@@ -46,7 +46,10 @@ export class BucketsComponent implements OnInit{
     createBucketForm:FormGroup;
     errorMessage = [];
     createBucketDisplay=false;
+    showLife = false;
     backendsOption = [];
+    lifeOperation = [];
+    allBackends = [];
     constructor(
         public I18N: I18NService,
         private router: Router,
@@ -79,6 +82,31 @@ export class BucketsComponent implements OnInit{
                 label:"All Backends",
                 value:"All Backends",
             }
+        ];
+        this.lifeOperation =[{
+            label:'Migration',
+            value:'Migration'
+        },
+        {
+            label:'Delete',
+            value:'Delete'
+        }];
+        this.allBackends = [{
+            label:'AWS S3',
+            value:'AWS S3'
+        },
+        {
+            label:'MicrosoftAzure Blob Storage',
+            value:'MicrosoftAzure Blob Storage'
+        },
+        {
+            label:'Huawei HWC',
+            value:'Huawei HWC'
+        },
+        {
+            label:'Huawei FusionCloud',
+            value:'Huawei FusionCloud'
+        }
         ];
         this.getBuckets();
         this.getBackends();
@@ -123,6 +151,9 @@ export class BucketsComponent implements OnInit{
         let acceptLabel = "Delete";
         let warming = true;
         this.confirmDialog([msg,header,acceptLabel,warming,"delete"], bucket)
+    }
+    configLife(bucket){
+        this.showLife = true;
     }
     confirmDialog([msg,header,acceptLabel,warming=true,func], bucket){
         this.confirmationService.confirm({

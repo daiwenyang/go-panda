@@ -19,6 +19,9 @@ export class BucketDetailComponent implements OnInit {
   }];
   allDir = [];
   selectedDir = [];
+  uploadDisplay = false;
+  selectedSpecify = [];
+  showBackend = false;
   constructor(
     private ActivatedRoute: ActivatedRoute,
     public I18N:I18NService,
@@ -42,5 +45,11 @@ export class BucketDetailComponent implements OnInit {
     }
     );
   }
-
+  showDetail(){
+    if(this.selectedSpecify.length !== 0){
+      this.showBackend = true;
+    }else{
+      this.showBackend = false;
+    }
+  }
 }

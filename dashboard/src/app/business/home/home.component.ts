@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
     lineData ={};
     lineOption = {};
     showRgister = false;
+    allBackends = [];
+    allRegions = [];
     registerBackend = {
         type: {
             values: ['AWS S3', 'MicrosoftAzure Blob Storage', 'Huawei HWC', 'Huawei FusionCloud'],
@@ -176,6 +178,33 @@ export class HomeComponent implements OnInit {
                 }
             ]
         }
+        //['AWS S3', 'MicrosoftAzure Blob Storage', 'Huawei HWC', 'Huawei FusionCloud'],
+        this.allBackends = [{
+            label:'AWS S3',
+            value:'AWS S3'
+        },
+        {
+            label:'MicrosoftAzure Blob Storage',
+            value:'MicrosoftAzure Blob Storage'
+        },
+        {
+            label:'Huawei HWC',
+            value:'Huawei HWC'
+        },
+        {
+            label:'Huawei FusionCloud',
+            value:'Huawei FusionCloud'
+        }
+        ];
+        this.allRegions = [{
+            label:'region_beijing',
+            value:'region_beijing'
+        },
+        {
+            label:'region_chengdu',
+            value:'region_chengdu'
+        }
+        ];
     }
 
     getProfiles() {

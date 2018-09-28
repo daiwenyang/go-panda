@@ -156,14 +156,16 @@
                 <input id="name" type="text" name="name" [(ngModel)]="registerBackend.name.value" pInputText />
             </form-item>
             <form-item label="Type" >
-                <select id="type" name="type" [(ngModel)]="registerBackend.type.value" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
+                <!-- <select id="type" name="type" [(ngModel)]="registerBackend.type.value" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
                     <option *ngFor="let option of registerBackend.type.values" [value]="option">{{option}}</option>
-                </select>
+                </select> -->
+                <p-dropdown [style]="{'min-width':'220px'}" [options]="allBackends"  ></p-dropdown>
             </form-item>
             <form-item label="Region" >
-                <select id="region" name="region" [(ngModel)]="registerBackend.region.value" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
+                <!-- <select id="region" name="region" [(ngModel)]="registerBackend.region.value" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
                     <option *ngFor="let option of registerBackend.region.values" [value]="option.name">{{option.name}}</option>
-                </select>
+                </select> -->
+                <p-dropdown [style]="{'min-width':'220px'}" [options]="allRegions"  ></p-dropdown>
             </form-item>
             <form-item label="Endpoint" >
                 <input id="endpoint" type="text" name="endpoint" [(ngModel)]="registerBackend.endpoint.value" pInputText />
@@ -179,7 +181,7 @@
             </form-item>
         </form>
         <div style="margin-top:100px;">
-            <button type="button" pButton (click)="onSubmit()" label="{{I18N.keyID['ok']}}" ></button>
+            <button type="button" class="ui-button-secondary" pButton (click)="onSubmit()" label="{{I18N.keyID['ok']}}" ></button>
         </div>
     </p-home-dialog>
 </div>

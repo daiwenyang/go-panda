@@ -50,6 +50,20 @@
         <div style="margin-bottom: 10px;"><span style="font-size: 16px;font-style: normal">Rule</span></div>
         <span style="color: rgb(136, 147, 166);">Without rules, all of them are migrated, otherwise only migrate objects with this rule.</span>
         <textarea [rows]="5" [cols]="78" pInputTextarea ></textarea>
+        <div style="margin:10px 0">
+            <p-checkbox (onChange)="showDetail()" name="analysis"  value="true" [(ngModel)]="dataAnalysis" label="Config Data analysis"></p-checkbox>
+        </div>
+        <form *ngIf="showAnalysis" [grid]="{label: 'ui-g-3', content:'ui-g-20'}"  >
+            <form-item label="Analysis Cluster" >
+                <input type="text" pInputText  />
+            </form-item>
+            <form-item label="AK" [style]="{'display':'inline-block'}" >
+                <input type="text" pInputText  />
+            </form-item>
+            <form-item label="SK" [style]="{'display':'inline-block'}">
+                <input type="text" pInputText  />
+            </form-item>
+        </form>
         <div style="margin-top:10px;">
             <p-checkbox name=""  value="" label="Delete the source objects after the migration is completed."></p-checkbox>
         </div>

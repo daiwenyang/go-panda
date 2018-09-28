@@ -22,7 +22,7 @@
         <p-column field="createdAt" header="Created At"></p-column>
         <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width': '335px'}">
             <ng-template pTemplate="body" let-bucket="rowData" let-i="rowIndex">
-                <a class="a-rep-disabled">Configure Lifecycle</a>
+                <a (click)="configLife(bucket)">Configure Lifecycle</a>
                 <a >Migrate</a>
                 <a (click)="deleteBucket(bucket)">Delete</a>
             </ng-template>
@@ -31,19 +31,84 @@
     
     <p-dialog  header="Create Bucket" [(visible)]="createBucketDisplay" [width]="600" modal="modal">
         <form [grid]="{label: 'ui-g-3', content:'ui-g-20'}" [formGroup]="createBucketForm" (ngSubmit)="onSubmit(createBucketForm.value)" [errorMessage]="errorMessage">
-            <form-item label="Backend" [required]="true">
-                <p-dropdown [style]="{'min-width':'150px'}" [options]="backendsOption" formControlName="backend"></p-dropdown>
-            </form-item>
-    
             <form-item label="Name" [required]="true">
                 <input type="text" pInputText formControlName="name" />
             </form-item>
-            <p-footer>
-                <button type="submit" pButton  label="{{I18N.keyID['ok']}}"></button>
-                <button type="button" pButton (click)="createBucketDisplay=false"  label="{{I18N.keyID['cancel']}}"></button>
-            </p-footer>
+            <div style="margin-bottom: 10px;"><span style="font-size: 16px;font-style: normal">Default Backend</span></div>
+            <span style="color: rgb(136, 147, 166);">Objects will be stored by default to the specified backend.</span>
+            <form-item label="type" [required]="true">
+                <p-dropdown [style]="{'min-width':'150px'}" [options]="backendsOption" formControlName="backend"></p-dropdown>
+            </form-item>
+            <form-item label="Backend" [required]="true">
+                <p-dropdown [style]="{'min-width':'150px'}" [options]="backendsOption" formControlName="backend"></p-dropdown>
+            </form-item>
         </form>
+        <p-footer>
+            <button type="submit" class="ui-button-secondary" pButton  label="{{I18N.keyID['ok']}}"></button>
+            <button type="button" pButton (click)="createBucketDisplay=false"  label="{{I18N.keyID['cancel']}}"></button>
+        </p-footer>
     
     </p-dialog>
+    <p-dialog  header="Configure Lifecycle" [(visible)]="showLife" [width]="800" modal="modal">
+            <div style="border-top:1px solid #ccc;width:100%;padding:8px;">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3 ">
+                            More than<input type="text" style="display: inline-block;width:44px;" pInputText  /> Days,
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-dropdown [style]="{'width':'100px','display': 'inline-block'}" [options]="lifeOperation"></p-dropdown> &nbsp; to backend
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-dropdown [style]="{'width':'150px','display': 'inline-block'}" [options]="allBackends"></p-dropdown> &nbsp;&nbsp;&nbsp;
+                            <img style="vertical-align: middle;" src="assets/business/images/profile/u1065.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top:1px solid #ccc;width:100%;padding:8px;">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3 ">
+                            More than<input type="text" style="display: inline-block;width:44px;" pInputText  /> Days,
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-dropdown [style]="{'width':'100px','display': 'inline-block'}" [options]="lifeOperation"></p-dropdown> &nbsp; to backend
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-dropdown [style]="{'width':'150px','display': 'inline-block'}" [options]="allBackends"></p-dropdown> &nbsp;&nbsp;&nbsp;
+                            <img style="vertical-align: middle;" src="assets/business/images/profile/u1065.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top:1px solid #ccc;border-bottom:1px solid #ccc;width:100%;padding:8px;">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3 ">
+                            More than<input type="text" style="display: inline-block;width:44px;" pInputText  /> Year,
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-dropdown [style]="{'width':'100px','display': 'inline-block'}" [options]="lifeOperation"></p-dropdown> &nbsp; to backend
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p-dropdown [style]="{'width':'150px','display': 'inline-block','visibility': 'hidden'}" [options]="lifeOperation"></p-dropdown> &nbsp;&nbsp;&nbsp;
+                            <img style="vertical-align: middle;" src="assets/business/images/profile/u1065.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="volume-item" *ngIf="true">
+                <a class="item-flex">
+                    <img width="24" height="24" src="assets/business/images/volume/u937.png" >
+                    <span class="margin-between-img-text">Add Rules</span>
+                </a>
+            </div>
+            <p-footer>
+                <button type="submit" pButton  label="{{I18N.keyID['ok']}}"></button>
+                <button type="button" pButton (click)="showLife=false"  label="{{I18N.keyID['cancel']}}"></button>
+            </p-footer>
+        
+        </p-dialog>
     <p-confirmDialog></p-confirmDialog>
 </div>
