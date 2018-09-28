@@ -7,6 +7,7 @@ import { ButtonModule, DataTableModule, DropMenuModule, DialogModule, FormModule
 import { HttpService } from './../../shared/service/Http.service';
 import { RouterModule } from '@angular/router';
 import { MigrationDetailModule } from './migration-detail/migration-detail.module';
+import { MigrationService } from './migration.service';
 
 @NgModule({
   declarations: [ MigrationListComponent ],
@@ -30,7 +31,8 @@ import { MigrationDetailModule } from './migration-detail/migration-detail.modul
   exports: [ MigrationListComponent ],
   providers: [
     HttpService,
-    ConfirmationService
+    ConfirmationService,
+    MigrationService
   ]
 })
 export class MigrationModule { }

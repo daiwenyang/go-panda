@@ -7,6 +7,7 @@ import { I18nPluralPipe } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MenuItem ,ConfirmationService} from '../../components/common/api';
 import { identifierModuleUrl } from '@angular/compiler';
+import { MigrationService } from './migration.service';
 
 let _ = require("underscore");
 @Component({
@@ -26,7 +27,8 @@ export class MigrationListComponent implements OnInit {
         public I18N: I18NService,
         private router: Router,
         private confirmationService: ConfirmationService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private MigrationService: MigrationService
     ) {
        
 
@@ -36,23 +38,32 @@ export class MigrationListComponent implements OnInit {
         this.allMigrations = [{
             name:"migration_for_analytics",
             status:"Migrating",
-            source:"bucket_hwc_dr",
-            destination:"bucket_s3",
+            srcBucket:"bucket_hwc_dr",
+            destBucket:"bucket_s3",
             rule:"files/doc/; files/obj;"
         },{
             name:"migration_for_analytics",
             status:"Completed",
-            source:"bucket_hwc_dr",
-            destination:"bucket_s3",
+            srcBucket:"bucket_hwc_dr",
+            destBucket:"bucket_s3",
             rule:"files/doc/; files/obj;"
         }]
+        this.getMigrations();
     }
+
+    getMigrations() {
+        this.allMigrations = [];
+        this.MigrationService.getMigrations().subscribe((res) => {
+            this.allMigrations = res.json();
+        });
+    }
+
     deleteMigrate(migrate){
         let msg = "<div>Are you sure you want to delete the Migration ?</div><h3>[ "+ migrate.name +" ]</h3>";
         let header ="Delete";
         let acceptLabel = "Delete";
         let warming = true;
-        this.confirmDialog([msg,header,acceptLabel,warming,"delete"])
+        this.confirmDialog([msg,header,acceptLabel,warming,"delete"], migrate)
     }
     showDetail(){
         if(this.dataAnalysis.length !== 0){
@@ -61,7 +72,8 @@ export class MigrationListComponent implements OnInit {
          this.showAnalysis = false;
         }
     }
-    confirmDialog([msg,header,acceptLabel,warming=true,func]){
+
+    confirmDialog([msg,header,acceptLabel,warming=true,func], migrate){
         this.confirmationService.confirm({
             message: msg,
             header: header,
@@ -69,7 +81,10 @@ export class MigrationListComponent implements OnInit {
             isWarning: warming,
             accept: ()=>{
                 try {
-                    
+                    let id = migrate.id;
+                    this.MigrationService.deleteMigration(id).subscribe((res) => {
+                        this.ngOnInit();
+                    });
                 }
                 catch (e) {
                     console.log(e);

@@ -31,13 +31,14 @@
             <p-column field="last_modified" header="Last Modified"></p-column>
             <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width': '335px'}">
                 <ng-template pTemplate="body" let-volume="rowData" let-i="rowIndex">
-                    <a >Download</a>
+                    <a (click)="downloadFile(volume)" >Download</a>
                     <a >Delete</a>
                 </ng-template>
             </p-column>
         </p-dataTable>
         <p-dialog  header="Upload" [(visible)]="uploadDisplay" [width]="600" modal="modal">
             <input type="text" placeholder="Please choose a file" pInputText  />
+            <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
             <div style="padding:20px 0">
                 <p-checkbox (onChange)="showDetail()" name="specify"  value="true" [(ngModel)]="selectedSpecify" label="Specify the location of data storage. If not specified, store it to default backend."></p-checkbox>
             </div>
@@ -48,12 +49,13 @@
                 <form-item label="Backend" [required]="true">
                     <p-dropdown [style]="{'min-width':'150px'}" [options]="[]"></p-dropdown>
                 </form-item>
+        
             </form>
             <p-footer>
-                <button type="submit" class="ui-button-secondary" pButton  label="{{I18N.keyID['ok']}}"></button>
+                <button type="submit" class="ui-button-secondary" pButton (click)="uploadFile()" label="{{I18N.keyID['ok']}}"></button>
                 <button type="button" pButton (click)="uploadDisplay=false"  label="{{I18N.keyID['cancel']}}"></button>
             </p-footer>
-        
+>        
         </p-dialog>
         <p-confirmDialog></p-confirmDialog>     
     </div>
