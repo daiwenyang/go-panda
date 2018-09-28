@@ -76,9 +76,17 @@ export class TenantListComponent implements OnInit {
     }
 
     listTenants() {
-        this.tenants=[];
+        this.tenants=[{
+            id: "tenant001",
+            name: "Business Group",
+            description: "- -"
+        },{
+            id: "tenant002",
+            name: "Finance Group",
+            description: "- -"
+        }];
         this.selectedTenants = [];
-
+        return;
         this.sortField = "name";
 
         let request: any = { params:{} };
@@ -120,6 +128,8 @@ export class TenantListComponent implements OnInit {
     }
 
     createTenant(){
+        this.createTenantDisplay = false;
+        return;
         let request: any = { project:{} };
         request.project = {
             "domain_id": "default",
@@ -170,6 +180,8 @@ export class TenantListComponent implements OnInit {
     }
 
     updateTenant(){
+        this.createTenantDisplay = false;
+        return;
         let request: any = { project:{} };
         request.project = {
             "domain_id": "default",

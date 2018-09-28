@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute} from '@angular/router';
 import { I18NService, Utils } from 'app/shared/api';
+import { BucketService} from '../buckets.service';
 
 @Component({
   selector: 'bucket-detail',
@@ -23,24 +24,26 @@ export class BucketDetailComponent implements OnInit {
   showBackend = false;
   constructor(
     private ActivatedRoute: ActivatedRoute,
-    public I18N:I18NService
+    public I18N:I18NService,
+    private BucketService: BucketService
   ) { }
 
   ngOnInit() {
-    this.ActivatedRoute.params.subscribe((params) => this.buketName = params.bucketId);
-    this.items.push({
-      label:this.buketName,
-      url:["bucketDetail",this.buketName],
-    });
-    this.allDir = [{
-      name:"Case-image.jpg",
-      size:"101.03 KB",
-      modified:"2018-02-25 07:30:12"
-    }]
-  }
+    this.ActivatedRoute.params.subscribe((params) => {
 
-  getFiles() {
-    
+      this.BucketService.getBucketById(params.bucketId).subscribe((res) => {
+        let bucket = res.json();
+        this.buketName = bucket.name;
+        this.items.push({
+          label: this.buketName,
+          url: ["bucketDetail", this.buketName],
+        });
+        this.BucketService.getFilesByBucketId(bucket.id).subscribe((res) => {
+          this.allDir = res.json();
+        });
+      });
+    }
+    );
   }
   showDetail(){
     if(this.selectedSpecify.length !== 0){

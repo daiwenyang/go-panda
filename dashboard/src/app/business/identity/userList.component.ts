@@ -121,8 +121,8 @@ export class UserListComponent implements OnInit, AfterViewChecked {
     }
 
     showUserForm(user?): void{
-        this.getRoles();
-        this.getTenants();
+        //this.getRoles();
+        //this.getTenants();
         this.createUserDisplay = true;
 
         //Reset form
@@ -160,6 +160,8 @@ export class UserListComponent implements OnInit, AfterViewChecked {
     }
 
     createUser(){
+        this.createUserDisplay = false;
+        return;
         let request: any = { user:{} };
         request.user = {
             "domain_id": "default",
@@ -206,6 +208,8 @@ export class UserListComponent implements OnInit, AfterViewChecked {
     }
 
     updateUser(){
+        this.createUserDisplay = false;
+        return;
         let request: any = { user:{} };
         request.user = {
             "description": this.myFormGroup.value.form_description
@@ -311,7 +315,28 @@ export class UserListComponent implements OnInit, AfterViewChecked {
         request.params = {
             "domain_id": "default"
         }
-
+        this.tenantUsers = [{
+            enabled: true,
+            username: "admin",
+            tenant: "All",
+            role: "System Administrator"
+        },{
+            enabled: true,
+            username: "cloud_admin",
+            tenant: "Finanace Group",
+            role: "Storage Administrator"
+        },{
+            enabled: true,
+            username: "jack",
+            tenant: "Business Group",
+            role: "Teneat User"
+        },{
+            enabled: true,
+            username: "jones",
+            tenant: "Finance Group",
+            role: "Tenant User"
+        }];
+        /*
         this.http.get("/v3/users", request).subscribe((res) => {
             res.json().users.map((item, index) => {
                 let user = {};
@@ -326,7 +351,8 @@ export class UserListComponent implements OnInit, AfterViewChecked {
                 }
                 this.tenantUsers.push(user);
             });
-        });
+        }); 
+        */
     }
 
     userStatus(user){
