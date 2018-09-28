@@ -125,7 +125,7 @@
             </p-card>
         </div>
     </div>
-    <p-home-dialog header="Register Storage Backend" [(visible)]="showRgister" [width]="510" [height]="790" modal="modal" [style]="{'right':'46px','top':'80px'}">
+    <p-home-dialog header="Register Storage Backend" [(visible)]="showRgister" [width]="510" [height]="790" modal="modal" [style]="{'opacity':'0.8','right':'46px','top':'80px','background':'rgb(44,63,97)'}" >
         <!-- <form [grid]="{label: 'ui-g-5', content:'ui-g-20'}">
             <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
                 <span class="text-only">{{selectedVolume.name}}</span>
@@ -140,31 +140,46 @@
                     <span class="text-only">{{newVolumeSizeFormat}}</span>
             </form-item>
         </form> -->
+        <div>
+            <div class="selected_obj_type">
+                object
+            </div>
+            <div class="selected_obj_type">
+                object
+            </div>
+            <div class="selected_obj_type">
+                object
+            </div>
+        </div>
         <form [grid]="{label: 'ui-g-5', content:'ui-g-20'}">
-            <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-                <input type="text" pInputText />
+            <form-item label="Name" >
+                <input id="name" type="text" name="name" [(ngModel)]="registerBackend.name.value" pInputText />
             </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-                <input type="text" pInputText />
+            <form-item label="Type" >
+                <select id="type" name="type" [(ngModel)]="registerBackend.type.value" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
+                    <option *ngFor="let option of registerBackend.type.values" [value]="option">{{option}}</option>
+                </select>
             </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-                <input type="text" pInputText />
+            <form-item label="Region" >
+                <select id="region" name="region" [(ngModel)]="registerBackend.region.value" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
+                    <option *ngFor="let option of registerBackend.region.values" [value]="option.name">{{option.name}}</option>
+                </select>
             </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-                <input type="text" pInputText />
+            <form-item label="Endpoint" >
+                <input id="endpoint" type="text" name="endpoint" [(ngModel)]="registerBackend.endpoint.value" pInputText />
             </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-                <input type="text" pInputText />
+            <form-item label="Bucket" >
+                <input id="bucket" type="text" name="bucket" [(ngModel)]="registerBackend.bucket.value" placeholder="Bucket name" pInputText />
             </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-                <input type="text" pInputText />
+            <form-item label="Access Key" >
+                <input id="accessKey" type="text" name="accessKey" [(ngModel)]="registerBackend.accessKey.value" pInputText />
             </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-                <input type="text" pInputText />
+            <form-item label="Secret Key" >
+                <input id="secretKey" type="text" name="secretKey" [(ngModel)]="registerBackend.secretKey.value" pInputText />
             </form-item>
         </form>
         <div style="margin-top:100px;">
-            <button type="button" pButton (click)="showRgister=false" label="{{I18N.keyID['ok']}}" ></button>
+            <button type="button" pButton (click)="onSubmit()" label="{{I18N.keyID['ok']}}" ></button>
         </div>
     </p-home-dialog>
 </div>

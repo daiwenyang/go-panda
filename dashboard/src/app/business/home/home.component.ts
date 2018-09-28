@@ -25,6 +25,23 @@ export class HomeComponent implements OnInit {
     lineData ={};
     lineOption = {};
     showRgister = false;
+    registerBackend = {
+        type: {
+            values: ['AWS S3', 'MicrosoftAzure Blob Storage', 'Huawei HWC', 'Huawei FusionCloud'],
+            value: 'AWS S3'
+        },
+        region: {
+            values: [
+                { "name": this.I18N.keyID['sds_resource_region_default'], "role": "Primary Region" }
+            ],
+            value: this.I18N.keyID['sds_resource_region_default']
+        },
+        name: {value: ""},
+        endpoint: {value: ""},
+        bucket: {value: ""},         
+        accessKey: {value: ""},  
+        secretKey: {value: ""}
+    }
     constructor(
         private http: Http,
         private paramStor: ParamStorService,
@@ -312,4 +329,22 @@ export class HomeComponent implements OnInit {
         context.restore();
         context.stroke();
     };
+
+    // 创建backend
+    onSubmit(){
+        console.log(this.registerBackend);
+        let param = {
+            "name": this.registerBackend.name.value,
+            "type": this.registerBackend.type.value,
+            "region": this.registerBackend.region.value, 
+            "endpoint": this.registerBackend.endpoint.value,
+            "bucket": this.registerBackend.bucket.value,
+            "secretKey": this.registerBackend.secretKey.value,
+            "accessKey": this.registerBackend.accessKey.value
+        };
+        this.http.post("v1beta/{project_id}/backend", param).subscribe((res) => {
+            console.log(res);
+            this.showRgister = false;
+        });
+    }
 }

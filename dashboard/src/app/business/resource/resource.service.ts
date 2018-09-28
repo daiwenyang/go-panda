@@ -10,11 +10,20 @@ export class  AvailabilityZonesService{
   ) { }
 
   url = 'v1beta/{project_id}/availabilityZones';
+  backendUrl = "v1beta/{project_id}/backend";
 
   //get az
   getAZ(param?): Observable<any>{
     return this.http.get(this.url, param);
+  };
+
+  // get backend
+  getBackend(param) {
+    return this.http.get(this.backendUrl, param);
   }
 
-  
+  // get backend count
+  getBackendCount(param) {
+    return this.http.get(this.backendUrl + "/count", param);
+  }  
 }

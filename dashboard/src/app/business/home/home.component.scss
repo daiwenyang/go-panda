@@ -41,3 +41,12 @@
 .capacity-secondary {
     margin: 1em 0;
 }
+
+.selected_obj_type {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    border: 1px solid #f3f6f7;
+}

@@ -3,6 +3,7 @@ import { Component, OnInit, ViewContainerRef, ViewChild, Directive, ElementRef, 
 import { I18NService, ParamStorService} from 'app/shared/api';
 import { Http } from '@angular/http';
 import { trigger, state, style, transition, animate} from '@angular/animations';
+import { AvailabilityZonesService } from '../resource.service';
 
 @Component({
     selector: 'storage-table',
@@ -41,7 +42,8 @@ export class StorageComponent implements OnInit{
     constructor(
         public I18N: I18NService,
         private http: Http,
-        private paramStor: ParamStorService
+        private paramStor: ParamStorService,
+        private service: AvailabilityZonesService
     ){}
     
     ngOnInit() {
@@ -52,31 +54,38 @@ export class StorageComponent implements OnInit{
 
     listStorage(){
         this.storages = [];
-        let reqUser: any = { params:{} };
-        let user_id = this.paramStor.CURRENT_USER().split("|")[1];
-        this.http.get("/v3/users/"+ user_id +"/projects", reqUser).subscribe((objRES) => {
-            let project_id;
-            objRES.json().projects.forEach(element => {
-                if(element.name == "admin"){
-                    project_id = element.id;
-                }
+        this.service.getBackend({}).subscribe((res) => {
+            res.json().forEach(ele => {
+                let [name,ip,status,description,region,az] = [ele.name, ele.endpoint.split(":")[0], "Enabled", ele.description, "default_region", ele.region];
+                this.storages.push({name,ip,status,description,region,az});
             })
+            console.log(res);
+        });
+        // let reqUser: any = { params:{} };
+        // let user_id = this.paramStor.CURRENT_USER().split("|")[1];
+        // this.http.get("/v3/users/"+ user_id +"/projects", reqUser).subscribe((objRES) => {
+        //     let project_id;
+        //     objRES.json().projects.forEach(element => {
+        //         if(element.name == "admin"){
+        //             project_id = element.id;
+        //         }
+        //     })
 
-            let reqPool: any = { params:{} };
-            this.http.get("/v1beta/"+ project_id +"/pools", reqPool).subscribe((poolRES) => {
-                let reqDock: any = { params:{} };
-                this.http.get("/v1beta/"+ project_id +"/docks", reqDock).subscribe((dockRES) => {
-                    dockRES.json().forEach(ele => {
-                        let zone = poolRES.json().filter((pool)=>{
-                            return pool.dockId == ele.id;
-                        })[0].availabilityZone;
-                        let [name,ip,status,description,region,az] = [ele.name, ele.endpoint.split(":")[0], "Enabled", ele.description, "default_region", zone];
-                        this.storages.push({name,ip,status,description,region,az});
-                    })
-                    console.log(this.storages);
-                })
-            })
-        })
+        //     let reqPool: any = { params:{} };
+        //     this.http.get("/v1beta/"+ project_id +"/pools", reqPool).subscribe((poolRES) => {
+        //         let reqDock: any = { params:{} };
+        //         this.http.get("/v1beta/"+ project_id +"/docks", reqDock).subscribe((dockRES) => {
+        //             dockRES.json().forEach(ele => {
+        //                 let zone = poolRES.json().filter((pool)=>{
+        //                     return pool.dockId == ele.id;
+        //                 })[0].availabilityZone;
+        //                 let [name,ip,status,description,region,az] = [ele.name, ele.endpoint.split(":")[0], "Enabled", ele.description, "default_region", zone];
+        //                 this.storages.push({name,ip,status,description,region,az});
+        //             })
+        //             console.log(this.storages);
+        //         })
+        //     })
+        // })
     }
     
 }

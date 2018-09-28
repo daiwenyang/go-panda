@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { ImgItemComponent } from './imgItem.component/imgItem.component';
 import { ProfileService } from 'app/business/profile/profile.service';
 import { HttpService } from 'app/shared/service/Http.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { ButtonModule, ChartModule,CardModule } from '../../components/common/api';
@@ -21,6 +22,8 @@ let routers = [{
   ],
   imports: [
     RouterModule.forChild(routers), ButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
     CommonModule,
     ChartModule,
     CardModule,
