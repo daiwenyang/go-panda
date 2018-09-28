@@ -105,16 +105,17 @@ export class AppComponent implements OnInit, AfterViewInit{
     ){}
     
     ngOnInit() {
+        this.paramStor.CURRENT_USER("");
+        this.paramStor.CURRENT_TENANT("");
         let currentUserInfo = this.paramStor.CURRENT_USER();
         if(currentUserInfo != undefined && currentUserInfo != ""){
             this.hideLoginForm = true;
-
             let [username, userid, tenantname, tenantid] = [
                     this.paramStor.CURRENT_USER().split("|")[0],
                     this.paramStor.CURRENT_USER().split("|")[1],
                     this.paramStor.CURRENT_TENANT().split("|")[0],
                     this.paramStor.CURRENT_TENANT().split("|")[1] ];
-            this.AuthWithTokenScoped({'name': username, 'id': userid});
+            // this.AuthWithTokenScoped({'name': username, 'id': userid});
         }else{
             this.isLogin = false;
             this.hideLoginForm = false;
@@ -203,53 +204,62 @@ export class AppComponent implements OnInit, AfterViewInit{
     }
     
     login() {
-        let request: any = { auth: {} };
-        request.auth = {
-            "identity": {
-                "methods": [
-                    "password"
-                ],
-                "password":{
-                    "user": {
-                        "name": this.username,
-                        "domain": {
-                            "name": "Default"
-                        },
-                        "password": this.password
-                    }
-                }
-            }
-        }
+        this.paramStor.CURRENT_TENANT("admin" + "|" + "fdshej324jh");
+        this.paramStor.CURRENT_USER("admin" + "|"+ "5345dfgdf5345");
 
-        this.http.post("/v3/auth/tokens", request).subscribe((res)=>{
-            //set token period start
-            let token = res.json().token;
-            let expires_at = token.expires_at;
-            let issued_at = token.issued_at;
-            let tokenPeriod = Date.parse(expires_at) - Date.parse(issued_at);
-            if(tokenPeriod >= this.minExpireTime){
-                this.paramStor.TOKEN_PERIOD(tokenPeriod);
-            }
-            //set token period end
-            this.paramStor.AUTH_TOKEN(res.headers.get('x-subject-token'));
-            this.paramStor.PASSWORD(this.password);
-            let user = res.json().token.user;
-            this.AuthWithTokenScoped(user);
-            this.showErrorMsg = false;
-        },
-        error=>{
-            switch(error.status){
-                case 401:
-                    this.errorMsg = this.I18N.keyID['sds_login_error_msg_401'];
-                    break;
-                case 503:
-                    this.errorMsg = this.I18N.keyID['sds_login_error_msg_503'];
-                    break;
-                default:
-                    this.errorMsg = this.I18N.keyID['sds_login_error_msg_default'];                
-            }
-            this.showErrorMsg = true;
-        });
+        this.hideLoginForm = true;
+        this.menuItems = this.menuItems_admin;
+        this.isLogin = true;
+        this.router.navigateByUrl("home");
+        this.activeItem = this.menuItems[0];
+        this.showLoginAnimation = true;
+        // let request: any = { auth: {} };
+        // request.auth = {
+        //     "identity": {
+        //         "methods": [
+        //             "password"
+        //         ],
+        //         "password":{
+        //             "user": {
+        //                 "name": this.username,
+        //                 "domain": {
+        //                     "name": "Default"
+        //                 },
+        //                 "password": this.password
+        //             }
+        //         }
+        //     }
+        // }
+
+        // this.http.post("/v3/auth/tokens", request).subscribe((res)=>{
+        //     //set token period start
+        //     let token = res.json().token;
+        //     let expires_at = token.expires_at;
+        //     let issued_at = token.issued_at;
+        //     let tokenPeriod = Date.parse(expires_at) - Date.parse(issued_at);
+        //     if(tokenPeriod >= this.minExpireTime){
+        //         this.paramStor.TOKEN_PERIOD(tokenPeriod);
+        //     }
+        //     //set token period end
+        //     this.paramStor.AUTH_TOKEN(res.headers.get('x-subject-token'));
+        //     this.paramStor.PASSWORD(this.password);
+        //     let user = res.json().token.user;
+        //     this.AuthWithTokenScoped(user);
+        //     this.showErrorMsg = false;
+        // },
+        // error=>{
+        //     switch(error.status){
+        //         case 401:
+        //             this.errorMsg = this.I18N.keyID['sds_login_error_msg_401'];
+        //             break;
+        //         case 503:
+        //             this.errorMsg = this.I18N.keyID['sds_login_error_msg_503'];
+        //             break;
+        //         default:
+        //             this.errorMsg = this.I18N.keyID['sds_login_error_msg_default'];                
+        //     }
+        //     this.showErrorMsg = true;
+        // });
     }
 
     AuthWithTokenScoped(user, tenant?){
@@ -257,9 +267,9 @@ export class AppComponent implements OnInit, AfterViewInit{
             clearInterval(this.interval);
         }
         this.lastTime=new Date().getTime();
-        this.interval = window.setInterval(()=>{
-            this.checkTimeOut()
-        }, 10000);
+        // this.interval = window.setInterval(()=>{
+        //     this.checkTimeOut()
+        // }, 10000);
         // Get user owned tenants
         let reqUser: any = { params:{} };
         this.http.get("/v3/users/"+ user.id +"/projects", reqUser).subscribe((objRES) => {
@@ -347,14 +357,14 @@ export class AppComponent implements OnInit, AfterViewInit{
                     this.showLoginAnimation = false;
                     this.hideLoginForm = true;
                 }, 500);
-                if(this.intervalRefreshToken){
-                    clearInterval(this.intervalRefreshToken);
-                }
+                // if(this.intervalRefreshToken){
+                //     clearInterval(this.intervalRefreshToken);
+                // }
                 let tokenPeriod = this.paramStor.TOKEN_PERIOD();
                 let refreshTime = tokenPeriod ? (Number(tokenPeriod) - this.advanceRefreshTime) : this.defaultExpireTime;
-                this.intervalRefreshToken = window.setInterval(()=>{
-                    this.refreshToken()
-                },refreshTime);
+                // this.intervalRefreshToken = window.setInterval(()=>{
+                //     this.refreshToken()
+                // },refreshTime);
             })
         },
         error => {
