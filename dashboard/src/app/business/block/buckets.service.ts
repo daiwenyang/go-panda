@@ -50,6 +50,10 @@ export class BucketService {
   downloadFile(fileName) : Observable<any> {
     return this.http.get('v1beta/{project_id}/file/download?file_name=' + fileName);
   }
+
+  deleteFile(fileId) : Observable<any> {
+    return this.http.delete('v1beta/{project_id}/file/' + fileId);
+  }
 }
 
 
