@@ -1,4 +1,1 @@
 {"name":"profile_20180927","description":"","extras":{":provisionPolicy":{"ioConnectivityLoS":{"accessProtocol":"FC"},"dataStorageLoS":{"provisioningPolicy":"Thin"}}},"id":"zq9iYhVcdGfv1Xcz","updatedAt":"","_id":"zq9iYhVcdGfv1Xcz"}
-{"name":"profile03","description":"","extras":{":provisionPolicy":{"ioConnectivityLoS":{"accessProtocol":"iSCSI"},"dataStorageLoS":{"provisioningPolicy":"Thin"}}},"id":"","updatedAt":"","_id":"LOUP2dhHQkUMckj7"}
-{"name":"profile03","description":"","extras":{":provisionPolicy":{"ioConnectivityLoS":{"accessProtocol":"iSCSI"},"dataStorageLoS":{"provisioningPolicy":"Thin"}}},"id":"LOUP2dhHQkUMckj7","updatedAt":"","_id":"LOUP2dhHQkUMckj7"}
-{"$$deleted":true,"_id":"LOUP2dhHQkUMckj7"}
