@@ -69,13 +69,13 @@
             <div style="position:absolute;top:50%;left:50%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showRgister = true">
                 <div class="ui-home-backend-count"></div>
             </div>
-            <div style="position:absolute;top:5%;left:72%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;">
+            <div style="position:absolute;top:5%;left:72%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil()">
                 <div class="ui-home-backend-count"></div>
             </div>
-            <div style="position:absolute;top:50%;left:0%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;">
+            <div style="position:absolute;top:50%;left:0%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil()">
                 <div class="ui-home-backend-count"></div>
             </div>            
-            <div style="position:absolute;top:100%;left:50%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;">
+            <div style="position:absolute;top:100%;left:50%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil()">
                 <div class="ui-home-backend-count"></div>
             </div>
         </div>
@@ -126,20 +126,6 @@
         </div>
     </div>
     <p-home-dialog header="Register Storage Backend" [(visible)]="showRgister" [width]="510" [height]="790" modal="modal" [style]="{'opacity':'0.8','right':'46px','top':'80px','background':'rgb(44,63,97)'}" >
-        <!-- <form [grid]="{label: 'ui-g-5', content:'ui-g-20'}">
-            <form-item label="{{I18N.keyID['sds_block_volume_title']}}Volume" >
-                <span class="text-only">{{selectedVolume.name}}</span>
-            </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_curr_capa']}}">
-                <span class="text-only">{{selectedVolume.size}}</span>
-            </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_expandby']}}" >
-                
-            </form-item>
-            <form-item label="{{I18N.keyID['sds_block_volume_totalcapa']}}" >
-                    <span class="text-only">{{newVolumeSizeFormat}}</span>
-            </form-item>
-        </form> -->
         <div>
             <div class="selected_obj_type">
                 object
@@ -156,15 +142,9 @@
                 <input id="name" type="text" name="name" [(ngModel)]="registerBackend.name.value" pInputText />
             </form-item>
             <form-item label="Type" >
-                <!-- <select id="type" name="type" [(ngModel)]="registerBackend.type.value" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
-                    <option *ngFor="let option of registerBackend.type.values" [value]="option">{{option}}</option>
-                </select> -->
                 <p-dropdown [style]="{'min-width':'220px'}" [options]="allBackends"  ></p-dropdown>
             </form-item>
             <form-item label="Region" >
-                <!-- <select id="region" name="region" [(ngModel)]="registerBackend.region.value" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
-                    <option *ngFor="let option of registerBackend.region.values" [value]="option.name">{{option.name}}</option>
-                </select> -->
                 <p-dropdown [style]="{'min-width':'220px'}" [options]="allRegions"  ></p-dropdown>
             </form-item>
             <form-item label="Endpoint" >
@@ -183,5 +163,9 @@
         <div style="margin-top:100px;">
             <button type="button" class="ui-button-secondary" pButton (click)="onSubmit()" label="{{I18N.keyID['ok']}}" ></button>
         </div>
+    </p-home-dialog>
+    <p-home-dialog header="Storage Backends" [(visible)]="showBackends" [width]="510" [height]="790" modal="modal" [style]="{'opacity':'0.8','right':'46px','top':'80px','background':'rgb(44,63,97)'}" >
+       
+       
     </p-home-dialog>
 </div>
