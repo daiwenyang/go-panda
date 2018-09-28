@@ -37,8 +37,7 @@
             </p-column>
         </p-dataTable>
         <p-dialog  header="Upload" [(visible)]="uploadDisplay" [width]="600" modal="modal">
-            <input type="text" placeholder="Please choose a file" pInputText  />
-            <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
+            <input type="file" placeholder="Please choose a file" pInputText ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
             <div style="padding:20px 0">
                 <p-checkbox (onChange)="showDetail()" name="specify"  value="true" [(ngModel)]="selectedSpecify" label="Specify the location of data storage. If not specified, store it to default backend."></p-checkbox>
             </div>
@@ -55,7 +54,6 @@
                 <button type="submit" class="ui-button-secondary" pButton (click)="uploadFile()" label="{{I18N.keyID['ok']}}"></button>
                 <button type="button" pButton (click)="uploadDisplay=false"  label="{{I18N.keyID['cancel']}}"></button>
             </p-footer>
->        
         </p-dialog>
         <p-confirmDialog></p-confirmDialog>     
     </div>
