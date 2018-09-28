@@ -36,4 +36,8 @@ export class BucketDetailComponent implements OnInit {
     }]
   }
 
+  getFiles() {
+    
+  }
+
 }

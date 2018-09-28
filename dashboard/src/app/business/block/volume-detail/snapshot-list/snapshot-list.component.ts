@@ -39,7 +39,7 @@ export class SnapshotListComponent implements OnInit {
       "description": { maxlength: "Max. length is 200." }
   };
   param = {
-    key: 'VolumeId',
+    key: 'volumeId',
     value: null
   }
   constructor(
@@ -69,7 +69,7 @@ export class SnapshotListComponent implements OnInit {
       description:  this.I18N.keyID['sds_block_volume_descri']
     }
     this.param={
-      key: 'VolumeId',
+      key: 'volumeId',
       value: this.volumeId
     };
     this.getSnapshots(this.param);
@@ -90,7 +90,7 @@ export class SnapshotListComponent implements OnInit {
     this.SnapshotService.createSnapshot(param).subscribe((res) => {
       this.getSnapshots(
         {
-          key: 'VolumeId',
+          key: 'volumeId',
           value: this.volumeId
         }
       );
@@ -130,7 +130,7 @@ export class SnapshotListComponent implements OnInit {
       });
       this.getSnapshots(
         {
-          key: 'VolumeId',
+          key: 'volumeId',
           value: this.volumeId
         }
       );
@@ -156,7 +156,7 @@ export class SnapshotListComponent implements OnInit {
     this.SnapshotService.modifySnapshot(this.selectedSnapshotId,param).subscribe((res) => {
       this.getSnapshots(
         {
-          key: 'VolumeId',
+          key: 'volumeId',
           value: this.volumeId
         }
       );

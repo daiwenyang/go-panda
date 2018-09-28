@@ -6,6 +6,8 @@ import { trigger, state, style, transition, animate} from '@angular/animations';
 import { I18nPluralPipe } from '@angular/common';
 import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { MenuItem ,ConfirmationService} from '../../components/common/api';
+import { BucketService} from './buckets.service';
+import { debug } from 'util';
 
 @Component({
     selector: 'bucket-list',
@@ -50,7 +52,8 @@ export class BucketsComponent implements OnInit{
         private router: Router,
         private ActivatedRoute:ActivatedRoute,
         private confirmationService: ConfirmationService,
-        private fb:FormBuilder
+        private fb:FormBuilder,
+        private BucketService: BucketService,
     ){
         this.createBucketForm = this.fb.group({
             "backend":[""],
@@ -77,7 +80,40 @@ export class BucketsComponent implements OnInit{
                 value:"All Backends",
             }
         ];
+        this.getBuckets();
+        this.getBackends();
     }
+
+    getBuckets() {
+        this.allBuckets = [];
+        this.BucketService.getBuckets().subscribe((res) => {
+            this.allBuckets = res.json();
+        });
+    }
+
+    getBackends() {
+        this.backendsOption = [];
+        this.BucketService.getBckends().subscribe((res) => {
+            res.json().forEach(element => {
+                this.backendsOption.push({
+                    label: element.name,
+                    value: element.name
+                })
+            });
+        });
+    }
+
+    onSubmit(value) {
+        let param = {
+            "name": this.createBucketForm.value["name"],
+            "backend": this.createBucketForm.value["backend"],
+        }
+        this.BucketService.createBucket(param).subscribe((res) => {
+            this.createBucketDisplay = false;
+            this.ngOnInit();
+        });
+    }
+
     showCreateForm(){
         this.createBucketDisplay = true;
     }
@@ -86,9 +122,9 @@ export class BucketsComponent implements OnInit{
         let header ="Delete";
         let acceptLabel = "Delete";
         let warming = true;
-        this.confirmDialog([msg,header,acceptLabel,warming,"delete"])
+        this.confirmDialog([msg,header,acceptLabel,warming,"delete"], bucket)
     }
-    confirmDialog([msg,header,acceptLabel,warming=true,func]){
+    confirmDialog([msg,header,acceptLabel,warming=true,func], bucket){
         this.confirmationService.confirm({
             message: msg,
             header: header,
@@ -96,7 +132,10 @@ export class BucketsComponent implements OnInit{
             isWarning: warming,
             accept: ()=>{
                 try {
-                    
+                    let id = bucket.id;
+                    this.BucketService.deleteBucket(id).subscribe((res) => {
+                        this.ngOnInit();
+                    });
                 }
                 catch (e) {
                     console.log(e);

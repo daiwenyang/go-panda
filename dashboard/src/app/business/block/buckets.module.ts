@@ -6,6 +6,7 @@ import {DataTableModule, DropMenuModule, DialogModule, FormModule, InputTextModu
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpService } from './../../shared/service/Http.service';
+import { BucketService } from './buckets.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpService } from './../../shared/service/Http.service';
   exports: [ BucketsComponent ],
   providers: [
     HttpService,
-    ConfirmationService
+    ConfirmationService,
+    BucketService
   ]
 })
 export class BucketsModule { }
