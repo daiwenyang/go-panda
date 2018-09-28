@@ -6,6 +6,7 @@ import { BucketDetailComponent } from './bucket-detail.component';
 
 import { TabViewModule,ButtonModule, DataTableModule, DropMenuModule, DialogModule, FormModule, InputTextModule, InputTextareaModule, ConfirmDialogModule ,ConfirmationService} from './../../../components/common/api';
 import { HttpService } from './../../../shared/service/Http.service';
+import { BucketService } from '../buckets.service';
 
 let routers = [{
   path: '',
@@ -32,7 +33,8 @@ let routers = [{
   ],
   providers: [
     HttpService,
-    ConfirmationService
+    ConfirmationService,
+    BucketService
   ]
 })
 export class BucketDetailModule { }
