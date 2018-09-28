@@ -1,15 +1,2 @@
-{"name":"bucket01","backend":"backend01","createdAt":{"$$date":1538013422659},"id":"rdo7Uh7SvOoqLuex","_id":"rdo7Uh7SvOoqLuex"}
-{"name":"bucket01","backend":"backend01","createdAt":{"$$date":1538040658433},"id":"","_id":"HRMIH1b3JL40lvxU"}
-{"name":"bucket01","backend":"backend01","createdAt":{"$$date":1538040658433},"id":"HRMIH1b3JL40lvxU","_id":"HRMIH1b3JL40lvxU"}
-{"name":"bucket02","backend":"storage02","createdAt":{"$$date":1538049326707},"id":"","_id":"VXsK5aoHUkQQ3bHK"}
-{"name":"bucket02","backend":"storage02","createdAt":{"$$date":1538049326707},"id":"VXsK5aoHUkQQ3bHK","_id":"VXsK5aoHUkQQ3bHK"}
-{"name":"bucket03","backend":"storage02","createdAt":{"$$date":1538049471236},"id":"","_id":"WNVc2IXXa4kgaKOp"}
-{"name":"bucket03","backend":"storage02","createdAt":{"$$date":1538049471236},"id":"WNVc2IXXa4kgaKOp","_id":"WNVc2IXXa4kgaKOp"}
-{"$$deleted":true,"_id":"WNVc2IXXa4kgaKOp"}
-{"$$deleted":true,"_id":"rdo7Uh7SvOoqLuex"}
-{"$$deleted":true,"_id":"HRMIH1b3JL40lvxU"}
-{"name":"bucket01","backend":"backend01","createdAt":{"$$date":1538051976724},"id":"","_id":"PLUzoaIVGq3LDjxq"}
 {"name":"bucket01","backend":"backend01","createdAt":{"$$date":1538051976724},"id":"PLUzoaIVGq3LDjxq","_id":"PLUzoaIVGq3LDjxq"}
-{"name":"vvv","backend":"backend01","createdAt":{"$$date":1538053053104},"id":"","_id":"Eb8iabQpbluYU6WI"}
-{"name":"vvv","backend":"backend01","createdAt":{"$$date":1538053053104},"id":"Eb8iabQpbluYU6WI","_id":"Eb8iabQpbluYU6WI"}
-{"$$deleted":true,"_id":"Eb8iabQpbluYU6WI"}
+{"name":"bucket02","backend":"storage02","createdAt":{"$$date":1538049326707},"id":"VXsK5aoHUkQQ3bHK","_id":"VXsK5aoHUkQQ3bHK"}

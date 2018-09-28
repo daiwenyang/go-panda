@@ -46,6 +46,10 @@ export class BucketService {
   getFilesByBucketId(bucketId): Observable<any> {
     return this.http.get('v1beta/{project_id}/file?bucket_id=' + bucketId);
   }
+
+  downloadFile(fileName) : Observable<any> {
+    return this.http.get('v1beta/{project_id}/file/download?file_name=' + fileName);
+  }
 }
 
 

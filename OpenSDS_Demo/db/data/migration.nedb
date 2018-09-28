@@ -1,1 +1,1 @@
-{"name":"migration_04","srcBucket":"bucket02","destBucket":"bucket01","excutingTime":1538014530000,"rule":"","configDataAnalysis":false,"analysisCluster":"","ak":"","sk":"","deleteSrcObject":true,"id":"vtSqFoqJqPJ6drvq","status":"completed","endTime":1538014560039,"_id":"vtSqFoqJqPJ6drvq"}
+{"name":"migration_04","srcBucket":"bucket02","destBucket":"bucket01","excutingTime":1538014530000,"rule":"","configDataAnalysis":false,"analysisCluster":"","ak":"","sk":"","deleteSrcObject":true,"id":"urV3BwUkHVaLdvUf","status":"migrating","endTime":"","_id":"urV3BwUkHVaLdvUf"}
