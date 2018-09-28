@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     showRgister = false;
     allBackends = [];
     allRegions = [];
+    showBackends = false;
     registerBackend = {
         type: {
             values: ['AWS S3', 'MicrosoftAzure Blob Storage', 'Huawei HWC', 'Huawei FusionCloud'],
@@ -342,22 +343,9 @@ export class HomeComponent implements OnInit {
         this.getAllSnapshots(tenantId);
         this.getAllReplications(tenantId);
     }
-    
-    EvenCompEllipse(context, x, y, a, b){
-        context.save();
-        //选择a、b中的较大者作为arc方法的半径参数
-        var r = (a > b) ? a : b; 
-        var ratioX = a / r; //横轴缩放比率
-        var ratioY = b / r; //纵轴缩放比率
-        context.scale(ratioX, ratioY); //进行缩放（均匀压缩）
-        context.beginPath();
-        //从椭圆的左端点开始逆时针绘制
-        context.moveTo((x + a) / ratioX, y / ratioY);
-        context.arc(x / ratioX, y / ratioY, r, 0, 2 * Math.PI);
-        context.closePath();
-        context.restore();
-        context.stroke();
-    };
+    showBackendsDeatil(){
+        this.showBackends = true;
+    }
 
     // 创建backend
     onSubmit(){
