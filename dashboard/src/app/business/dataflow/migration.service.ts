@@ -33,6 +33,9 @@ export class MigrationService {
     let url = this.url + '/' + id;
     return this.http.get(url);
   }
+  getMigrationsCount():Observable<any> {
+    return this.http.get(this.url+"/count");
+  }
 
 }
 
