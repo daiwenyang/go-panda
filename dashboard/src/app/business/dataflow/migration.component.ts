@@ -20,6 +20,8 @@ export class MigrationListComponent implements OnInit {
     allMigrations = [];
     selectedMigrations = [];
     createMigrateShow = false;
+    dataAnalysis = [];
+    showAnalysis = false;
     constructor(
         public I18N: I18NService,
         private router: Router,
@@ -51,6 +53,13 @@ export class MigrationListComponent implements OnInit {
         let acceptLabel = "Delete";
         let warming = true;
         this.confirmDialog([msg,header,acceptLabel,warming,"delete"])
+    }
+    showDetail(){
+        if(this.dataAnalysis.length !== 0){
+         this.showAnalysis = true;
+        }else{
+         this.showAnalysis = false;
+        }
     }
     confirmDialog([msg,header,acceptLabel,warming=true,func]){
         this.confirmationService.confirm({

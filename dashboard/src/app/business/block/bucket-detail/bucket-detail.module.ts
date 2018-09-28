@@ -4,7 +4,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BucketDetailComponent } from './bucket-detail.component';
 
-import { TabViewModule,ButtonModule, DataTableModule, DropMenuModule, DialogModule, FormModule, InputTextModule, InputTextareaModule, ConfirmDialogModule ,ConfirmationService} from './../../../components/common/api';
+import { TabViewModule,ButtonModule, DataTableModule, DropMenuModule, DialogModule, FormModule, InputTextModule, InputTextareaModule, 
+  ConfirmDialogModule ,ConfirmationService,CheckboxModule,DropdownModule} from './../../../components/common/api';
 import { HttpService } from './../../../shared/service/Http.service';
 
 let routers = [{
@@ -25,7 +26,9 @@ let routers = [{
     DataTableModule,
     DialogModule,
     FormModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CheckboxModule,
+    DropdownModule
   ],
   declarations: [
     BucketDetailComponent
