@@ -1,5 +1,7 @@
 let multer = require('multer');
-const fs = require('fs');
+const fs = require('fs');                                                                                                                     
+const multiparty = require('multiparty');
+
 module.exports = function (router) {
 
   var upload = multer({ dest: 'upload/' }).any();
@@ -13,56 +15,98 @@ module.exports = function (router) {
     res.send(response);
   });
 
-  // 上传
-  router.post('/v1beta/file/upload', async (req, res) => {
-    res.send({});
-    upload(req, res, async function (err) {
-      //添加错误处理
-      if (err) {
-        console.log(err);
-        return;
-      }
-      req.file = req.files[0];
-      var tmp_path = req.file.path;
-      console.log(tmp_path);
-      // save file name
+  //上传后更新数据库
+  router.post('/v1beta/file/updatedb', async (req, res) => {
       let model = models.file;
       let newFile = {
         id: '',
-        name: req.file.originalname,
-        size: req.file.size,
+        name: req.body.name,
+        size: req.body.size,
         last_modified: '',
-        bucket_id: req.query.bucket_id
+        bucket_id: req.body.bucketID,
+        location: req.body.backendName
       }
       let rs = await model.insert(newFile);
       newFile.id = rs._id;
       await model.update({ _id: rs._id }, { $set: newFile });
+      
+      res.send();
+  });
 
-      /** The original name of the uploaded file
-          stored in the variable "originalname". **/
-      var target_path = 'uploads/' + req.file.originalname;
+  // 上传
+  router.post('/v1beta/file/upload', async (req, res) => {
+    //生成multiparty对象，并配置上传目标路径
+    var form = new multiparty.Form({uploadDir: './uploads'});
+    form.parse(req, function(err, fields, files){
+        var inputFile = files.file[0];
+        var uploadedPath = inputFile.path;
+        var dstPath = 'uploads\\' + inputFile.originalFilename;
 
-      /** A better way to copy the uploaded file. **/
-      console.log(target_path);
-
-
-      if (!fs.existsSync('uploads/')) {
-        fs.mkdirSync('uploads/');
-      }
-
-      var src = fs.createReadStream(tmp_path);
-      var dest = fs.createWriteStream(target_path);
-      src.pipe(dest);
-      src.on('end', function () {
-        res.end();
-      });
-      src.on('error', function (err) {
-
-        res.end();
-        console.log(err);
-      });
-
+        if (fs.existsSync(dstPath)) {
+          res.send({isExsit: true});
+        }else{
+          fs.rename(uploadedPath, dstPath, function(err) {
+              if(err){
+                  console.log('rename error: ' + err);
+              } else {
+                  console.log('rename ok');
+              }
+          });
+          files.file[0].path = dstPath;
+          var data = files.file[0];
+          
+          res.send(data);
+        }
     });
+
+    // res.send({});
+    // upload(req, res, async function (err) {
+    //   //添加错误处理
+    //   if (err) {
+    //     console.log(err);
+    //     return;
+    //   }
+    //   req.file = req.files[0];
+    //   var tmp_path = req.file.path;
+    //   console.log(tmp_path);
+    //   // save file name
+    //   let model = models.file;
+    //   let newFile = {
+    //     id: '',
+    //     name: req.file.originalname,
+    //     size: req.file.size,
+    //     last_modified: '',
+    //     bucket_id: req.query.bucket_id
+    //   }
+    //   let rs = await model.insert(newFile);
+    //   newFile.id = rs._id;
+    //   await model.update({ _id: rs._id }, { $set: newFile });
+
+    //   /** The original name of the uploaded file
+    //       stored in the variable "originalname". **/
+    //   var target_path = 'uploads/' + req.file.originalname;
+
+    //   /** A better way to copy the uploaded file. **/
+    //   console.log(target_path);
+
+
+    //   if (!fs.existsSync('uploads/')) {
+    //     fs.mkdirSync('uploads/');
+    //   }
+
+    //   var src = fs.createReadStream(tmp_path);
+    //   var dest = fs.createWriteStream(target_path);
+    //   src.pipe(dest);
+    //   src.on('end', function () {
+    //     res.end();
+    //   });
+    //   src.on('error', function (err) {
+
+    //     res.end();
+    //     console.log(err);
+    //   });
+
+    // });
 
   });
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute} from '@angular/router';
 import { I18NService, Utils } from 'app/shared/api';
 import { BucketService} from '../buckets.service';
-import { FileUploader } from 'ng2-file-upload';
+// import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'bucket-detail',
@@ -12,9 +12,11 @@ import { FileUploader } from 'ng2-file-upload';
   ]
 })
 export class BucketDetailComponent implements OnInit {
+  selectFile;
   label;
   uploadFileDispaly:boolean = false;
   buketName:string="";
+  bucketId:string="";
   items = [{
     label:"Buckets",
     url:["/block","fromBuckets"]
@@ -24,7 +26,7 @@ export class BucketDetailComponent implements OnInit {
   uploadDisplay = false;
   selectedSpecify = [];
   showBackend = false;
-  private uploader: FileUploader;
+  // private uploader: FileUploader;
   constructor(
     private ActivatedRoute: ActivatedRoute,
     public I18N:I18NService,
@@ -33,13 +35,14 @@ export class BucketDetailComponent implements OnInit {
 
   ngOnInit() {
     this.ActivatedRoute.params.subscribe((params) => {
-      this.uploader = new FileUploader({
-        url: 'v1beta/file/upload' + "?bucket_id=" + params.bucketId,
-        method: 'POST',
-        itemAlias: "uploadedfile",
-        autoUpload: false
-      })
+      // this.uploader = new FileUploader({
+      //   url: 'v1beta/file/upload' + "?bucket_id=" + params.bucketId,
+      //   method: 'POST',
+      //   itemAlias: "uploadedfile",
+      //   autoUpload: false
+      // })
 
+      this.bucketId = params.bucketId;
       this.BucketService.getBucketById(params.bucketId).subscribe((res) => {
         let bucket = res.json();
         this.buketName = bucket.name;
@@ -69,31 +72,40 @@ export class BucketDetailComponent implements OnInit {
   selectedFileOnChanged(event: any) {
     // 这里是文件选择完成后的操作处理
     // alert('上传文件改变啦');
-    console.log(event.target.value);
-    console.log(event);
+    if(event.target.files[0]){
+      let file = event.target.files[0];
+      this.selectFile = file;
+    }
   }
 
   /**
    * 上传文件方法
    */
   uploadFile() {
-    alert('执行上传文件');
-    // 上传
-    this.uploader.queue[0].onSuccess = function (response, status, headers) {
-      // 上传文件成功
-      if (status == 200) {
-        // 上传文件后获取服务器返回的数据
-        const tempRes = response;
-        alert(response);
-      } else {
-        // 上传文件后获取服务器返回的数据错误
-        alert('上传失败');
+    let form = new FormData();
+    form.append("file", this.selectFile);
+    
+    
+    this.BucketService.uploadFile(form).subscribe((res) => {
+      let data = res.json();
+      if(data.isExsit){
+        alert("Exsit");
+        this.uploadDisplay = false;
+      }else{
+        let params = {};
+        params['name'] = data.originalFilename;
+        params['size'] = data.size;
+        params['bucketID'] = this.bucketId;
+        params['backendName'] = "backendName";
+        this.BucketService.saveToDB(params).subscribe((res) => {
+          this.uploadDisplay = false;
+          this.BucketService.getFilesByBucketId(this.bucketId).subscribe((res) => {
+            this.allDir = res.json();
+          });
+        })
       }
-    };
-    // onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any;
-    this.uploader.queue[0].upload(); // 开始上传
-    // this.uploader.queue[0].onSuccess()
-    alert('上传之后');
+    });
+    
   }
 
   downloadFile(file) {

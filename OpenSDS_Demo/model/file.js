@@ -7,7 +7,8 @@ let file = new Model({
     name: 'file01.jpg',
     size: '10',
     last_modified: '2018-02-25 07:30:12',
-    bucket_id: "3E957kgA4lvwjmWU"
+    bucket_id: "3E957kgA4lvwjmWU",
+    location: ""
   }
 });
 

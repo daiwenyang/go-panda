@@ -16,6 +16,16 @@ export class BucketService {
     return this.http.post(this.url, param);
   }
 
+  //Upload file
+  uploadFile(param) {
+    return this.http.post("v1beta/file/upload", param);
+  }
+
+  //Save to db
+  saveToDB(param) {
+    return this.http.post("v1beta/file/updatedb", param);
+  }
+
   //Update Bucket
   modifyBucket(id,param) {
     let modifyUrl = this.url + '/' + id
