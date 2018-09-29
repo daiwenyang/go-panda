@@ -1,81 +1,16 @@
 <div class="home-font-color-class" *ngIf="true">
-    <!-- <div>
-        <header>
-            <h2 class="header-h2-title-font">{{I18N.keyID["sds_home_overvew"]}}</h2>
-            <p class="header-p-text">{{I18N.keyID["sds_home_update"]}}</p>
-        </header>
-        <div class="ui-inputgroup">
-            <div class="ui-g-12 ui-md-5">
-                <div class="img-item-div-height" style="padding: 2em 0;">
-                    <div class="img-item-div statisBg" style="margin-top:-2em;">
-                        <div class="ui-g-12 ui-md-6">
-                            <img-item [item]="items[0]"></img-item>
-                        </div>
-                        <div class="ui-g-12 ui-md-6">
-                            <img-item [item]="items[1]"></img-item>
-                        </div>
-                        <div class="ui-helper-clearfix"></div>
-                    </div>
-                    <div class="user-img-item-margin img-item-div statisBg">
-                        <div class="ui-g-12 ui-md-6">
-                            <img-item [item]="items[2]"></img-item>
-                        </div>
-                        <div class="ui-g-12 ui-md-6">
-                            <img-item [item]="items[3]"></img-item>
-                        </div>
-                        <div class="ui-helper-clearfix"></div>
-                    </div>
-                    <div class="ui-helper-clearfix"></div>
-                </div>
-            </div>
-
-            <div class="ui-g-12 ui-md-5">
-                <div class="img-item-div-height img-item-div statisBg">
-                    <div>
-                        <img-item [item]="items[4]"></img-item>
-                    </div>
-                    <div class="home-img-item-margin">
-                        <img-item [item]="items[5]"></img-item>
-                    </div>
-                    <div class="home-img-item-margin">
-                        <img-item [item]="items[6]"></img-item>
-                    </div>
-                </div>
-            </div>
-            <div class="ui-helper-clearfix"></div>
-        </div>
-    </div>
-    <hr>
-    <div>
-        <h2 class="header-h2-title-font">{{I18N.keyID["Capacity"]}}</h2>
-        <div class="ui-inputgroup"></div>
-        <div class="ui-g-12 ui-md-4">
-            <div class="capacity-secondary">{{I18N.keyID["sds_home_block_capacity"]}}</div>
-            <p class="capacity-secondary">{{I18N.keyID["sds_home_update"]}}</p>
-            <div>
-                <p-chart [options]="option" type="doughnut" [data]="chartDatas"></p-chart>
-            </div>
-        </div>
-        <div class="ui-g-12 ui-md-2"></div>
-        <div class="ui-g-12 ui-md-4">
-            <div class="capacity-secondary">{{I18N.keyID["sds_home_top5"]}}</div>
-            <p class="capacity-secondary">{{I18N.keyID["sds_home_update"]}}</p>
-            <p-chart [options]="chartBarOpion" type="bar" [data]="chartDatasbar"></p-chart>
-        </div>
-        <div class="ui-helper-clearfix"></div>
-    </div> -->
     <div class="ui-home-backend-container">
         <div style="position:absolute;top:50%;left:50%;margin-top:-200px;margin-left:-380px;width:760px;height:400px;border-radius: 50% 50%;border:2px dotted #4596e8;">
             <div style="position:absolute;top:50%;left:50%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showRgister = true">
                 <div class="ui-home-backend-count"></div>
             </div>
-            <div style="position:absolute;top:5%;left:72%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil()">
+            <div style="position:absolute;top:5%;left:72%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil(1)">
                 <div class="ui-home-backend-count"></div>
             </div>
-            <div style="position:absolute;top:50%;left:0%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil()">
+            <div style="position:absolute;top:50%;left:0%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil(2)">
                 <div class="ui-home-backend-count"></div>
             </div>            
-            <div style="position:absolute;top:100%;left:50%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil()">
+            <div style="position:absolute;top:100%;left:50%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil(3)">
                 <div class="ui-home-backend-count"></div>
             </div>
         </div>
@@ -85,16 +20,19 @@
             <p-card title="Resource" styleClass="ui-card-shadow">
                 <div class="ui-home-card">
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                        <div class="ui-home-card-text">{{counts.volumesCount}}</div>
+                        <div><img  src="assets/business/images/home_admin/Tenants.png"></div>
+                        <div style="font-size: 1em;" class="ui-home-card-text">Volumes</div>
                     </div>
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
+                        <div class="ui-home-card-text">{{counts.bucketsCount}}</div>
                         <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                        <div style="font-size: 1em;" class="ui-home-card-text">Buckets</div>
                     </div>
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
+                        <div class="ui-home-card-text">0</div>
                         <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                        <div style="font-size: 1em;" class="ui-home-card-text">Filesystems</div>
                     </div>
                 </div>
             </p-card>
@@ -102,7 +40,7 @@
         <div style="flex:1;padding:20px;">
             <p-card title="Dataflow Capacity" styleClass="ui-card-shadow" >
                 <div class="ui-home-card">
-                    <p-chart [height]="'100%'" type="line" [options]='lineOption' [data]="lineData"></p-chart>
+                    <p-chart type="line" [options]='lineOption' [data]="lineData"></p-chart>
                 </div>
             </p-card>
         </div>
@@ -110,16 +48,14 @@
             <p-card title="Dataflow Quantity" styleClass="ui-card-shadow">
                 <div class="ui-home-card">
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
+                        <div class="ui-home-card-text">{{counts.migrationCount}}</div>
                         <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                        <div style="font-size: 1em;" class="ui-home-card-text">Migrations</div>
                     </div>
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
+                        <div class="ui-home-card-text">1</div>
                         <div><img src="assets/business/images/home_admin/Tenants.png"></div>
-                    </div>
-                    <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">10</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
+                        <div style="font-size: 1em;" class="ui-home-card-text">Replications</div>
                     </div>
                 </div>
             </p-card>
@@ -137,27 +73,27 @@
                 object
             </div>
         </div>
-        <form [grid]="{label: 'ui-g-5', content:'ui-g-20'}">
+        <form [grid]="{label: 'ui-g-5', content:'ui-g-20'}" [formGroup]="backendForm">
             <form-item label="Name" >
-                <input id="name" type="text" name="name" [(ngModel)]="registerBackend.name.value" pInputText />
+                <input id="name" type="text" name="name" formControlName="name"  pInputText />
             </form-item>
             <form-item label="Type" >
-                <p-dropdown [style]="{'min-width':'220px'}" [options]="allBackends"  ></p-dropdown>
+                <p-dropdown [style]="{'min-width':'220px'}" formControlName="type" [options]="allTypes"  ></p-dropdown>
             </form-item>
             <form-item label="Region" >
-                <p-dropdown [style]="{'min-width':'220px'}" [options]="allRegions"  ></p-dropdown>
+                <p-dropdown [style]="{'min-width':'220px'}" formControlName="region" [options]="allRegions"  ></p-dropdown>
             </form-item>
             <form-item label="Endpoint" >
-                <input id="endpoint" type="text" name="endpoint" [(ngModel)]="registerBackend.endpoint.value" pInputText />
+                <input id="endpoint" type="text" name="endpoint" formControlName="endpoint"  pInputText />
             </form-item>
             <form-item label="Bucket" >
-                <input id="bucket" type="text" name="bucket" [(ngModel)]="registerBackend.bucket.value" placeholder="Bucket name" pInputText />
+                <input id="bucket" type="text" name="bucket" formControlName="bucket"  placeholder="Bucket name" pInputText />
             </form-item>
             <form-item label="Access Key" >
-                <input id="accessKey" type="text" name="accessKey" [(ngModel)]="registerBackend.accessKey.value" pInputText />
+                <input id="accessKey" type="text" name="accessKey" formControlName="ak"  pInputText />
             </form-item>
             <form-item label="Secret Key" >
-                <input id="secretKey" type="text" name="secretKey" [(ngModel)]="registerBackend.secretKey.value" pInputText />
+                <input id="secretKey" type="text" name="secretKey" formControlName="sk"  pInputText />
             </form-item>
         </form>
         <div style="margin-top:100px;">
@@ -165,7 +101,17 @@
         </div>
     </p-home-dialog>
     <p-home-dialog header="Storage Backends" [(visible)]="showBackends" [width]="510" [height]="790" modal="modal" [style]="{'opacity':'0.8','right':'46px','top':'80px','background':'rgb(44,63,97)'}" >
-       
-       
+        <p-dataTable id="home-backend-detail" [value]="typeDetail" [globalFilter]="searchByName"  [rows]="10">
+            <p-column field="name" header="{{I18N.keyID['sds_block_volume_name']}}" ></p-column>
+            <p-column field="typeName" header="Type" ></p-column>
+            <p-column field="bucket" header="Bucket"></p-column>
+            <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width':'135px'}">
+                <ng-template pTemplate="body" let-backend="rowData" let-i="rowIndex">
+                    <a class="a-rep-disabled" style="margin-right:10px;" >Modify</a>
+                    <a (click)="deleteBackend(backend)">Delete</a>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
     </p-home-dialog>
 </div>
+<p-confirmDialog></p-confirmDialog>

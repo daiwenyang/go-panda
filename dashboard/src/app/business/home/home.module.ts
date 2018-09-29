@@ -32,8 +32,10 @@ let routers = [{
     FormModule,
     InputTextModule, 
     InputTextareaModule, 
-    DropdownModule ,
+    DropdownModule,
+    DataTableModule,
+    ConfirmDialogModule
   ],
-  providers: [HttpService, ProfileService]
+  providers: [HttpService, ProfileService,ConfirmationService]
 })
 export class HomeModule { }
