@@ -8,7 +8,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { ButtonModule, ChartModule,CardModule } from '../../components/common/api';
-import { DataTableModule, DropMenuModule,HomeDialogModule, DialogModule, FormModule, InputTextModule, InputTextareaModule, DropdownModule ,ConfirmationService,ConfirmDialogModule} from '../../components/common/api';
+import { DataTableModule, DropMenuModule,HomeDialogModule, DialogModule, FormModule, InputTextModule, InputTextareaModule,
+   DropdownModule ,ConfirmationService,ConfirmDialogModule} from '../../components/common/api';
 
 let routers = [{
   path: '',

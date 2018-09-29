@@ -8,6 +8,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { MenuItem ,ConfirmationService} from '../../components/common/api';
 import { identifierModuleUrl } from '@angular/compiler';
 import { MigrationService } from './migration.service';
+import { BucketService } from './../block/buckets.service';
 
 let _ = require("underscore");
 @Component({
@@ -22,13 +23,17 @@ export class MigrationListComponent implements OnInit {
     selectedMigrations = [];
     createMigrateShow = false;
     dataAnalysis = [];
+    excute = [];
     showAnalysis = false;
+    selectTime = false;
+    bucketOption = [];
     constructor(
         public I18N: I18NService,
         private router: Router,
         private confirmationService: ConfirmationService,
         private fb: FormBuilder,
-        private MigrationService: MigrationService
+        private MigrationService: MigrationService,
+        private BucketService:BucketService
     ) {
        
 
@@ -49,6 +54,19 @@ export class MigrationListComponent implements OnInit {
             rule:"files/doc/; files/obj;"
         }]
         this.getMigrations();
+        this.getBuckets();
+    }
+    getBuckets() {
+        this.bucketOption = [];
+        this.BucketService.getBuckets().subscribe((res) => {
+            let allbuckets = res.json();
+            allbuckets.forEach(element => {
+                this.bucketOption.push({
+                    label:element.name,
+                    value:element.id
+                })
+            });
+        });
     }
 
     getMigrations() {
@@ -70,6 +88,13 @@ export class MigrationListComponent implements OnInit {
          this.showAnalysis = true;
         }else{
          this.showAnalysis = false;
+        }
+    }
+    showcalendar(){
+        if(this.excute.length !== 0){
+         this.selectTime = true;
+        }else{
+         this.selectTime = false;
         }
     }
 
