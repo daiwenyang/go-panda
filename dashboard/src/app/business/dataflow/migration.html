@@ -35,14 +35,14 @@
             <input type="text" pInputText style="width: 150px;" />
         </form-item>
         <form-item label="Source Bucket" >
-            <input type="text" pInputText style="width: 150px;" />
+            <p-dropdown [style]="{'min-width':'220px'}" [options]="bucketOption" ></p-dropdown>
         </form-item>
         <form-item label="Destination Bucket" >
-            <input type="text" pInputText style="width: 150px;" />
+            <p-dropdown [style]="{'min-width':'220px'}" [options]="bucketOption" ></p-dropdown>
         </form-item>
         <form-item label="Excuting Time" >
-            <input type="time" pInputText style="display:inline-block;width: 150px;" />
-            <p-checkbox name=""  value="" label="Immediately"></p-checkbox>
+            <p-calendar [disabled]="selectTime" [showTime]="true"></p-calendar>
+            <p-checkbox (onChange)="showcalendar()" name="excuteTime" [(ngModel)]="excute"  value="" label="Immediately"></p-checkbox>
         </form-item>
         <div style="margin-bottom: 10px;"><span style="font-size: 16px;font-style: normal">Rule</span></div>
         <span style="display:inline-block;margin-bottom: 10px;color: rgb(136, 147, 166);">Without rules, all of them are migrated, otherwise only migrate objects with this rule.</span>
@@ -67,7 +67,7 @@
     </form>
     
     <p-footer>
-        <button type="button" pButton (click)="createMigrateShow=false" label="{{I18N.keyID['ok']}}" ></button>
+        <button type="button" class="ui-button-secondary" pButton (click)="createMigrateShow=false" label="{{I18N.keyID['ok']}}" ></button>
         <button type="button" pButton (click)="createMigrateShow=false" label="{{I18N.keyID['cancel']}}"></button>
     </p-footer>
 </p-dialog>
