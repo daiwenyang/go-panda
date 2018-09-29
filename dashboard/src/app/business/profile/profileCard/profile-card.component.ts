@@ -141,15 +141,15 @@ export class ProfileCardComponent implements OnInit {
         let SumCapacity: number = 0;
         let arrLength = pools.length;
         for (let i = 0; i < arrLength; i++) {
-            if(this.data.extras && this.data.extras[":provisionPolicy"].ioConnectivityLoS.accessProtocol.toLowerCase() == pools[i].extras.ioConnectivity.accessProtocol &&  this.data.extras[":provisionPolicy"].dataStorageLoS.provisioningPolicy == pools[i].extras.dataStorage.provisioningPolicy){
+            // if(this.data.extras && this.data.extras[":provisionPolicy"].ioConnectivityLoS.accessProtocol.toLowerCase() == pools[i].extras.ioConnectivity.accessProtocol &&  this.data.extras[":provisionPolicy"].dataStorageLoS.provisioningPolicy == pools[i].extras.dataStorage.provisioningPolicy){
                 if (FreeOrTotal === 'free') {
                     SumCapacity += pools[i].freeCapacity;
                 } else {
                     SumCapacity += pools[i].totalCapacity;
                 }
-            }else{
-                SumCapacity = 0;
-            }
+            // }else{
+            //     SumCapacity = 0;
+            // }
         }
         return SumCapacity;
     }

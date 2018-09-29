@@ -4,8 +4,8 @@ let pools = new Model({
   name: 'pools',
   schema: {
     "name": "",
-    "freeCapacity": "",
-    "totalCapacity": "",
+    "freeCapacity": 0,
+    "totalCapacity": 0,
     "extras": {
         "advanced": {
             "diskType": "SSD/RAID5"
