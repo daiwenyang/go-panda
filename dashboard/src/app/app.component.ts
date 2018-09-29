@@ -20,9 +20,9 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     linkUrl = "";
 
-    username: string;
+    username: string = "";
 
-    password: string;
+    password: string = "";
 
     dropMenuItems: MenuItem[];
 
@@ -120,6 +120,12 @@ export class AppComponent implements OnInit, AfterViewInit{
             this.isLogin = false;
             this.hideLoginForm = false;
         }
+        this.dropMenuItems = [
+            { 
+                label: "Logout", 
+                command:()=>{ this.logout() }
+            }
+        ];
     }
     checkTimeOut(){
         this.currentTime = new Date().getTime(); //update current time
@@ -205,14 +211,19 @@ export class AppComponent implements OnInit, AfterViewInit{
     
     login() {
         this.paramStor.CURRENT_TENANT("admin" + "|" + "fdshej324jh");
-        this.paramStor.CURRENT_USER("admin" + "|"+ "5345dfgdf5345");
-
-        this.hideLoginForm = true;
-        this.menuItems = this.menuItems_admin;
-        this.isLogin = true;
-        this.router.navigateByUrl("home");
-        this.activeItem = this.menuItems[0];
-        this.showLoginAnimation = true;
+        this.paramStor.CURRENT_USER("admin" + "|"+ "123456");
+        if(this.username.trim()  ==="admin" && this.password.trim() === "123456"){
+            this.showErrorMsg = false;
+            this.hideLoginForm = true;
+            this.menuItems = this.menuItems_admin;
+            this.isLogin = true;
+            this.router.navigateByUrl("home");
+            this.activeItem = this.menuItems[0];
+            this.showLoginAnimation = true;
+        }else{
+            this.errorMsg = this.I18N.keyID['sds_login_error_msg_401']; 
+            this.showErrorMsg = true;
+        }
         // let request: any = { auth: {} };
         // request.auth = {
         //     "identity": {

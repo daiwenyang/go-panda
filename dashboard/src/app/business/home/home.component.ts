@@ -4,6 +4,8 @@ import { ParamStorService } from 'app/shared/api';
 import { ProfileService } from 'app/business/profile/profile.service';
 import { Observable } from "rxjs/Rx";
 import { I18NService } from 'app/shared/api';
+import { ReactiveFormsModule, FormsModule,FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { MenuItem ,ConfirmationService,ConfirmDialogModule} from '../../components/common/api';
 
 @Component({
     templateUrl: './home.component.html',
@@ -25,42 +27,46 @@ export class HomeComponent implements OnInit {
     lineData ={};
     lineOption = {};
     showRgister = false;
-    allBackends = [];
+    allTypes = [];
     allRegions = [];
     showBackends = false;
-    registerBackend = {
-        type: {
-            values: ['AWS S3', 'MicrosoftAzure Blob Storage', 'Huawei HWC', 'Huawei FusionCloud'],
-            value: 'AWS S3'
-        },
-        region: {
-            values: [
-                { "name": this.I18N.keyID['sds_resource_region_default'], "role": "Primary Region" }
-            ],
-            value: this.I18N.keyID['sds_resource_region_default']
-        },
-        name: {value: ""},
-        endpoint: {value: ""},
-        bucket: {value: ""},         
-        accessKey: {value: ""},  
-        secretKey: {value: ""}
+    counts= {
+        volumesCount:0,
+        bucketsCount:0,
+        migrationCount:0
     }
+    typeJSON ={};
+    backendForm :FormGroup;
+    typeDetail = [];
+    selectedType:any;
     constructor(
         private http: Http,
         private paramStor: ParamStorService,
         private profileService: ProfileService,
         private I18N: I18NService,
+        private fb:FormBuilder,
+        private ConfirmationService:ConfirmationService
     ) { }
 
     ngOnInit() {
-        if(this.paramStor.CURRENT_USER().split("|")[0] == "admin"){
-            this.showAdminStatis = true;
-            this.getCountData();
-        }else{
-            this.showAdminStatis = false;
-            this.getTenantCountData();
-        }
-
+        // if(this.paramStor.CURRENT_USER().split("|")[0] == "admin"){
+        //     this.showAdminStatis = true;
+        //     this.getCountData();
+        // }else{
+        //     this.showAdminStatis = false;
+        //     this.getTenantCountData();
+        // }
+        this.getCounts();
+        this.getType();
+        this.backendForm = this.fb.group({
+            "name":[],
+            "type":[],
+            "region":[],
+            "endpoint":[],
+            "bucket":[],
+            "ak":[],
+            "sk":[],
+        });
         this.items = [
             {
                 countNum: 0,
@@ -179,24 +185,6 @@ export class HomeComponent implements OnInit {
                 }
             ]
         }
-        //['AWS S3', 'MicrosoftAzure Blob Storage', 'Huawei HWC', 'Huawei FusionCloud'],
-        this.allBackends = [{
-            label:'AWS S3',
-            value:'AWS S3'
-        },
-        {
-            label:'MicrosoftAzure Blob Storage',
-            value:'MicrosoftAzure Blob Storage'
-        },
-        {
-            label:'Huawei HWC',
-            value:'Huawei HWC'
-        },
-        {
-            label:'Huawei FusionCloud',
-            value:'Huawei FusionCloud'
-        }
-        ];
         this.allRegions = [{
             label:'region_beijing',
             value:'region_beijing'
@@ -207,7 +195,20 @@ export class HomeComponent implements OnInit {
         }
         ];
     }
-
+    getType(){
+        let url = 'v1beta/{project_id}/type';
+        this.http.get(url).subscribe((res)=>{
+            let all = res.json();
+            console.log(all)
+            all.forEach(element => {
+                this.allTypes.push({
+                    label:element.name,
+                    value:element.id
+                });
+                this.typeJSON[element.id] = element.name;
+            });
+        });
+    }
     getProfiles() {
         this.profileService.getProfiles().subscribe((res) => {
             let profiles = res.json();
@@ -343,21 +344,73 @@ export class HomeComponent implements OnInit {
         this.getAllSnapshots(tenantId);
         this.getAllReplications(tenantId);
     }
-    showBackendsDeatil(){
+    showBackendsDeatil(type){
         this.showBackends = true;
+        this.selectedType = type;
+        let url = 'v1beta/{project_id}/backend/?type='+type;
+        this.http.get(url).subscribe((res)=>{
+            let types = res.json();
+            types.forEach(element => {
+                element.typeName = this.typeJSON[element.type]
+            });
+            this.typeDetail = types;
+        });
     }
-
-    // 创建backend
+    deleteBackend(backend){
+        let msg = "<div>Are you sure you want to delete the selected backend?</div><h3>[ "+ backend.name +" ]</h3>";
+        let header ="Delete ";
+        let acceptLabel = "Delete";
+        let warming = true;
+        this.confirmDialog([msg,header,acceptLabel,warming,backend])
+    }
+    confirmDialog([msg,header,acceptLabel,warming=true,backend]){
+        this.ConfirmationService.confirm({
+            message: msg,
+            header: header,
+            acceptLabel: acceptLabel,
+            isWarning: warming,
+            accept: ()=>{
+                try {
+                    let url = 'v1beta/{project_id}/backend/'+backend.id;
+                    this.http.delete(url).subscribe((res)=>{
+                        this.showBackendsDeatil(this.selectedType)
+                    });
+                }
+                catch (e) {
+                    console.log(e);
+                }
+                finally {
+                    
+                }
+            },
+            reject:()=>{}
+        })
+    }
+                            
+    getCounts(){
+        let url1 = 'v1beta/{project_id}/block/volumes/count';
+        let url2 = 'v1beta/{project_id}/bucket/count';
+        let url3 = 'v1beta/{project_id}/migration/count';
+        this.http.get(url1).subscribe((res)=>{
+            this.counts.volumesCount = res.json().count;
+        });
+        this.http.get(url2).subscribe((res)=>{
+            this.counts.bucketsCount = res.json().count;
+        });
+        this.http.get(url3).subscribe((res)=>{
+            this.counts.migrationCount = res.json().count;
+        });
+    }
+    // // 创建backend
     onSubmit(){
-        console.log(this.registerBackend);
         let param = {
-            "name": this.registerBackend.name.value,
-            "type": this.registerBackend.type.value,
-            "region": this.registerBackend.region.value, 
-            "endpoint": this.registerBackend.endpoint.value,
-            "bucket": this.registerBackend.bucket.value,
-            "secretKey": this.registerBackend.secretKey.value,
-            "accessKey": this.registerBackend.accessKey.value
+            "name": this.backendForm.value.name,
+            "type": this.backendForm.value.type,
+            "region": this.backendForm.value.region,
+            "endpoint": this.backendForm.value.endpoint,
+            "bucket": this.backendForm.value.bucket,
+            "secretKey": this.backendForm.value.ak,
+            "accessKey": this.backendForm.value.sk
         };
         this.http.post("v1beta/{project_id}/backend", param).subscribe((res) => {
             console.log(res);

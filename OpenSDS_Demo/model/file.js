@@ -8,7 +8,9 @@ let file = new Model({
     size: '10',
     last_modified: '2018-02-25 07:30:12',
     bucket_id: "3E957kgA4lvwjmWU",
-    location: ""
+    backend_id: "",
+    location: "",
+    backend_name: ""
   }
 });
 

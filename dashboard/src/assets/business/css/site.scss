@@ -1653,4 +1653,14 @@ a {
 .ui-dialog-title-Header{
     color:#8fb2e8;
 }
+#home-backend-detail{
+    & th{
+        color:#8fb2e8;
+        background-color:#2c3f61;
+    }
+    & td{
+        color:#FFFFFF;
+        background-color: #2c3f61
+    }
+}
 /* custom breadcrumb end */

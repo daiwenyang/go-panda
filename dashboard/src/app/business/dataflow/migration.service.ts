@@ -33,6 +33,14 @@ export class MigrationService {
     let url = this.url + '/' + id;
     return this.http.get(url);
   }
+  getMigrationsCount():Observable<any> {
+    return this.http.get(this.url+"/count");
+  }
+
+  //Search Bucket
+  getBucketByName(bucketName): Observable<any> {
+    return this.http.get("v1beta/{project_id}/bucket?name=" + bucketName);
+  }
 
 }
 

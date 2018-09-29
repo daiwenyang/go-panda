@@ -135,7 +135,7 @@ module.exports = function (router) {
             res.end(err);
           } else {
             res.writeHead(200, {
-              "Content-type":"application/octet-stream",
+              "Content-type":"application/force-download",
               "Content-Disposition":"attachment;filename="+encodeURI(req.query.file_name)
             });
             console.log("读取文件完毕，正在发送......");

@@ -8,6 +8,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { MenuItem ,ConfirmationService} from '../../components/common/api';
 import { identifierModuleUrl } from '@angular/compiler';
 import { MigrationService } from './migration.service';
+import { BucketService } from './../block/buckets.service';
 
 let _ = require("underscore");
 @Component({
@@ -21,16 +22,30 @@ export class MigrationListComponent implements OnInit {
     allMigrations = [];
     selectedMigrations = [];
     createMigrateShow = false;
+    createMigrationForm:FormGroup;
     dataAnalysis = [];
+    excute = [];
     showAnalysis = false;
+    deleteSrcObject = [];
+    selectTime = false;
+    bucketOption = [];
+    migrationName = "";
+    ak = "";
+    sk = "";
+    analysisCluster = "";
+    srcBucket = "";
+    destBucket = "";
+    rule = "";
+    excutingTime;
+    migrationId: string;
     constructor(
         public I18N: I18NService,
         private router: Router,
         private confirmationService: ConfirmationService,
         private fb: FormBuilder,
-        private MigrationService: MigrationService
+        private MigrationService: MigrationService,
+        private BucketService:BucketService
     ) {
-       
 
     }
 
@@ -49,6 +64,19 @@ export class MigrationListComponent implements OnInit {
             rule:"files/doc/; files/obj;"
         }]
         this.getMigrations();
+        this.getBuckets();
+    }
+    getBuckets() {
+        this.bucketOption = [];
+        this.BucketService.getBuckets().subscribe((res) => {
+            let allbuckets = res.json();
+            allbuckets.forEach(element => {
+                this.bucketOption.push({
+                    label:element.name,
+                    value:element.name
+                })
+            });
+        });
     }
 
     getMigrations() {
@@ -56,6 +84,34 @@ export class MigrationListComponent implements OnInit {
         this.MigrationService.getMigrations().subscribe((res) => {
             this.allMigrations = res.json();
         });
+    }
+
+    createMigration() {
+        let excutingTime = new Date().getTime();
+        if (!this.selectTime) {
+            excutingTime = this.excutingTime.getTime();
+        }
+        let param = {
+            "name": this.migrationName,
+            "srcBucket": this.srcBucket,
+            "destBucket": this.destBucket,
+            "excutingTime": excutingTime,
+            "rule": this.rule,
+            "configDataAnalysis": this.showAnalysis,
+            "analysisCluster": this.analysisCluster,
+            "ak": this.ak,
+            "sk": this.sk,
+            "deleteSrcObject": this.deleteSrcObject.length !== 0 
+        }
+        this.MigrationService.createMigration(param).subscribe((res) => {
+            this.createMigrateShow = false;
+            this.getMigrations();
+        });
+
+    }
+
+    onRowExpand(evt) {
+        this.migrationId = evt.data.id;
     }
 
     deleteMigrate(migrate){
@@ -70,6 +126,13 @@ export class MigrationListComponent implements OnInit {
          this.showAnalysis = true;
         }else{
          this.showAnalysis = false;
+        }
+    }
+    showcalendar(){
+        if(this.excute.length !== 0){
+         this.selectTime = true;
+        }else{
+         this.selectTime = false;
         }
     }
 

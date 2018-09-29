@@ -60,6 +60,18 @@ export class BucketService {
   downloadFile(fileName) : Observable<any> {
     return this.http.get('v1beta/{project_id}/file/download?file_name=' + fileName);
   }
+
+  deleteFile(fileId) : Observable<any> {
+    return this.http.delete('v1beta/{project_id}/file/' + fileId);
+  }
+
+  getTypes() : Observable<any> {
+    return this.http.get('v1beta/{project_id}/type');
+  }
+
+  getBackendsByTypeId(typeId): Observable<any> {
+    return this.http.get('v1beta/{project_id}/backend?type=' + typeId);
+  }
 }
 
 
