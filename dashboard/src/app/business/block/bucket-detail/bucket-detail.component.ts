@@ -29,7 +29,6 @@ export class BucketDetailComponent implements OnInit {
   selectedSpecify = [];
   showBackend = false;
   // private uploader: FileUploader;
-  params;
   constructor(
     private ActivatedRoute: ActivatedRoute,
     public I18N:I18NService,
@@ -47,7 +46,7 @@ export class BucketDetailComponent implements OnInit {
       // })
 
       this.bucketId = params.bucketId;
-      this.BucketService.getBucketById(params.bucketId).subscribe((res) => {
+      this.BucketService.getBucketById(this.bucketId).subscribe((res) => {
         let bucket = res.json();
         this.buketName = bucket.name;
         this.items.push({
@@ -61,7 +60,7 @@ export class BucketDetailComponent implements OnInit {
   }
   
   getFile() {
-    this.BucketService.getFilesByBucketId(this.params.bucketId).subscribe((res) => {
+    this.BucketService.getFilesByBucketId(this.bucketId).subscribe((res) => {
       this.allDir = res.json();
     });
 
