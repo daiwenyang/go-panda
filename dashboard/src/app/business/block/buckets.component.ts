@@ -50,6 +50,8 @@ export class BucketsComponent implements OnInit{
     backendsOption = [];
     lifeOperation = [];
     allBackends = [];
+    allTypes = [];
+    selectType;
     constructor(
         public I18N: I18NService,
         private router: Router,
@@ -78,12 +80,7 @@ export class BucketsComponent implements OnInit{
                 created:"2018-02-25 07:30:12",
             }
         ];
-        this.backendsOption = [
-            {
-                label:"All Backends",
-                value:"All Backends",
-            }
-        ];
+        this.backendsOption = [];
         this.lifeOperation =[{
             label:'Migration',
             value:'Migration'
@@ -120,9 +117,21 @@ export class BucketsComponent implements OnInit{
         });
     }
 
-    getBackends() {
+    getTypes() {
+        this.allTypes = [];
+        this.BucketService.getTypes().subscribe((res) => {
+            res.json().forEach(element => {
+                this.allTypes.push({
+                    label: element.name,
+                    value: element.id
+                })
+            });
+        });
+    }
+
+    getBackendsByTypeId() {
         this.backendsOption = [];
-        this.BucketService.getBckends().subscribe((res) => {
+        this.BucketService.getBackendsByTypeId(this.selectType).subscribe((res) => {
             res.json().forEach(element => {
                 this.backendsOption.push({
                     label: element.name,
@@ -131,6 +140,19 @@ export class BucketsComponent implements OnInit{
             });
         });
     }
+
+    getBackends() {
+        this.allBackends = [];
+        this.BucketService.getBckends().subscribe((res) => {
+            res.json().forEach(element => {
+                this.allBackends.push({
+                    label: element.name,
+                    value: element.name
+                })
+            });
+        });
+    }
+
     creatBucket(){
         console.log(this.createBucketForm.value);
         let param = {
@@ -157,6 +179,7 @@ export class BucketsComponent implements OnInit{
 
     showCreateForm(){
         this.createBucketDisplay = true;
+        this.getTypes();
     }
     deleteBucket(bucket){
         let msg = "<div>Are you sure you want to delete the Bucket ?</div><h3>[ "+ bucket.name +" ]</h3>";

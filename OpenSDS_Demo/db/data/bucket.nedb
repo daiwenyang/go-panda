@@ -1,5 +1,7 @@
 {"name":"bucket01","backend":"backend01","createdAt":{"$$date":1538051976724},"id":"PLUzoaIVGq3LDjxq","_id":"PLUzoaIVGq3LDjxq"}
-{"name":"bucket02","backend":"storage02","createdAt":{"$$date":1538049326707},"id":"VXsK5aoHUkQQ3bHK","_id":"VXsK5aoHUkQQ3bHK"}
-{"$$deleted":true,"_id":"VXsK5aoHUkQQ3bHK"}
-{"name":"bucket02","backend_type":"storage02","backend":"backend01","createdAt":{"$$date":1538204937450},"id":"","_id":"b8EU8GZjcCaqa0wt"}
 {"name":"bucket02","backend_type":"storage02","backend":"backend01","createdAt":{"$$date":1538204937450},"id":"b8EU8GZjcCaqa0wt","_id":"b8EU8GZjcCaqa0wt"}
+{"name":"","backend_type":"","backend":"","createdAt":{"$$date":1538210897744},"id":"","_id":"Hsco4svFKAjtjyQU"}
+{"name":"","backend_type":"","backend":"","createdAt":{"$$date":1538210897744},"id":"Hsco4svFKAjtjyQU","_id":"Hsco4svFKAjtjyQU"}
+{"$$deleted":true,"_id":"Hsco4svFKAjtjyQU"}
+{"name":"bucket03","backend_type":"1","backend":"storage02","createdAt":{"$$date":1538214048536},"id":"","_id":"6YnTtLFFn25JcngB"}
+{"name":"bucket03","backend_type":"1","backend":"storage02","createdAt":{"$$date":1538214048536},"id":"6YnTtLFFn25JcngB","_id":"6YnTtLFFn25JcngB"}

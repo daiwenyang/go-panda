@@ -54,6 +54,14 @@ export class BucketService {
   deleteFile(fileId) : Observable<any> {
     return this.http.delete('v1beta/{project_id}/file/' + fileId);
   }
+
+  getTypes() : Observable<any> {
+    return this.http.get('v1beta/{project_id}/type');
+  }
+
+  getBackendsByTypeId(typeId): Observable<any> {
+    return this.http.get('v1beta/{project_id}/backend?type=' + typeId);
+  }
 }
 
 
