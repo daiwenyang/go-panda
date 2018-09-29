@@ -37,6 +37,11 @@ export class MigrationService {
     return this.http.get(this.url+"/count");
   }
 
+  //Search Bucket
+  getBucketByName(bucketName): Observable<any> {
+    return this.http.get("v1beta/{project_id}/bucket?name=" + bucketName);
+  }
+
 }
 
 

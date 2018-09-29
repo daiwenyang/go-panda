@@ -26,8 +26,18 @@ export class MigrationListComponent implements OnInit {
     dataAnalysis = [];
     excute = [];
     showAnalysis = false;
+    deleteSrcObject = [];
     selectTime = false;
     bucketOption = [];
+    migrationName = "";
+    ak = "";
+    sk = "";
+    analysisCluster = "";
+    srcBucket = "";
+    destBucket = "";
+    rule = "";
+    excutingTime;
+    migrationId: string;
     constructor(
         public I18N: I18NService,
         private router: Router,
@@ -36,18 +46,6 @@ export class MigrationListComponent implements OnInit {
         private MigrationService: MigrationService,
         private BucketService:BucketService
     ) {
-        this.createMigrationForm = this.fb.group({
-            "name": [""],
-            "srcBucket": [""],
-            "destBucket": [""],
-            "excutingTime": [""],
-            "rule": [""],
-            "configDataAnalysis": false,
-            "analysisCluster": [""],
-            "ak": [""],
-            "sk": [""],
-            "deleteSrcObject": true
-        });
 
     }
 
@@ -75,7 +73,7 @@ export class MigrationListComponent implements OnInit {
             allbuckets.forEach(element => {
                 this.bucketOption.push({
                     label:element.name,
-                    value:element.id
+                    value:element.name
                 })
             });
         });
@@ -86,6 +84,34 @@ export class MigrationListComponent implements OnInit {
         this.MigrationService.getMigrations().subscribe((res) => {
             this.allMigrations = res.json();
         });
+    }
+
+    createMigration() {
+        let excutingTime = new Date().getTime();
+        if (!this.selectTime) {
+            excutingTime = this.excutingTime.getTime();
+        }
+        let param = {
+            "name": this.migrationName,
+            "srcBucket": this.srcBucket,
+            "destBucket": this.destBucket,
+            "excutingTime": excutingTime,
+            "rule": this.rule,
+            "configDataAnalysis": this.showAnalysis,
+            "analysisCluster": this.analysisCluster,
+            "ak": this.ak,
+            "sk": this.sk,
+            "deleteSrcObject": this.deleteSrcObject.length !== 0 
+        }
+        this.MigrationService.createMigration(param).subscribe((res) => {
+            this.createMigrateShow = false;
+            this.getMigrations();
+        });
+
+    }
+
+    onRowExpand(evt) {
+        this.migrationId = evt.data.id;
     }
 
     deleteMigrate(migrate){

@@ -1,2 +1,5 @@
 {"name":"bucket01","backend":"backend01","createdAt":{"$$date":1538051976724},"id":"PLUzoaIVGq3LDjxq","_id":"PLUzoaIVGq3LDjxq"}
 {"name":"bucket02","backend":"storage02","createdAt":{"$$date":1538049326707},"id":"VXsK5aoHUkQQ3bHK","_id":"VXsK5aoHUkQQ3bHK"}
+{"$$deleted":true,"_id":"VXsK5aoHUkQQ3bHK"}
+{"name":"bucket02","backend_type":"storage02","backend":"backend01","createdAt":{"$$date":1538204937450},"id":"","_id":"b8EU8GZjcCaqa0wt"}
+{"name":"bucket02","backend_type":"storage02","backend":"backend01","createdAt":{"$$date":1538204937450},"id":"b8EU8GZjcCaqa0wt","_id":"b8EU8GZjcCaqa0wt"}
