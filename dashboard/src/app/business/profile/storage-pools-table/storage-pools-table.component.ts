@@ -30,9 +30,9 @@ export class StoragePoolsTableComponent implements OnInit {
       if(this.selectData){
           let arrLength = pools.length
           for (let i = 0; i < arrLength; i++) {
-              if (this.selectData.extras.protocol.toLowerCase() == pools[i].extras.ioConnectivity.accessProtocol &&  this.selectData.storageType == pools[i].extras.dataStorage.provisioningPolicy){
+            //   if (this.selectData.extras.protocol.toLowerCase() == pools[i].extras.ioConnectivity.accessProtocol &&  this.selectData.storageType == pools[i].extras.dataStorage.provisioningPolicy){
                 this.pools.push(pools[i]);
-              }
+            //   }
           }
       }else{
           this.pools = pools;
