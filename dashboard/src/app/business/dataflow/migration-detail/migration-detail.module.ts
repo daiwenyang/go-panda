@@ -6,6 +6,7 @@ import { MigrationDetailComponent } from './migration-detail.component';
 
 import { TabViewModule,ButtonModule, DataTableModule, DropMenuModule, DialogModule, FormModule, InputTextModule, InputTextareaModule, ConfirmDialogModule ,ConfirmationService} from './../../../components/common/api';
 import { HttpService } from './../../../shared/service/Http.service';
+import { MigrationService } from '../migration.service';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { HttpService } from './../../../shared/service/Http.service';
   ],
   providers: [
     HttpService,
-    ConfirmationService
+    ConfirmationService,
+    MigrationService
   ]
 })
 export class MigrationDetailModule { }
