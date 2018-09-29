@@ -8,6 +8,7 @@ import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractC
 import { MenuItem ,ConfirmationService} from '../../components/common/api';
 import { BucketService} from './buckets.service';
 import { debug } from 'util';
+import { MigrationService } from './../dataflow/migration.service';
 
 @Component({
     selector: 'bucket-list',
@@ -51,6 +52,19 @@ export class BucketsComponent implements OnInit{
     lifeOperation = [];
     allBackends = [];
     allTypes = [];
+    excute = [];
+    dataAnalysis = [];
+    createMigrateShow = false;
+    selectTime = false;
+    showAnalysis = false;
+    migrationForm:FormGroup;
+    analysisForm:FormGroup;
+    bucketOption = [];
+    availbucketOption =[];
+    selectedBucket = {
+        name:"",
+        id:""
+    };
     selectType;
     constructor(
         public I18N: I18NService,
@@ -59,11 +73,24 @@ export class BucketsComponent implements OnInit{
         private confirmationService: ConfirmationService,
         private fb:FormBuilder,
         private BucketService: BucketService,
+        private MigrationService:MigrationService
     ){
         this.createBucketForm = this.fb.group({
             "backend":[""],
             "backend_type":[""],
             "name":[""]
+        });
+        this.migrationForm = this.fb.group({
+            "migrationName":[""],
+            "destBucket":[""],
+            "excutingTime":[""],
+            "rule":[""],
+            "deleteSrcObject":[""]
+        });
+        this.analysisForm = this.fb.group({
+            "analysisCluster":[""],
+            "ak":[""],
+            "sk":[""]
         });
     }
 
@@ -109,11 +136,32 @@ export class BucketsComponent implements OnInit{
         this.getBuckets();
         this.getBackends();
     }
-
+    showcalendar(){
+        this.selectTime = !this.selectTime;
+    }
+    showDetail(){
+        this.showAnalysis = !this.showAnalysis;
+    }
+    configMigration(bucket){
+        Object.assign(this.availbucketOption,this.bucketOption);
+        this.createMigrateShow=true;
+        this.selectedBucket = bucket;
+        let index = this.bucketOption.findIndex(function(value ,index,items){
+            return value.label == bucket.name;
+        });
+        this.availbucketOption.splice(index,1);
+    }
     getBuckets() {
         this.allBuckets = [];
+        this.bucketOption = [];
         this.BucketService.getBuckets().subscribe((res) => {
             this.allBuckets = res.json();
+            this.allBuckets.forEach(item=>{
+                this.bucketOption.push({
+                    label:item.name,
+                    value:item.name
+                });
+            });
         });
     }
 
@@ -128,7 +176,32 @@ export class BucketsComponent implements OnInit{
             });
         });
     }
-
+    createMigration(){
+        let param = {
+            "name": this.migrationForm.value.migrationName,
+            "srcBucket": this.selectedBucket.name,
+            "destBucket": this.migrationForm.value.destBucket,
+            "rule": this.migrationForm.value.rule,
+            "deleteSrcObject": this.migrationForm.value.deleteSrcObject.length !== 0,
+        }
+        if(!this.selectTime){
+            let param2 = {
+                "excutingTime":this.migrationForm.value.excutingTime ,
+            }
+            Object.assign(param,param2);
+        }
+        if(this.showAnalysis){
+            let param3 = {
+                "analysisCluster": this.analysisForm.value.analysisCluster,
+                "ak": this.analysisForm.value.ak,
+                "sk": this.analysisForm.value.sk,
+            }
+            Object.assign(param,param3);
+        }
+        this.MigrationService.createMigration(param).subscribe((res) => {
+            this.createMigrateShow = false;
+        });
+    }
     getBackendsByTypeId() {
         this.backendsOption = [];
         this.BucketService.getBackendsByTypeId(this.selectType).subscribe((res) => {
@@ -166,17 +239,6 @@ export class BucketsComponent implements OnInit{
         });
         
     }
-    // onSubmit(value) {
-    //     let param = {
-    //         "name": this.createBucketForm.value["name"],
-    //         "backend": this.createBucketForm.value["backend"],
-    //     }
-    //     this.BucketService.createBucket(param).subscribe((res) => {
-    //         this.createBucketDisplay = false;
-    //         this.ngOnInit();
-    //     });
-    // }
-
     showCreateForm(){
         this.createBucketDisplay = true;
         this.getTypes();
