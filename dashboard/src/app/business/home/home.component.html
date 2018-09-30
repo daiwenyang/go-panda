@@ -4,20 +4,20 @@
             <div class="cloud-center" (click)="showRgister = true">
                 <div class="ui-home-backend-add">+</div>
             </div>
-            <div class="cloud-aws" (click)="showBackendsDeatil(1)">
-                <div class="ui-home-backend-count"></div>
+            <div class="cloud-aws" (click)="showBackendsDeatil(0)">
+                <div class="ui-home-backend-count">{{allBackends.aws}}</div>
                 <div class="ui-home-backend-logo">
                     <img src="assets/business/images/common/aws.svg" />
                 </div>
             </div>
-            <div class="cloud-hw" (click)="showBackendsDeatil(2)">
-                <div class="ui-home-backend-count"></div>
+            <div class="cloud-hw" (click)="showBackendsDeatil(1)">
+                <div class="ui-home-backend-count">{{allBackends.huaweipri}}</div>
                 <div class="ui-home-backend-logo">
                     <img src="assets/business/images/common/huawei.svg" width="24" />
                 </div>
             </div>            
-            <div class="cloud-hw-p" (click)="showBackendsDeatil(3)">
-                <div class="ui-home-backend-count"></div>
+            <div class="cloud-hw-p" (click)="showBackendsDeatil(2)">
+                <div class="ui-home-backend-count">{{allBackends.huaweipub}}</div>
                 <div class="ui-home-backend-logo">
                     <img src="assets/business/images/common/huawei.svg" width="32" />
                 </div>
@@ -70,16 +70,25 @@
             </p-card>
         </div>
     </div>
-    <p-home-dialog header="Register Storage Backend" [(visible)]="showRgister" [width]="510" [height]="790" modal="modal" [style]="{'opacity':'0.8','right':'46px','top':'80px','background':'rgb(44,63,97)'}" >
+    <p-home-dialog header="Register Storage Backend" [(visible)]="showRgister" [width]="510" [height]="790" modal="modal" [style]="{'opacity':'0.95','right':'46px','top':'80px','background':'rgb(44,63,97)'}" >
         <div>
             <div class="selected_obj_type">
-                object
+                <div style="position:absolute;left:50%;top:50%;transform: translate(-50%,-50%)">
+                    <img style="display: block;" src='assets/business/images/common/bucket.svg'>
+                    <div style="text-align: center;">object</div>
+                </div>
             </div>
             <div class="selected_obj_type">
-                object
+                <div style="position:absolute;left:50%;top:50%;transform: translate(-50%,-50%)">
+                    <img style="display: block;max-height:42px;" src='assets/business/images/common/filesystem.svg'>
+                    <div style="text-align: center;">Filesystems</div>
+                </div>
             </div>
             <div class="selected_obj_type">
-                object
+                <div style="position:absolute;left:50%;top:50%;transform: translate(-50%,-50%)">
+                    <img style="display: block;" src='assets/business/images/common/volume.svg'>
+                    <div style="text-align: center;">Block</div>
+                </div>
             </div>
         </div>
         <form [grid]="{label: 'ui-g-5', content:'ui-g-20'}" [formGroup]="backendForm">
