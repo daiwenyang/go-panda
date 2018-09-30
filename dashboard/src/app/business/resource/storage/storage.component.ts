@@ -38,7 +38,7 @@ import { AvailabilityZonesService } from '../resource.service';
 export class StorageComponent implements OnInit{
 
     storages = [];
-
+    typeJSON = {};
     constructor(
         public I18N: I18NService,
         private http: Http,
@@ -48,18 +48,25 @@ export class StorageComponent implements OnInit{
     
     ngOnInit() {
         this.storages = [];
-
-        this.listStorage();
+        this.getType();
     }
-
+    getType(){
+        let url = 'v1beta/{project_id}/type';
+        this.http.get(url).subscribe((res)=>{
+            let all = res.json();
+            all.forEach(element => {
+                this.typeJSON[element.id] = element.name;
+            });
+            this.listStorage();
+        });
+    }
     listStorage(){
         this.storages = [];
         this.service.getBackend({}).subscribe((res) => {
             res.json().forEach(ele => {
-                let [name,ip,status,description,region,az] = [ele.name, ele.endpoint.split(":")[0], "Enabled", ele.description, "default_region", ele.region];
-                this.storages.push({name,ip,status,description,region,az});
+                let [name,ip,type,status,description,region,az] = [ele.name, ele.endpoint.split(":")[0], this.typeJSON[ele.type],"Enabled", ele.description, "default_region", ele.region];
+                this.storages.push({name,ip,type,status,description,region,az});
             })
-            console.log(res);
         });
         // let reqUser: any = { params:{} };
         // let user_id = this.paramStor.CURRENT_USER().split("|")[1];

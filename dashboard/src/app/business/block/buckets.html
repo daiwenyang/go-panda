@@ -30,7 +30,7 @@
     </p-dataTable>
     
     <p-dialog  header="Create Bucket" [(visible)]="createBucketDisplay" [width]="600" modal="modal">
-        <form [grid]="{label: 'ui-g-3', content:'ui-g-20'}" [formGroup]="createBucketForm" (ngSubmit)="onSubmit(createBucketForm.value)" [errorMessage]="errorMessage">
+        <form [grid]="{label: 'ui-g-3', content:'ui-g-20'}" [formGroup]="createBucketForm" [errorMessage]="errorMessage">
             <form-item label="Name" [required]="true">
                 <input type="text" pInputText formControlName="name" />
             </form-item>
