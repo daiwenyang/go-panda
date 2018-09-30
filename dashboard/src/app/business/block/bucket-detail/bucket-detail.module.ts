@@ -9,6 +9,7 @@ import { TabViewModule,ButtonModule, DataTableModule, DropMenuModule, DialogModu
 import { HttpService } from './../../../shared/service/Http.service';
 import { BucketService } from '../buckets.service';
 // import { FileUploadModule } from 'ng2-file-upload';
+import { HttpClientModule } from '@angular/common/http';
 
 let routers = [{
   path: '',
@@ -32,6 +33,7 @@ let routers = [{
     CheckboxModule,
     DropdownModule,
     // FileUploadModule
+    HttpClientModule
   ],
   declarations: [
     BucketDetailComponent

@@ -57,10 +57,6 @@ export class BucketService {
     return this.http.get('v1beta/{project_id}/file?bucket_id=' + bucketId);
   }
 
-  downloadFile(fileName) : Observable<any> {
-    return this.http.get('v1beta/{project_id}/file/download?file_name=' + fileName);
-  }
-
   deleteFile(fileId) : Observable<any> {
     return this.http.delete('v1beta/{project_id}/file/' + fileId);
   }
