@@ -4,6 +4,7 @@ import { I18NService, Utils } from 'app/shared/api';
 import { BucketService} from '../buckets.service';
 // import { FileUploader } from 'ng2-file-upload';
 import { MenuItem ,ConfirmationService} from '../../../components/common/api';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'bucket-detail',
@@ -34,6 +35,7 @@ export class BucketDetailComponent implements OnInit {
     public I18N:I18NService,
     private BucketService: BucketService,
     private confirmationService: ConfirmationService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -118,8 +120,22 @@ export class BucketDetailComponent implements OnInit {
   }
 
   downloadFile(file) {
-    this.BucketService.downloadFile(file.name).subscribe((res) => {
-      
+    this.http.get('v1beta/{project_id}/file/download?file_name=' + file.name, {responseType: 'arraybuffer'}).subscribe((res) => {
+      let blob = new Blob([res])
+      if (typeof window.navigator.msSaveBlob !== 'undefined') {  
+          window.navigator.msSaveBlob(blob, file.name);
+      } else {
+        let URL = window.URL
+        let objectUrl = URL.createObjectURL(blob)
+        if (file.name) {
+          var a = document.createElement('a')
+          a.href = objectUrl
+          a.download = file.name
+          document.body.appendChild(a)
+          a.click()
+          a.remove()
+        }
+      }
     });
   }
 

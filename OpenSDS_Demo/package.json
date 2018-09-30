@@ -6,6 +6,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "multer": "^1.4.0",
+    "multiparty": "^4.2.1",
     "nedb": "^1.8.0",
     "nedb-promise": "^2.0.1",
     "node-dev": "^3.1.3"
