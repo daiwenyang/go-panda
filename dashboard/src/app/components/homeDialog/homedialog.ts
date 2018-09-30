@@ -43,7 +43,7 @@ let idx: number = 0;
                 opacity: 0
             })),
             state('visible', style({
-                opacity: 1
+                opacity: 0.95
             })),
             transition('visible => hidden', animate('400ms ease-in')),
             transition('hidden => visible', animate('400ms ease-out'))
