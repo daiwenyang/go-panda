@@ -196,7 +196,7 @@ export class HomeComponent implements OnInit {
         ];
     }
     getType(){
-        let url = 'v1beta/{project_id}/type';
+        let url = 'v1beta/{project_id}/type?page=1&limit=4';
         this.http.get(url).subscribe((res)=>{
             let all = res.json();
             console.log(all)
