@@ -20,9 +20,9 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     linkUrl = "";
 
-    username: string = "";
+    username: string = "admin";
 
-    password: string = "";
+    password: string = "123456";
 
     dropMenuItems: MenuItem[];
 

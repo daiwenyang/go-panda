@@ -24,6 +24,12 @@
     height: 100%;
 }
 
+.layout-wrapper.content-bg {
+    background-image: url('assets/business/images/common/bg.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
 
 /* animation login */
 
@@ -179,7 +185,7 @@
 /* menu */
 
 #layout-topbar {
-    background-color: #242e43;
+    // background-color: #242e43;
     background-image: url('./assets/business/images/menu-bg.png');
     background-position: 0 bottom;
     background-repeat: no-repeat;
@@ -321,12 +327,12 @@
 
 #layout-content {
     margin-left: 3.20rem;
-    background-color: #ffffff;
+    // background-color: #ffffff;
     height: 100%;
 }
 
 #layout-content .content-work {
-    min-height: calc(100% - 0.6rem);
+    height: calc(100% - 0.6rem);
     margin: 0 auto;
     padding: 0.3rem 0.4rem;
 }
@@ -1623,33 +1629,166 @@ a {
 .ui-home-card{
     display:table;
     width:100%;
-    min-height:200px;
+    min-height:175px;
 }
 .ui-home-card-count{
     display:table-cell;
-    padding:20px;
+    padding:10px 20px;
+}
+.ui-home-card-num{
+    font-size: 36px; 
+    color: #FFFFFF;
+    text-align: center;
+}
+.ui-home-card-img{
+    width: 75px;
+    height: 65px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    &.volume{
+        background: url('assets/business/images/common/volume.svg') no-repeat center center;
+        background-size: 32px auto;
+    }
+    &.bucket{
+        background: url('assets/business/images/common/bucket.svg') no-repeat center center;
+        background-size: 32px auto;
+    }
+    &.file{
+        background: url('assets/business/images/common/filesystem.svg') no-repeat center center;
+        background-size: 32px auto;
+    }
+    &.migration{
+        background: url('assets/business/images/common/migration.svg') no-repeat center center;
+        background-size: 32px auto;
+    }
+    &.replication{
+        background: url('assets/business/images/common/replication.svg') no-repeat center center;
+        background-size: 32px auto;
+    }
 }
 .ui-home-card-text{
-    font-size: 2em; 
+    font-size: 14px; 
+    color: #FFFFFF;
     text-align: center;
 }
 .ui-card{
-    border-radius: 4px;
+    border: none !important;
+    background: rgba(48, 61, 95, 0.64);
+}
+
+.ui-home-container{
+    color: map-get($color-title, primary);
+    padding-bottom: .30rem;
+    height: calc(100% - .30rem);
 }
 .ui-home-backend-container{
-    min-height:500px;
-    height:60%;
+    height:calc(100% - 260px);
     position:relative;
+    > div{
+        height: 100%;
+        margin: 0 20% 0 15%;
+        position: relative;
+        background-image: url('assets/business/images/common/cloud-circle.png'); 
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center 65%;
+        .cloud-center{
+            width: 175px;
+            height: 160px;
+            position: absolute;
+            left: calc(48% - 87px);
+            top: calc(45% - 80px);
+            background-image: url('assets/business/images/common/cloud-opensds.png'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+        }
+        .cloud-aws{
+            width: 130px;
+            height: 80px;
+            position: absolute;
+            left: calc(2% - 65px);
+            top: calc(55% - 40px);
+            background-image: url('assets/business/images/common/cloud-1.png'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            .ui-home-backend-logo{
+                width: 40px;
+                height: auto;
+                position: absolute;
+                left: 35%;
+                top: 40%;
+            }
+        }
+        .cloud-hw-p{
+            width: 120px;
+            height: 70px;
+            position: absolute;
+            left: calc(70% - 60px);
+            top: calc(77% - 35px);
+            background-image: url('assets/business/images/common/cloud-2.png'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            .ui-home-backend-logo{
+                width: 32px;
+                height: auto;
+                position: absolute;
+                left: 35%;
+                top: 35%;
+            }
+        }
+        .cloud-hw{
+            width: 90px;
+            height: 65px;
+            position: absolute;
+            left: calc(80% - 45px);
+            top: calc(40% - 30px);
+            background-image: url('assets/business/images/common/cloud-3.png'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            .ui-home-backend-logo{
+                width: 24px;
+                height: auto;
+                position: absolute;
+                left: 35%;
+                top: 30%;
+            }
+        }
+        .ui-home-backend-count{
+            width: 28px;
+            height: 28px;
+            border-radius: 20px;
+            background: #438bd3;
+            color: #fff;
+            position: absolute;
+            right: -12px;
+            bottom: 0;
+        }
+        .ui-home-backend-add{
+            width: 48px;
+            height: 48px;
+            border-radius: 40px;
+            background: #438bd3;
+            color: #fff;
+            position: absolute;
+            right: -32px;
+            bottom: -12px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 48px;
+            font-size: 36px;
+            &:hover{
+                background: #3399ff;
+            }
+        }
+
+    }
+    
 }
-.ui-home-backend-count{
-    position:absolute;
-    top:-100%;
-    left:100%;
-    width:30px;
-    height:30px;
-    border:1px solid #333;
-    border-radius: 50% 50%;
-}
+
 .ui-dialog-title-Header{
     color:#8fb2e8;
 }

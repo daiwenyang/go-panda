@@ -1,17 +1,26 @@
-<div class="home-font-color-class" *ngIf="true">
+<div class="ui-home-container" *ngIf="true">
     <div class="ui-home-backend-container">
-        <div style="position:absolute;top:50%;left:50%;margin-top:-200px;margin-left:-380px;width:760px;height:400px;border-radius: 50% 50%;border:2px dotted #4596e8;">
-            <div style="position:absolute;top:50%;left:50%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showRgister = true">
-                <div class="ui-home-backend-count"></div>
+        <div>
+            <div class="cloud-center" (click)="showRgister = true">
+                <div class="ui-home-backend-add">+</div>
             </div>
-            <div style="position:absolute;top:5%;left:72%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil(1)">
+            <div class="cloud-aws" (click)="showBackendsDeatil(1)">
                 <div class="ui-home-backend-count"></div>
+                <div class="ui-home-backend-logo">
+                    <img src="assets/business/images/common/aws.svg" />
+                </div>
             </div>
-            <div style="position:absolute;top:50%;left:0%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil(2)">
+            <div class="cloud-hw" (click)="showBackendsDeatil(2)">
                 <div class="ui-home-backend-count"></div>
+                <div class="ui-home-backend-logo">
+                    <img src="assets/business/images/common/huawei.svg" width="24" />
+                </div>
             </div>            
-            <div style="position:absolute;top:100%;left:50%;margin-top:-15px;margin-left:-15px;width:30px;height:30px;border:1px solid #333;" (click)="showBackendsDeatil(3)">
+            <div class="cloud-hw-p" (click)="showBackendsDeatil(3)">
                 <div class="ui-home-backend-count"></div>
+                <div class="ui-home-backend-logo">
+                    <img src="assets/business/images/common/huawei.svg" width="32" />
+                </div>
             </div>
         </div>
     </div>
@@ -20,19 +29,19 @@
             <p-card title="Resource" styleClass="ui-card-shadow">
                 <div class="ui-home-card">
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">{{counts.volumesCount}}</div>
-                        <div><img  src="assets/business/images/home_admin/Tenants.png"></div>
-                        <div style="font-size: 1em;" class="ui-home-card-text">Volumes</div>
+                        <div class="ui-home-card-num">{{counts.volumesCount}}</div>
+                        <div class="ui-home-card-img volume"></div>
+                        <div class="ui-home-card-text">Volumes</div>
                     </div>
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">{{counts.bucketsCount}}</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
-                        <div style="font-size: 1em;" class="ui-home-card-text">Buckets</div>
+                        <div class="ui-home-card-num">{{counts.bucketsCount}}</div>
+                        <div class="ui-home-card-img bucket"></div>
+                        <div class="ui-home-card-text">Buckets</div>
                     </div>
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">0</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
-                        <div style="font-size: 1em;" class="ui-home-card-text">Filesystems</div>
+                        <div class="ui-home-card-num">0</div>
+                        <div class="ui-home-card-img file"></div>
+                        <div class="ui-home-card-text">Filesystems</div>
                     </div>
                 </div>
             </p-card>
@@ -48,14 +57,14 @@
             <p-card title="Dataflow Quantity" styleClass="ui-card-shadow">
                 <div class="ui-home-card">
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">{{counts.migrationCount}}</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
-                        <div style="font-size: 1em;" class="ui-home-card-text">Migrations</div>
+                        <div class="ui-home-card-num">{{counts.migrationCount}}</div>
+                        <div class="ui-home-card-img migration"></div>
+                        <div class="ui-home-card-text">Migrations</div>
                     </div>
                     <div class="ui-home-card-count">
-                        <div class="ui-home-card-text">1</div>
-                        <div><img src="assets/business/images/home_admin/Tenants.png"></div>
-                        <div style="font-size: 1em;" class="ui-home-card-text">Replications</div>
+                        <div class="ui-home-card-num">1</div>
+                        <div class="ui-home-card-img replication"></div>
+                        <div class="ui-home-card-text">Replications</div>
                     </div>
                 </div>
             </p-card>
