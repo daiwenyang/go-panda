@@ -29,6 +29,9 @@ export class BucketDetailComponent implements OnInit {
   uploadDisplay = false;
   selectedSpecify = [];
   showBackend = false;
+  allTypes = [];
+  backendsOption = [];
+  selectType:any;
   // private uploader: FileUploader;
   constructor(
     private ActivatedRoute: ActivatedRoute,
@@ -56,11 +59,34 @@ export class BucketDetailComponent implements OnInit {
           url: ["bucketDetail", this.buketName],
         });
       });
+      this.allTypes = [];
       this.getFile();
+      this.getTypes();
     }
     );
   }
-  
+  getTypes() {
+    this.allTypes = [];
+    this.BucketService.getTypes().subscribe((res) => {
+        res.json().forEach(element => {
+            this.allTypes.push({
+                label: element.name,
+                value: element.id
+            })
+        });
+    });
+  }
+  getBackendsByTypeId() {
+    this.backendsOption = [];
+    this.BucketService.getBackendsByTypeId(this.selectType).subscribe((res) => {
+        res.json().forEach(element => {
+            this.backendsOption.push({
+                label: element.name,
+                value: element.name
+            })
+        });
+    });
+  }
   getFile() {
     this.BucketService.getFilesByBucketId(this.bucketId).subscribe((res) => {
       this.allDir = res.json();
