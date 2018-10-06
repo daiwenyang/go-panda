@@ -1,10 +1,7 @@
-let multer = require('multer');
 const fs = require('fs');                                                                                                                     
 const multiparty = require('multiparty');
 
 module.exports = function (router) {
-
-  var upload = multer({ dest: 'upload/' }).any();
 
   router.post('/v1beta/:projectId/file', async (req, res) => {
     let model = models.file;
