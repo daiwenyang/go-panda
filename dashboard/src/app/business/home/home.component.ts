@@ -30,6 +30,11 @@ export class HomeComponent implements OnInit {
     allTypes = [];
     allRegions = [];
     showBackends = false;
+    allBackends={
+        aws:0,
+        huaweipri:0,
+        huaweipub:0
+    }
     counts= {
         volumesCount:0,
         bucketsCount:0,
@@ -58,6 +63,7 @@ export class HomeComponent implements OnInit {
         // }
         this.getCounts();
         this.getType();
+        this.listStorage();
         this.backendForm = this.fb.group({
             "name":[],
             "type":[],
@@ -196,7 +202,7 @@ export class HomeComponent implements OnInit {
         ];
     }
     getType(){
-        let url = 'v1beta/{project_id}/type';
+        let url = 'v1beta/{project_id}/type?page=1&limit=4';
         this.http.get(url).subscribe((res)=>{
             let all = res.json();
             console.log(all)
@@ -207,6 +213,18 @@ export class HomeComponent implements OnInit {
                 });
                 this.typeJSON[element.id] = element.name;
             });
+        });
+    }
+    listStorage(){
+       let  backendUrl = "v1beta/{project_id}/backend";
+       this.http.get(backendUrl + "/count?type=0" ).subscribe((res)=>{
+           this.allBackends.aws = res.json().count;
+       });
+       this.http.get(backendUrl + "/count?type=1").subscribe((res)=>{
+            this.allBackends.huaweipri = res.json().count;
+        });
+        this.http.get(backendUrl + "/count?type=2").subscribe((res)=>{
+            this.allBackends.huaweipub = res.json().count;
         });
     }
     getProfiles() {
@@ -415,6 +433,7 @@ export class HomeComponent implements OnInit {
         this.http.post("v1beta/{project_id}/backend", param).subscribe((res) => {
             console.log(res);
             this.showRgister = false;
+            this.listStorage();
         });
     }
 }

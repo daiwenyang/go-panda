@@ -42,11 +42,11 @@
         </form-item>
         <form-item label="Excuting Time" >
             <p-calendar [disabled]="selectTime" [showTime]="true" name="excutingTime" [(ngModel)]="excutingTime"></p-calendar>
-            <p-checkbox (onChange)="showcalendar()" name="excuteTime" [(ngModel)]="excute"  value="false" label="Immediately"></p-checkbox>
+            <p-checkbox (onChange)="showcalendar()" name="excuteTime" [(ngModel)]="excute"  value="true" label="Immediately"></p-checkbox>
         </form-item>
         <div style="margin-bottom: 10px;"><span style="font-size: 16px;font-style: normal">Rule</span></div>
         <span style="display:inline-block;margin-bottom: 10px;color: rgb(136, 147, 166);">Without rules, all of them are migrated, otherwise only migrate objects with this rule.</span>
-        <textarea [rows]="5" [cols]="78" pInputTextarea name="rule" [(ngModel)]="rule"></textarea>
+        <textarea [rows]="2" [cols]="78" pInputTextarea name="rule" [(ngModel)]="rule"></textarea>
         <div style="margin:10px 0">
             <p-checkbox (onChange)="showDetail()" name="analysis"  value="true" [(ngModel)]="dataAnalysis" label="Config Data analysis"></p-checkbox>
         </div>

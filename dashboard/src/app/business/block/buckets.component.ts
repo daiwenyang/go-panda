@@ -55,7 +55,7 @@ export class BucketsComponent implements OnInit{
     excute = [];
     dataAnalysis = [];
     createMigrateShow = false;
-    selectTime = false;
+    selectTime = true;
     showAnalysis = false;
     migrationForm:FormGroup;
     analysisForm:FormGroup;
@@ -85,7 +85,8 @@ export class BucketsComponent implements OnInit{
             "destBucket":[""],
             "excutingTime":[""],
             "rule":[""],
-            "deleteSrcObject":[""]
+            "deleteSrcObject":[""],
+            "execute": ["true"]
         });
         this.analysisForm = this.fb.group({
             "analysisCluster":[""],
@@ -138,6 +139,11 @@ export class BucketsComponent implements OnInit{
     }
     showcalendar(){
         this.selectTime = !this.selectTime;
+        // if (this.migrationForm.value.execute.length !== 0) {
+        //     this.selectTime = false;
+        // } else {
+        //     this.selectTime = true;
+        // }
     }
     showDetail(){
         this.showAnalysis = !this.showAnalysis;

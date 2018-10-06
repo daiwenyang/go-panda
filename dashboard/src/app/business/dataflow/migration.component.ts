@@ -24,10 +24,10 @@ export class MigrationListComponent implements OnInit {
     createMigrateShow = false;
     createMigrationForm:FormGroup;
     dataAnalysis = [];
-    excute = [];
+    excute = ["true"];
     showAnalysis = false;
     deleteSrcObject = [];
-    selectTime = false;
+    selectTime = true;
     bucketOption = [];
     migrationName = "";
     ak = "";

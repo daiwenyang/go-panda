@@ -1,2 +1,4 @@
 {"name":"storage02","type":"1","region":"default","endpoint":"","bucket":"bucket01","storageEndpoint":"","accountName":"","accessKey":"","id":"0xIut1E6y189Q8IA","_id":"0xIut1E6y189Q8IA"}
 {"name":"backend01","type":"1","region":"default","endpoint":"","bucket":"bucket01","accessKey":"","secretKey":"","id":"JRp9gCuD4YfjIg81","_id":"JRp9gCuD4YfjIg81"}
+{"name":"FusionStorage","type":"4","region":"default","endpoint":"","bucket":"bucket01","accessKey":"","secretKey":"","id":"","_id":"zrhUVPPfexLM0lAC"}
+{"name":"FusionStorage","type":"4","region":"default","endpoint":"","bucket":"bucket01","accessKey":"","secretKey":"","id":"zrhUVPPfexLM0lAC","_id":"zrhUVPPfexLM0lAC"}
