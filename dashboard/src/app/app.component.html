@@ -31,7 +31,7 @@
         
         <ul class="topbar-menu">
             <li *ngFor="let menuItem of menuItems">
-                <a href="#"  [ngClass]="{'active-item':menuItem==activeItem}" (click)="menuItemClick($event, menuItem)">
+                <a href="#" [routerLink]="[menuItem.routerLink]" [ngClass]="{'active-item':menuItem==activeItem}" (click)="menuItemClick($event, menuItem)">
                     <h1>{{menuItem.title}}</h1>
                     <p>{{menuItem.description}}</p>
                 </a> 
@@ -44,10 +44,7 @@
     </div>
 
     <div id="layout-content">
-        <div class="content-home">
-            <router-outlet name="settings"></router-outlet>
-        </div>
-        <div class="content-work" [ngClass]="{'showCon-animation':showConAnimation, 'hideCon-animation': !showConAnimation}">
+        <div [ngClass]="{'content-home':isHomePage}">
             <router-outlet></router-outlet>
         </div>
     </div>

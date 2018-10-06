@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     currentTenant: string="";
 
-    showConAnimation: boolean = false;
+    isHomePage: boolean = true;
 
     showLoginAnimation: boolean=false;
 
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, AfterViewInit{
         {
             "title": "Home",
             "description": "Resources statistics",
-            "routerLink": "home"
+            "routerLink": "/home"
         },
         {
             "title": "Resource",
@@ -121,6 +121,7 @@ export class AppComponent implements OnInit, AfterViewInit{
         }else{
             this.isLogin = false;
             this.hideLoginForm = false;
+            this.router.navigateByUrl("/home");
         }
         this.dropMenuItems = [
             { 
@@ -219,8 +220,7 @@ export class AppComponent implements OnInit, AfterViewInit{
             this.hideLoginForm = true;
             this.menuItems = this.menuItems_admin;
             this.isLogin = true;
-            // this.router.navigateByUrl("/home");
-            this.router.navigate([{outlets: { settings: 'home'}}]);
+            this.router.navigateByUrl("/home");
 
             this.activeItem = this.menuItems[0];
             this.showLoginAnimation = true;
@@ -363,8 +363,7 @@ export class AppComponent implements OnInit, AfterViewInit{
                 }
 
                 this.isLogin = true;
-                // this.router.navigateByUrl("/home");
-                this.router.navigate([{outlets: { settings: 'home'}}]);
+                this.router.navigateByUrl("/home");
                 this.activeItem = this.menuItems[0];
 
                 // annimation for after login
@@ -421,14 +420,11 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     menuItemClick(event, item) {
         this.activeItem = item;
-        if(item.routerLink == "home"){
-            this.router.navigate([{outlets: { settings: item.routerLink}}]);
-            this.showConAnimation = false;
+        if(item.routerLink == "/home"){
+            this.isHomePage = true;
         }else{
-            this.router.navigate([item.routerLink]);
-            this.showConAnimation = true;
+            this.isHomePage = false;
         }
-        
     }
 
     supportCurrentBrowser(){

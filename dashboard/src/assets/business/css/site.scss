@@ -110,73 +110,6 @@ body{
     /* Safari 和 Chrome */
 }
 
-/* animation show content ================================= */
-
-@keyframes conHide {
-    0% {
-        right: 0;
-        left: 320px;
-    }
-    100% {
-        right: -100%;
-        left: 100%;
-    }
-}
-
-@-webkit-keyframes conHide
-/*Safari and Chrome*/
-
-{
-    0% {
-        right: 0;
-        left: 320px;
-    }
-    100% {
-        right: -100%;
-        left: 100%;
-    }
-}
-
-.hideCon-animation {
-    animation: conHide 500ms ease;
-    -webkit-animation: conHide 500ms ease;
-    /* Safari 和 Chrome */
-}
-
-
-/* animation logout */
-
-@keyframes conShow {
-    0% {
-        right: -100%;
-        left: 100%;
-    }
-    100% {
-        right: 0;
-        left: 320px;
-    }
-}
-
-@-webkit-keyframes conShow
-/*Safari and Chrome*/
-{
-    0% {
-        right: -100%;
-        left: 100%;
-    }
-    100% {
-        right: 0;
-        left: 320px;
-    }
-}
-
-.showCon-animation {
-    animation: conShow 500ms ease;
-    -webkit-animation: conShow 500ms ease;
-    /* Safari 和 Chrome */
-}
-
-
 /* login */
 .layout-wrapper .login-bg {
     width: 100%;
@@ -390,32 +323,16 @@ body{
 
 #layout-content {
     margin-left: 3.20rem;
-    // background-color: #ffffff;
     height: 100%;
-}
-
-#layout-content .content-work {
-    position: fixed;
-    right: -100%;
-    left: 100%;
-    top: 0;
-    bottom: 0;
-    overflow: auto;
-    padding: 0.3rem 0.4rem;
-    background: rgba(255, 255, 255, 0.93);
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
-    
-    &.showCon-animation{
-        position: absolute;
-        right: 0;
-        left: 320px;
+    > div{
+        background-color: #ffffff;
+        height: calc(100% - 0.6rem);
+        margin: 0 auto;
+        padding: 0.3rem 0.4rem;
     }
-}
-
-#layout-content .content-home {
-    height: calc(100% - 0.6rem);
-    margin: 0 auto;
-    padding: 0.3rem 0.4rem;
+    > .content-home {
+        background-color: transparent;
+    }
 }
 
 .content-header {
@@ -1891,3 +1808,5 @@ a {
     }
 }
 /* custom breadcrumb end */
+
+

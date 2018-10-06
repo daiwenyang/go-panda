@@ -11,7 +11,6 @@ import { DropMenuModule, SelectButtonModule, ButtonModule, InputTextModule } fro
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { MessagesModule } from './components/messages/messages';
-import { HomeModule } from './business/home/home.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { HomeModule } from './business/home/home.module';
     DropMenuModule,
     SelectButtonModule,
     ButtonModule,
-    HomeModule,
     InputTextModule
   ],
   providers: [
