@@ -19,7 +19,7 @@
 </div>
 
 
-<div class="layout-wrapper content-bg" (mousemove)="refreshLastTime()" *ngIf="isLogin">
+<div class="layout-wrapper" (mousemove)="refreshLastTime()" *ngIf="isLogin">
     <div id="layout-topbar">
         <div class="user-info">
             <div>
@@ -31,10 +31,10 @@
         
         <ul class="topbar-menu">
             <li *ngFor="let menuItem of menuItems">
-                <a href="#" [routerLink]="menuItem.routerLink" [ngClass]="{'active-item':menuItem==activeItem}" (click)="menuItemClick($event, menuItem)">
+                <a href="#"  [ngClass]="{'active-item':menuItem==activeItem}" (click)="menuItemClick($event, menuItem)">
                     <h1>{{menuItem.title}}</h1>
                     <p>{{menuItem.description}}</p>
-                </a>
+                </a> 
             </li>
         </ul>
 
@@ -44,7 +44,10 @@
     </div>
 
     <div id="layout-content">
-        <div class="content-work">
+        <div class="content-home">
+            <router-outlet name="settings"></router-outlet>
+        </div>
+        <div class="content-work" [ngClass]="{'showCon-animation':showConAnimation, 'hideCon-animation': !showConAnimation}">
             <router-outlet></router-outlet>
         </div>
     </div>

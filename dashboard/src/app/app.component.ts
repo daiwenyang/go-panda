@@ -28,6 +28,8 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     currentTenant: string="";
 
+    showConAnimation: boolean = false;
+
     showLoginAnimation: boolean=false;
 
     showLogoutAnimation: boolean=false;
@@ -62,7 +64,7 @@ export class AppComponent implements OnInit, AfterViewInit{
         {
             "title": "Home",
             "description": "Resources statistics",
-            "routerLink": "/home"
+            "routerLink": "home"
         },
         {
             "title": "Resource",
@@ -217,7 +219,9 @@ export class AppComponent implements OnInit, AfterViewInit{
             this.hideLoginForm = true;
             this.menuItems = this.menuItems_admin;
             this.isLogin = true;
-            this.router.navigateByUrl("home");
+            // this.router.navigateByUrl("/home");
+            this.router.navigate([{outlets: { settings: 'home'}}]);
+
             this.activeItem = this.menuItems[0];
             this.showLoginAnimation = true;
         }else{
@@ -359,7 +363,8 @@ export class AppComponent implements OnInit, AfterViewInit{
                 }
 
                 this.isLogin = true;
-                this.router.navigateByUrl("home");
+                // this.router.navigateByUrl("/home");
+                this.router.navigate([{outlets: { settings: 'home'}}]);
                 this.activeItem = this.menuItems[0];
 
                 // annimation for after login
@@ -416,6 +421,14 @@ export class AppComponent implements OnInit, AfterViewInit{
 
     menuItemClick(event, item) {
         this.activeItem = item;
+        if(item.routerLink == "home"){
+            this.router.navigate([{outlets: { settings: item.routerLink}}]);
+            this.showConAnimation = false;
+        }else{
+            this.router.navigate([item.routerLink]);
+            this.showConAnimation = true;
+        }
+        
     }
 
     supportCurrentBrowser(){
