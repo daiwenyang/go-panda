@@ -214,6 +214,7 @@ export class ReplicationListComponent implements OnInit {
                         case "delete":
                             this.replicationService.deleteReplication(this.replication.id).subscribe((res)=>{
                                 this.getAllReplicationsDetail();
+                                this.showReplication = false;
                             });
                             break;
                         case "failover":
