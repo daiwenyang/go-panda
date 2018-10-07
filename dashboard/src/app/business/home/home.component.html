@@ -78,13 +78,13 @@
                     <div style="text-align: center;">object</div>
                 </div>
             </div>
-            <div class="selected_obj_type">
+            <div style="border: 1px solid #898989;" class="selected_obj_type">
                 <div style="position:absolute;left:50%;top:50%;transform: translate(-50%,-50%)">
                     <img style="display: block;max-height:42px;" src='assets/business/images/common/filesystem.svg'>
                     <div style="text-align: center;">Filesystems</div>
                 </div>
             </div>
-            <div class="selected_obj_type">
+            <div style="border: 1px solid #898989;" class="selected_obj_type">
                 <div style="position:absolute;left:50%;top:50%;transform: translate(-50%,-50%)">
                     <img style="display: block;" src='assets/business/images/common/volume.svg'>
                     <div style="text-align: center;">Block</div>
@@ -123,7 +123,7 @@
             <p-column field="name" header="{{I18N.keyID['sds_block_volume_name']}}" ></p-column>
             <p-column field="typeName" header="Type" ></p-column>
             <p-column field="bucket" header="Bucket"></p-column>
-            <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width':'135px'}">
+            <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width':'140px'}">
                 <ng-template pTemplate="body" let-backend="rowData" let-i="rowIndex">
                     <a class="a-rep-disabled" style="margin-right:10px;" >Modify</a>
                     <a (click)="deleteBackend(backend)">Delete</a>

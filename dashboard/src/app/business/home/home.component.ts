@@ -391,7 +391,8 @@ export class HomeComponent implements OnInit {
                 try {
                     let url = 'v1beta/{project_id}/backend/'+backend.id;
                     this.http.delete(url).subscribe((res)=>{
-                        this.showBackendsDeatil(this.selectedType)
+                        this.showBackendsDeatil(this.selectedType);
+                        this.listStorage();
                     });
                 }
                 catch (e) {
