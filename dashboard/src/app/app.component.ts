@@ -6,6 +6,8 @@ import { I18NService, Consts, ParamStorService } from 'app/shared/api';
 import { I18nPluralPipe } from '@angular/common';
 import { MenuItem, SelectItem } from './components/common/api';
 
+let d3 = window["d3"];
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -105,6 +107,15 @@ export class AppComponent implements OnInit, AfterViewInit{
         private paramStor: ParamStorService,
         public I18N: I18NService
     ){}
+
+    // 波浪动画参数
+    svg_height = 150;
+    svg_width = 2000;
+    wave_data = [[],[]];
+    area = d3.area().y0(this.svg_height).curve(d3.curveBasis);   //curve会进行平滑处理
+    svg_paths = [];
+    max = 800;  //控制速度
+    d;
     
     ngOnInit() {
         this.paramStor.CURRENT_USER("");
@@ -129,6 +140,18 @@ export class AppComponent implements OnInit, AfterViewInit{
                 command:()=>{ this.logout() }
             }
         ];
+
+        //波浪动画
+        for (var i=0; i<this.max; i++) {
+            var r = i / this.max * 4;
+            this.wave_data[0].push(r*1.5);   //波浪一
+            this.wave_data[1].push(r + 1);   //波浪二（+1代表偏移π）
+        }
+        this.d = this.svg_width/(this.wave_data[0].length-1);
+        this.svg_paths.push(d3.select('#svg_wave_1'));
+        this.svg_paths.push(d3.select('#svg_wave_2'));
+
+        this.renderWave();
     }
     checkTimeOut(){
         this.currentTime = new Date().getTime(); //update current time
@@ -471,5 +494,32 @@ export class AppComponent implements OnInit, AfterViewInit{
         } else {
             return browserVersionArr[1];
         }
+    }
+
+    area_generator(data) {
+        let that = this;
+        var wave_height = 0.45;     //波浪高度
+        var area_data = data.map( function(y,i) {
+          return [i * that.d, that.svg_height*(1 - (wave_height*Math.sin(y*Math.PI) + 2)/3)]; //+2将范围[-1,1]转成[1,3]
+        } );
+        return function() {
+          return that.area(area_data);
+        };
+    }
+    renderWave() {
+        let that = this;
+        this.svg_paths.forEach(function(svg_path,i){
+          svg_path.attr('d', that.area_generator(that.wave_data[i]));
+          that.wave_data[i] = that.getNextData(that.wave_data[i]);
+        });
+        
+        setTimeout(function(){
+            that.renderWave();
+        }, 1000/60);
+    }
+    getNextData(data) {
+        var r = data.slice(1);
+        r.push(data[0]);
+        return r;
     }
 }
