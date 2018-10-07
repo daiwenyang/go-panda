@@ -252,7 +252,8 @@ export class VolumeListComponent implements OnInit {
         let param = {
             name: this.snapshotFormGroup.value.name,
             volumeId: this.selectedVolume.id,
-            description: this.snapshotFormGroup.value.description
+            description: this.snapshotFormGroup.value.description,
+            size:parseFloat(this.selectedVolume.size)
         }
         this.SnapshotService.createSnapshot(param).subscribe((res) => {
             this.createSnapshotDisplay = false;

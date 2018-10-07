@@ -85,7 +85,8 @@ export class SnapshotListComponent implements OnInit {
     let param = {
       name: this.snapshotFormGroup.value.name,
       volumeId: this.volumeId,
-      description: this.snapshotFormGroup.value.description
+      description: this.snapshotFormGroup.value.description,
+      size:this.volume.size
     }
     this.SnapshotService.createSnapshot(param).subscribe((res) => {
       this.getSnapshots(
