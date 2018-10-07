@@ -399,9 +399,16 @@ export class HomeComponent implements OnInit {
         this.http.get(url).subscribe((res)=>{
             let types = res.json();
             types.forEach(element => {
-                element.typeName = this.typeJSON[element.type]
+                element.typeName = this.typeJSON[element.type];
+                element.canDelete = false;
             });
             this.typeDetail = types;
+            this.typeDetail.forEach(ele =>{
+                this.http.get('v1beta/{project_id}/bucket/?backend='+ele.name).subscribe((resBuket)=>{
+                    ele.canDelete = resBuket.json().length !== 0;
+                    console.log(resBuket.json().length);
+                });
+            })
         });
     }
     deleteBackend(backend){

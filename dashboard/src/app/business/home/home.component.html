@@ -126,7 +126,7 @@
             <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width':'140px'}">
                 <ng-template pTemplate="body" let-backend="rowData" let-i="rowIndex">
                     <a class="a-rep-disabled" style="margin-right:10px;" >Modify</a>
-                    <a (click)="deleteBackend(backend)">Delete</a>
+                    <a [ngClass]="{'a-rep-disabled':backend['canDelete']}" (click)="deleteBackend(backend)">Delete</a>
                 </ng-template>
             </p-column>
         </p-dataTable>
