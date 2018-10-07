@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit {
     backendForm :FormGroup;
     typeDetail = [];
     selectedType:any;
+    typeDropdown:any;
+    selectedRegions = [];
     constructor(
         private http: Http,
         private paramStor: ParamStorService,
@@ -191,18 +193,43 @@ export class HomeComponent implements OnInit {
                 }
             ]
         }
-        this.allRegions = [{
-            label:'region_beijing',
-            value:'region_beijing'
+        this.allRegions = [[{
+            label:'us-west-1',
+            value:'us-west-1'
         },
         {
-            label:'region_chengdu',
-            value:'region_chengdu'
-        }
-        ];
+            label:'us-west-2',
+            value:'us-west-2'
+        },
+        {
+            label:'us-east-1',
+            value:'us-east-1'
+        },
+        {
+            label:'us-east-2',
+            value:'us-east-2'
+        }],[{
+            label:'cn-north-2',
+            value:'cn-north-2'
+        },
+        {
+            label:'cn-south-1',
+            value:'cn-south-1'
+        }],[{
+            label:'AP-Hong Kong',
+            value:'AP-Hong Kong'
+        },
+        {
+            label:'CN North-Beijing1',
+            value:'CN North-Beijing1'
+        },
+        {
+            label:'CN South-Guangzhou',
+            value:'CN South-Guangzhou'
+        }]];
     }
     getType(){
-        let url = 'v1beta/{project_id}/type?page=1&limit=4';
+        let url = 'v1beta/{project_id}/type?page=1&limit=3';
         this.http.get(url).subscribe((res)=>{
             let all = res.json();
             console.log(all)
@@ -214,6 +241,9 @@ export class HomeComponent implements OnInit {
                 this.typeJSON[element.id] = element.name;
             });
         });
+    }
+    changeRegion(){
+        this.selectedRegions = this.allRegions[this.typeDropdown];
     }
     listStorage(){
        let  backendUrl = "v1beta/{project_id}/backend";

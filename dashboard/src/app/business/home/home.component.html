@@ -96,13 +96,13 @@
                 <input id="name" type="text" name="name" formControlName="name"  pInputText />
             </form-item>
             <form-item label="Type" >
-                <p-dropdown [style]="{'min-width':'220px'}" formControlName="type" [options]="allTypes"  ></p-dropdown>
+                <p-dropdown [style]="{'min-width':'220px'}" placeholder="Please select" (onChange)="changeRegion();" [(ngModel)]="typeDropdown" formControlName="type" [options]="allTypes"  ></p-dropdown>
             </form-item>
             <form-item label="Region" >
-                <p-dropdown [style]="{'min-width':'220px'}" formControlName="region" [options]="allRegions"  ></p-dropdown>
+                <p-dropdown [style]="{'min-width':'220px'}" placeholder="Please select" formControlName="region" [options]="selectedRegions"  ></p-dropdown>
             </form-item>
             <form-item label="Endpoint" >
-                <input id="endpoint" type="text" name="endpoint" formControlName="endpoint"  pInputText />
+                <input id="endpoint" type="text" name="endpoint"  formControlName="endpoint"  pInputText />
             </form-item>
             <form-item label="Bucket" >
                 <input id="bucket" type="text" name="bucket" formControlName="bucket"  placeholder="Bucket name" pInputText />
