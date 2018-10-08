@@ -29,7 +29,8 @@ export class MigrationDetailComponent implements OnInit {
     "endTime": "",
     "_id": "urV3BwUkHVaLdvUf",
     "srcBackend": "",
-    "destBackend": ""
+    "destBackend": "",
+    "ana_status":""
   }
 
   constructor(

@@ -1,3 +1,4 @@
+const fs = require('fs');
 module.exports = function (router) {
 
     router.post('/v1beta/:projectId/migration', async (req, res) => {
@@ -26,8 +27,10 @@ module.exports = function (router) {
             let destBucket = await bucketModel.findOne({name: req.body.destBucket});
             let allFileSrcBucket = await fileModel.find({bucket_id: srcBucket.id });
             allFileSrcBucket.forEach(async (srcFile) => {
-                srcFile.bucket_id = destBucket.id;
-                await fileModel.update({ _id: srcFile._id }, { $set: srcFile });
+                if(srcFile.name !== "driver_behavior.jar"){
+                    srcFile.bucket_id = destBucket.id;
+                    await fileModel.update({ _id: srcFile._id }, { $set: srcFile });
+                }
             });
             // 删除源桶
             if (req.body.deleteSrcObject) {
