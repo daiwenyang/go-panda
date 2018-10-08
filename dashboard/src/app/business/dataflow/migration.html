@@ -35,7 +35,7 @@
             <input type="text" name="migrationName" pInputText style="width: 150px;" [(ngModel)]="migrationName" />
         </form-item>
         <form-item label="Source Bucket" >
-            <p-dropdown [style]="{'min-width':'220px'}" [options]="bucketOption" placeholder="Please select" name="srcBucket" (onChange)="changeSrcBucket($event);" [(ngModel)]="srcBucket" ></p-dropdown>
+            <p-dropdown [style]="{'min-width':'220px'}" [options]="bucketOption" placeholder="Please select" name="srcBucket" (onChange)="changeSrcBucket();" [(ngModel)]="srcBucket" ></p-dropdown>
         </form-item>
         <form-item label="Destination Bucket" >
             <p-dropdown [style]="{'min-width':'220px'}" [options]="destBuckets" placeholder="Please select" name="destBucket" [(ngModel)]="destBucket" ></p-dropdown>
