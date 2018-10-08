@@ -15,11 +15,12 @@ module.exports = function (router) {
   //上传后更新数据库
   router.post('/v1beta/file/updatedb', async (req, res) => {
       let model = models.file;
+      let date = new Date();
       let newFile = {
         id: '',
         name: req.body.name,
         size: req.body.size,
-        last_modified: '',
+        last_modified: date,
         bucket_id: req.body.bucketID,
         location: req.body.backendName
       }
