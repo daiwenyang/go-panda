@@ -64,7 +64,7 @@ export class StorageComponent implements OnInit{
         this.storages = [];
         this.service.getBackend({}).subscribe((res) => {
             res.json().forEach(ele => {
-                let [name,ip,type,status,description,region,az] = [ele.name, ele.endpoint, this.typeJSON[ele.type],"Enabled", ele.description, ele.region, ele.region];
+                let [name,ip,type,status,description,region,az] = [ele.name, ele.endpoint, this.typeJSON[ele.type],"Enabled", ele.description, ele.region, "default"];
                 this.storages.push({name,ip,type,status,description,region,az});
             })
         });

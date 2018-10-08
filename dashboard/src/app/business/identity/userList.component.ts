@@ -325,11 +325,6 @@ export class UserListComponent implements OnInit, AfterViewChecked {
             role: "System Administrator"
         },{
             enabled: true,
-            username: "cloud_admin",
-            tenant: "Finanace Group",
-            role: "Storage Administrator"
-        },{
-            enabled: true,
             username: "jack",
             tenant: "Business Group",
             role: "Teneat User"
