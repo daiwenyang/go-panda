@@ -79,11 +79,6 @@ export class TenantDetailComponent implements OnInit {
                 role: "System Administrator"
             },{
                 enabled: true,
-                name: "cloud_admin",
-                tenant: "Finance Group",
-                role: "Teneat User"
-            },{
-                enabled: true,
                 name: "jones",
                 tenant: "Finance Group",
                 role: "Tenant User"

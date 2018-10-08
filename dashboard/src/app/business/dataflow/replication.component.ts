@@ -32,9 +32,9 @@ export class ReplicationComponent implements OnInit{
         this.allReplications = [{
             name:"rep_media",
             status:"Normal",
-            source:"bucket_appfor",
-            destination:"bucket_hwc_dr",
-            replicationtime:"2018-02-18 16:22:48 UTC+08:00"
+            source:"bucket_drive",
+            destination:"bucket_log",
+            replicationtime:"2018-02-18 16:22:48 "
         }]
     }
 
