@@ -9,6 +9,7 @@ import { MenuItem ,ConfirmationService} from '../../components/common/api';
 import { identifierModuleUrl } from '@angular/compiler';
 import { MigrationService } from './migration.service';
 import { BucketService } from './../block/buckets.service';
+import { Http } from '@angular/http';
 
 let _ = require("underscore");
 @Component({
@@ -37,6 +38,10 @@ export class MigrationListComponent implements OnInit {
     destBucket = "";
     destBuckets = [];
     backendMap = new Map();
+    bucketMap = new Map();
+    anaParam = "";
+    jarParam = "";
+    engineOption = [];
     rule = "";
     excutingTime;
     migrationId: string;
@@ -46,7 +51,8 @@ export class MigrationListComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private fb: FormBuilder,
         private MigrationService: MigrationService,
-        private BucketService:BucketService
+        private BucketService:BucketService,
+        private http: Http
     ) {
 
     }
@@ -65,7 +71,6 @@ export class MigrationListComponent implements OnInit {
             destBucket:"bucket_s3",
             rule:"files/doc/; files/obj;"
         }]
-        this.getMigrations();
         this.getBuckets();
     }
     getBuckets() {
@@ -78,11 +83,14 @@ export class MigrationListComponent implements OnInit {
                     value:element.name
                 });
                 this.backendMap.set(element.name,element.backend);
+                this.bucketMap.set(element.name,element);
             });
+            this.getMigrations();
         });
     }
     changeSrcBucket(){
         this.destBuckets = [];
+        this.engineOption = [];
         this.bucketOption.forEach((value,index)=>{
             if(this.backendMap.get(value.label) !== this.backendMap.get(this.srcBucket)){
                 this.destBuckets.push({
@@ -91,11 +99,35 @@ export class MigrationListComponent implements OnInit {
                 });
             }
         });
+        this.http.get("v1beta/{project_id}/file?bucket_id="+this.bucketMap.get(this.srcBucket).id).subscribe((res)=>{
+            let allFile = res.json();
+            for(let item of allFile){
+                if(item.name == "driver_behavior.jar"){
+                    this.engineOption = [{
+                        label:"driver_behavior.jar",
+                        value:"driver_behavior.jar"
+                    }];
+                    break;
+                }
+            }
+        });
     }
     getMigrations() {
         this.allMigrations = [];
         this.MigrationService.getMigrations().subscribe((res) => {
             this.allMigrations = res.json();
+            this.allMigrations.forEach((item,index)=>{
+                let p1 = this.http.get("v1beta/{project_id}/backend?name="+this.backendMap.get(item.srcBucket)).toPromise();
+                let p2 = this.http.get("v1beta/{project_id}/backend?name="+this.backendMap.get(item.destBucket)).toPromise();
+                Promise.all([p1, p2]).then(function (results) {
+                    if(results[0].json().length !== 0){
+                        item.srctype = results[0].json()[0].type;
+                    }
+                    if(results[1].json().length !== 0){
+                        item.desttype = results[1].json()[0].type;
+                    }
+                });
+            });
         });
     }
 
@@ -114,7 +146,9 @@ export class MigrationListComponent implements OnInit {
             "analysisCluster": this.analysisCluster,
             "ak": this.ak,
             "sk": this.sk,
-            "deleteSrcObject": this.deleteSrcObject.length !== 0 
+            "deleteSrcObject": this.deleteSrcObject.length !== 0 ,
+            "jar":this.jarParam,
+            "anaparam":this.anaParam
         }
         this.MigrationService.createMigration(param).subscribe((res) => {
             this.createMigrateShow = false;

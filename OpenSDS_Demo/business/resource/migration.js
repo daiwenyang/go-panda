@@ -12,6 +12,12 @@ module.exports = function (router) {
             console.log("延迟" + (parseInt(req.body.excutingTime) - currentTime) + "毫秒后执行迁移任务");
             let startTime = new Date().getTime();
             req.body.status = "migrating";
+            if(req.body.jar){
+                req.body.ana_status = "waiting";
+            }else{
+                req.body.ana_status = "Not configured";
+            }
+            
             model.update({ _id: rs._id }, { $set: req.body });
             // 复制文件到新桶
             let fileModel = models.file;
@@ -28,9 +34,26 @@ module.exports = function (router) {
                 await bucketModel.remove({_id: srcBucket.id});
             }
             let endTime = new Date().getTime();
-            setTimeout(function() {
+            setTimeout(async function() {
                 console.log((endTime - startTime) + "毫秒后执行完成, 更新迁移任务状态和结束时间");
                 req.body.status = "completed";
+                if(req.body.jar){
+                    req.body.ana_status = "completed";
+                    let model = models.file;
+                    let newFile = {
+                        id: '',
+                        name: 'result.xlsx',
+                        size: '10240',
+                        last_modified: '',
+                        bucket_id: srcBucket.id,
+                        location: ""
+                    }
+                    let rs = await model.insert(newFile);
+                    newFile.id = rs._id;
+                    await model.update({ _id: rs._id }, { $set: newFile });
+                }else{
+                    req.body.ana_status = "Not configured";
+                }
                 req.body.endTime = new Date().getTime();
                 model.update({ _id: rs._id }, { $set: req.body });
             }, 30000);

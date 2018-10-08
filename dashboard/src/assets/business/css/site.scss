@@ -1809,6 +1809,27 @@ a {
         background-color: #2c3f61
     }
 }
+.line-arrow-right-dataflow{ 
+    display:inline-block;
+    width:30px; 
+    height:2px; 
+    font-size: 0; 
+    text-align: right; 
+    background-color:#89898f; 
+    margin: auto;
+    margin-top: 10px;
+}
+.line-arrow-right-dataflow::before{ 
+    content: ''; 
+    font-size:0; 
+    position: relative; 
+    width: 0; 
+    height: 0; 
+    border: 6px solid transparent; 
+    border-left-color: #89898f; 
+    right: -12px; 
+    top: -15px;
+}
 /* custom breadcrumb end */
 
 
