@@ -38,7 +38,10 @@ export class MigrationListComponent implements OnInit {
     destBucket = "";
     destBuckets = [];
     backendMap = new Map();
+    bucketMap = new Map();
     anaParam = "";
+    jarParam = "";
+    engineOption = [];
     rule = "";
     excutingTime;
     migrationId: string;
@@ -80,18 +83,32 @@ export class MigrationListComponent implements OnInit {
                     value:element.name
                 });
                 this.backendMap.set(element.name,element.backend);
+                this.bucketMap.set(element.name,element);
             });
             this.getMigrations();
         });
     }
     changeSrcBucket(){
         this.destBuckets = [];
+        this.engineOption = [];
         this.bucketOption.forEach((value,index)=>{
             if(this.backendMap.get(value.label) !== this.backendMap.get(this.srcBucket)){
                 this.destBuckets.push({
                     label:value.label,
                     value:value.value
                 });
+            }
+        });
+        this.http.get("v1beta/{project_id}/file?bucket_id="+this.bucketMap.get(this.srcBucket).id).subscribe((res)=>{
+            let allFile = res.json();
+            for(let item of allFile){
+                if(item.name == "driver_behavior.jar"){
+                    this.engineOption = [{
+                        label:"driver_behavior.jar",
+                        value:"driver_behavior.jar"
+                    }];
+                    break;
+                }
             }
         });
     }
@@ -129,7 +146,9 @@ export class MigrationListComponent implements OnInit {
             "analysisCluster": this.analysisCluster,
             "ak": this.ak,
             "sk": this.sk,
-            "deleteSrcObject": this.deleteSrcObject.length !== 0 
+            "deleteSrcObject": this.deleteSrcObject.length !== 0 ,
+            "jar":this.jarParam,
+            "anaparam":this.anaParam
         }
         this.MigrationService.createMigration(param).subscribe((res) => {
             this.createMigrateShow = false;
