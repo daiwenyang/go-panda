@@ -35,6 +35,8 @@ export class MigrationListComponent implements OnInit {
     analysisCluster = "";
     srcBucket = "";
     destBucket = "";
+    destBuckets = [];
+    backendMap = new Map();
     rule = "";
     excutingTime;
     migrationId: string;
@@ -74,11 +76,22 @@ export class MigrationListComponent implements OnInit {
                 this.bucketOption.push({
                     label:element.name,
                     value:element.name
-                })
+                });
+                this.backendMap.set(element.name,element.backend);
             });
         });
     }
-
+    changeSrcBucket(){
+        this.destBuckets = [];
+        this.bucketOption.forEach((value,index)=>{
+            if(this.backendMap.get(value.label) !== this.backendMap.get(this.srcBucket)){
+                this.destBuckets.push({
+                    label:value.label,
+                    value:value.value
+                });
+            }
+        });
+    }
     getMigrations() {
         this.allMigrations = [];
         this.MigrationService.getMigrations().subscribe((res) => {

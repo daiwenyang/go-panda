@@ -61,6 +61,7 @@ export class BucketsComponent implements OnInit{
     analysisForm:FormGroup;
     bucketOption = [];
     availbucketOption =[];
+    backendMap = new Map();
     selectedBucket = {
         name:"",
         id:""
@@ -149,13 +150,18 @@ export class BucketsComponent implements OnInit{
         this.showAnalysis = !this.showAnalysis;
     }
     configMigration(bucket){
-        Object.assign(this.availbucketOption,this.bucketOption);
+        this.availbucketOption = [];
         this.createMigrateShow=true;
         this.selectedBucket = bucket;
-        let index = this.bucketOption.findIndex(function(value ,index,items){
-            return value.label == bucket.name;
+
+        this.bucketOption.forEach((value,index)=>{
+            if(this.backendMap.get(value.label) !== this.backendMap.get(bucket.name)){
+                this.availbucketOption.push({
+                    label:value.label,
+                    value:value.value
+                });
+            }
         });
-        this.availbucketOption.splice(index,1);
     }
     getBuckets() {
         this.allBuckets = [];
@@ -167,6 +173,7 @@ export class BucketsComponent implements OnInit{
                     label:item.name,
                     value:item.name
                 });
+                this.backendMap.set(item.name,item.backend);
             });
         });
     }
