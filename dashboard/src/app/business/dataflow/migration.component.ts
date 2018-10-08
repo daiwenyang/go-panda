@@ -9,6 +9,7 @@ import { MenuItem ,ConfirmationService} from '../../components/common/api';
 import { identifierModuleUrl } from '@angular/compiler';
 import { MigrationService } from './migration.service';
 import { BucketService } from './../block/buckets.service';
+import { Http } from '@angular/http';
 
 let _ = require("underscore");
 @Component({
@@ -46,7 +47,8 @@ export class MigrationListComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private fb: FormBuilder,
         private MigrationService: MigrationService,
-        private BucketService:BucketService
+        private BucketService:BucketService,
+        private http: Http
     ) {
 
     }
@@ -65,7 +67,6 @@ export class MigrationListComponent implements OnInit {
             destBucket:"bucket_s3",
             rule:"files/doc/; files/obj;"
         }]
-        this.getMigrations();
         this.getBuckets();
     }
     getBuckets() {
@@ -79,6 +80,7 @@ export class MigrationListComponent implements OnInit {
                 });
                 this.backendMap.set(element.name,element.backend);
             });
+            this.getMigrations();
         });
     }
     changeSrcBucket(){
@@ -96,6 +98,19 @@ export class MigrationListComponent implements OnInit {
         this.allMigrations = [];
         this.MigrationService.getMigrations().subscribe((res) => {
             this.allMigrations = res.json();
+            this.allMigrations.forEach((item,index)=>{
+                let p1 = this.http.get("v1beta/{project_id}/backend?name="+this.backendMap.get(item.srcBucket)).toPromise();
+                let p2 = this.http.get("v1beta/{project_id}/backend?name="+this.backendMap.get(item.destBucket)).toPromise();
+                Promise.all([p1, p2]).then(function (results) {
+                    if(results[0].json().length !== 0){
+                        item.srctype = results[0].json()[0].type;
+                    }
+                    if(results[1].json().length !== 0){
+                        item.desttype = results[1].json()[0].type;
+                    }
+                    console.log(item);
+                });
+            });
         });
     }
 
