@@ -1,4 +1,5 @@
 {"name":"storage02","type":"1","region":"default","endpoint":"","bucket":"bucket01","storageEndpoint":"","accountName":"","accessKey":"","id":"0xIut1E6y189Q8IA","_id":"0xIut1E6y189Q8IA"}
 {"name":"backend01","type":"1","region":"default","endpoint":"","bucket":"bucket01","accessKey":"","secretKey":"","id":"JRp9gCuD4YfjIg81","_id":"JRp9gCuD4YfjIg81"}
-{"name":"FusionStorage","type":"4","region":"default","endpoint":"","bucket":"bucket01","accessKey":"","secretKey":"","id":"","_id":"zrhUVPPfexLM0lAC"}
+{"name":"OceanStor_V3_101","type":"4","region":"Region_Chengdu","endpoint":"10.22.0.11","bucket":"bucket01","accessKey":"","secretKey":"","id":"sddhdffexLMhjAC","_id":"ghkjghPPfexLMfghdC"}
+{"name":"OceanStor_Dorado_1","type":"4","region":"Region_Beijing","endpoint":"10.22.0.13","bucket":"bucket01","accessKey":"","secretKey":"","id":"fghhdffexjglAC","_id":"hhjkfhPPfexLMfghdC"}
 {"name":"FusionStorage","type":"4","region":"default","endpoint":"","bucket":"bucket01","accessKey":"","secretKey":"","id":"zrhUVPPfexLM0lAC","_id":"zrhUVPPfexLM0lAC"}
