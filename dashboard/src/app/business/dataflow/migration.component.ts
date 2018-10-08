@@ -38,6 +38,7 @@ export class MigrationListComponent implements OnInit {
     destBucket = "";
     destBuckets = [];
     backendMap = new Map();
+    anaParam = "";
     rule = "";
     excutingTime;
     migrationId: string;
@@ -108,7 +109,6 @@ export class MigrationListComponent implements OnInit {
                     if(results[1].json().length !== 0){
                         item.desttype = results[1].json()[0].type;
                     }
-                    console.log(item);
                 });
             });
         });

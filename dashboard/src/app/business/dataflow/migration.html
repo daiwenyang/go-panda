@@ -68,6 +68,11 @@
             <form-item label="SK" [style]="{'display':'inline-block'}">
                 <input type="text" name="sk" pInputText [(ngModel)]="sk" />
             </form-item>
+            <form-item label="jar param" [style]="{'display':'inline-block'}">
+                <p-dropdown [style]="{'min-width':'220px'}" [options]="destBuckets" placeholder="Please select" name="jar" ></p-dropdown>
+            </form-item>
+            <div style="margin-bottom: 10px;"><span style="font-size: 16px;font-style: normal">Analysis Param</span></div>
+            <textarea [rows]="2" [cols]="78" pInputTextarea name="anaParam" [(ngModel)]="anaParam"></textarea>
         </form>
         <div style="margin-top:10px;">
             <p-checkbox name="deleteSrcObject"  value="true" [(ngModel)]="deleteSrcObject"  label="Delete the source objects after the migration is completed."></p-checkbox>
