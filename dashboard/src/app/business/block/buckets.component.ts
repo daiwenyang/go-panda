@@ -169,6 +169,7 @@ export class BucketsComponent implements OnInit{
         this.BucketService.getBuckets().subscribe((res) => {
             this.allBuckets = res.json();
             this.allBuckets.forEach(item=>{
+                item.createdAt = (item.createdAt.substring(0,19)).replace("T"," ");
                 this.bucketOption.push({
                     label:item.name,
                     value:item.name

@@ -93,6 +93,7 @@ export class BucketDetailComponent implements OnInit {
     this.BucketService.getFilesByBucketId(this.bucketId).subscribe((res) => {
       this.allDir = res.json();
       this.allDir.forEach(element => {
+        element.last_modified = (element.last_modified.substring(0,19)).replace("T"," ");
         element.size = Utils.getDisplayCapacity(element.size, 2, "KB");
       });
     });
