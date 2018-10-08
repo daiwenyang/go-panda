@@ -27,7 +27,7 @@ module.exports = function (router) {
             let destBucket = await bucketModel.findOne({name: req.body.destBucket});
             let allFileSrcBucket = await fileModel.find({bucket_id: srcBucket.id });
             allFileSrcBucket.forEach(async (srcFile) => {
-                if(srcFile.name !== "driver_behavior.jar"){
+                if(srcFile.name !== "driver_behavior.jar" && srcFile.name !== "result.xlsx"){
                     srcFile.bucket_id = destBucket.id;
                     await fileModel.update({ _id: srcFile._id }, { $set: srcFile });
                 }
