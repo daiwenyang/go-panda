@@ -30,7 +30,7 @@
     <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width': '166px'}">
         <ng-template pTemplate="body" let-migrate="rowData" let-i="rowIndex">
             <a (click)="deleteMigrate(migrate)">Delete</a>
-            <a *ngIf="migrate.status ==='completed'">Remigrate</a>
+            <a *ngIf="migrate.status ==='completed'" (click)="remigration(migrate)">Remigrate</a>
         </ng-template>
     </p-column>
     <ng-template pTemplate="rowexpansion">

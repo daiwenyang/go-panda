@@ -184,7 +184,9 @@ export class MigrationListComponent implements OnInit {
          this.selectTime = false;
         }
     }
+    remigration(migration){
 
+    }
     confirmDialog([msg,header,acceptLabel,warming=true,func], migrate){
         this.confirmationService.confirm({
             message: msg,

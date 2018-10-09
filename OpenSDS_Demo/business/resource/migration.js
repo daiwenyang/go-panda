@@ -63,7 +63,16 @@ module.exports = function (router) {
             }, 30000);
         }, parseInt(req.body.excutingTime) - currentTime);
     });
-
+    router.post('/v1beta/:projectId/remigration', async (req, res) => {
+        let migration = await model.findOne({ _id: req.body.id });
+        let model = models.migration;
+        let startTime = new Date().getTime();
+        req.body.status = "migrating";
+        setTimeout(async function(){
+            req.body.status = "completed";
+            model.update({ _id: req.body.id }, { $set: req.body });
+        },30000);
+    });
     router.restful(models.migration, '/v1beta/:projectId/');
 
 }
