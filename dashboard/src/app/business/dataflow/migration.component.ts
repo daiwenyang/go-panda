@@ -185,7 +185,11 @@ export class MigrationListComponent implements OnInit {
         }
     }
     remigration(migration){
-
+        let msg = "<div>Are you sure you want to Remigrate ?</div><h3>[ "+ migration.name +" ]</h3>";
+        let header ="Remigrate";
+        let acceptLabel = "Remigrate";
+        let warming = true;
+        this.confirmDialog([msg,header,acceptLabel,warming,"Remigrate"], migration)
     }
     confirmDialog([msg,header,acceptLabel,warming=true,func], migrate){
         this.confirmationService.confirm({
@@ -195,10 +199,17 @@ export class MigrationListComponent implements OnInit {
             isWarning: warming,
             accept: ()=>{
                 try {
-                    let id = migrate.id;
-                    this.MigrationService.deleteMigration(id).subscribe((res) => {
-                        this.ngOnInit();
-                    });
+                    if(func === "Remigrate"){
+                        this.http.post('v1beta/{project_id}/remigration',{"id":migrate.id}).subscribe((res)=>{
+                            this.getMigrations();
+                        });
+                    }
+                    else if(func === "delete"){
+                        let id = migrate.id;
+                        this.MigrationService.deleteMigration(id).subscribe((res) => {
+                            this.ngOnInit();
+                        });
+                    }
                 }
                 catch (e) {
                     console.log(e);

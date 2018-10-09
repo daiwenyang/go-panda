@@ -14,7 +14,7 @@ export class MigrationService {
   createMigration(param) {
     return this.http.post(this.url, param);
   }
-
+  
   modifyMigration(id,param) {
     let modifyUrl = this.url + '/' + id
     return this.http.put(modifyUrl, param);
