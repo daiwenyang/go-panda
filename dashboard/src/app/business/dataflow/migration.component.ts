@@ -143,7 +143,7 @@ export class MigrationListComponent implements OnInit {
             "srcBucket": this.srcBucket,
             "destBucket": this.destBucket,
             "excutingTime": excutingTime,
-            "rule": this.rule,
+            "rule": this.rule ? this.rule :"--" ,
             "configDataAnalysis": this.showAnalysis,
             "analysisCluster": this.analysisCluster,
             "ak": this.ak,

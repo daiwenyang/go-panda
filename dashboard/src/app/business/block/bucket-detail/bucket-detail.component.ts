@@ -90,6 +90,7 @@ export class BucketDetailComponent implements OnInit {
     });
   }
   getFile() {
+    this.selectedDir = [];
     this.BucketService.getFilesByBucketId(this.bucketId).subscribe((res) => {
       this.allDir = res.json();
       this.allDir.forEach(element => {
@@ -172,7 +173,14 @@ export class BucketDetailComponent implements OnInit {
       }
     });
   }
-
+  deleteMultiDir(){
+    console.log(this.selectedDir);
+    let msg = "<div>Are you sure you want to delete the Files ?</div><h3>[ "+ this.selectedDir.length +" ]</h3>";
+    let header ="Delete";
+    let acceptLabel = "Delete";
+    let warming = true;
+    this.confirmDialog([msg,header,acceptLabel,warming,"deleteMilti"],this.selectedDir);
+  }
   deleteFile(file){
     let msg = "<div>Are you sure you want to delete the File ?</div><h3>[ "+ file.name +" ]</h3>";
     let header ="Delete";
@@ -189,10 +197,21 @@ export class BucketDetailComponent implements OnInit {
           isWarning: warming,
           accept: ()=>{
               try {
-                  let id = file.id;
-                  this.BucketService.deleteFile(id).subscribe((res) => {
-                      this.getFile();
-                  });
+                switch(func){
+                  case "delete":
+                    let id = file.id;
+                    this.BucketService.deleteFile(id).subscribe((res) => {
+                        this.getFile();
+                    });
+                    break;
+                  case "deleteMilti":
+                   file.forEach(element => {
+                      this.BucketService.deleteFile(element.id).subscribe((res) => {
+                        this.getFile();
+                      });
+                   });
+                    break;
+                }
               }
               catch (e) {
                   console.log(e);
@@ -203,6 +222,9 @@ export class BucketDetailComponent implements OnInit {
           },
           reject:()=>{}
       })
+  }
+  tablePaginate() {
+      this.selectedDir = [];
   }
 
 }
