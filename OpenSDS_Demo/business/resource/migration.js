@@ -29,13 +29,13 @@ module.exports = function (router) {
             allFileSrcBucket.forEach(async (srcFile) => {
                 if(srcFile.name !== "driver_behavior.jar" && srcFile.name !== "result.xlsx"){
                     srcFile.bucket_id = destBucket.id;
-                    await fileModel.update({ _id: srcFile._id }, { $set: srcFile });
+                    delete srcFile._id;
+                    await fileModel.insert(srcFile);
+                }
+                if(req.body.deleteSrcObject && srcFile.name !== "driver_behavior.jar" && srcFile.name !== "result.xlsx"){
+                    await fileModel.remove({_id: srcFile.id});
                 }
             });
-            // 删除源桶
-            if (req.body.deleteSrcObject) {
-                await bucketModel.remove({_id: srcBucket.id});
-            }
             let endTime = new Date().getTime();
             setTimeout(async function() {
                 console.log((endTime - startTime) + "毫秒后执行完成, 更新迁移任务状态和结束时间");
