@@ -1,4 +1,5 @@
 let fs = require('fs');
+let fse = require('fs-extra');
 let path = require('path');
 let datastore = require('nedb-promise');
 
@@ -24,6 +25,30 @@ function reset(){
       })
     })
   ).then(()=>{
+    let presetFiles = "detail_record_2017_01_02_08_00_00,detail_record_2017_01_03_08_00_00,detail_record_2017_01_04_08_00_00,detail_record_2017_01_05_08_00_00,detail_record_2017_01_06_08_00_00,driver_behavior.jar,open_case.jpg,result.xlsx";
+    let fileNames = findSync('../uploads/');
+    fileNames.forEach(item => {
+      if(presetFiles.indexOf(item)==-1){
+        fse.removeSync("../uploads/"+ item);
+      }
+    })
+
+    console.log(fileNames);
     console.log('init data success');
   })
+}
+
+function findSync(startPath){
+  let result=[];
+  function finder(_path){
+    let files = fs.readdirSync(_path);
+    files.forEach((val, index)=> {
+      let fPath = path.join(_path, val);
+      let stats = fs.statSync(fPath);
+      if(stats.isDirectory()) finder(fPath);
+      if(stats.isFile()) result.push(val);
+    })
+  }
+  finder(startPath);
+  return result;
 }
