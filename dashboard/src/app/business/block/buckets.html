@@ -37,10 +37,10 @@
             <div style="margin-bottom: 10px;"><span style="font-size: 16px;font-style: normal">Default Backend</span></div>
             <span style="display:inline-block;color: rgb(136, 147, 166);margin-bottom: 10px;">Objects will be stored by default to the specified backend.</span>
             <form-item label="type" [required]="true">
-                <p-dropdown [style]="{'min-width':'150px','width':'220px'}" [options]="allTypes" (onChange)="getBackendsByTypeId()" name='selectType' [(ngModel)]='selectType' formControlName="backend_type"></p-dropdown>
+                <p-dropdown [style]="{'min-width':'150px','width':'220px'}" placeholder="Please select" [options]="allTypes" (onChange)="getBackendsByTypeId()" name='selectType' [(ngModel)]='selectType' formControlName="backend_type"></p-dropdown>
             </form-item>
             <form-item label="Backend" [required]="true">
-                <p-dropdown [style]="{'min-width':'150px','width':'220px'}" [options]="backendsOption" formControlName="backend"></p-dropdown>
+                <p-dropdown [style]="{'min-width':'150px','width':'220px'}" placeholder="Please select" [options]="backendsOption" formControlName="backend"></p-dropdown>
             </form-item>
         </form>
         <p-footer>
@@ -131,7 +131,7 @@
                 <span style="display:inline-block;margin-bottom: 10px;color: rgb(136, 147, 166);">Without rules, all of them are migrated, otherwise only migrate objects with this rule.</span>
                 <textarea [rows]="2" [cols]="78" pInputTextarea name="rule" formControlName="rule"></textarea>
                 <div style="margin:10px 0">
-                    <p-checkbox (onChange)="showDetail()" name="analysis"  value="true" label="Config Data analysis"></p-checkbox>
+                    <p-checkbox (onChange)="showDetail()" name="analysis"  formControlName="anaShow" value="true" label="Config Data analysis"></p-checkbox>
                 </div>
                 <form *ngIf="showAnalysis" [grid]="{label: 'ui-g-3', content:'ui-g-20'}" [formGroup]="analysisForm"  >
                     <form-item label="Analysis Cluster" >

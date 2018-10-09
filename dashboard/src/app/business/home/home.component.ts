@@ -486,4 +486,8 @@ export class HomeComponent implements OnInit {
             this.listStorage();
         });
     }
+    showRegister(){
+        this.showRgister = true;
+        this.backendForm.reset();
+    }
 }

@@ -90,7 +90,8 @@ export class BucketsComponent implements OnInit{
             "excutingTime":[""],
             "rule":[""],
             "deleteSrcObject":[""],
-            "execute": ["true"]
+            "execute": ["true"],
+            "anaShow":[""]
         });
         this.analysisForm = this.fb.group({
             "analysisCluster":[""],
@@ -145,11 +146,6 @@ export class BucketsComponent implements OnInit{
     }
     showcalendar(){
         this.selectTime = !this.selectTime;
-        // if (this.migrationForm.value.execute.length !== 0) {
-        //     this.selectTime = false;
-        // } else {
-        //     this.selectTime = true;
-        // }
     }
     showDetail(){
         this.showAnalysis = !this.showAnalysis;
@@ -158,7 +154,11 @@ export class BucketsComponent implements OnInit{
         this.availbucketOption = [];
         this.createMigrateShow=true;
         this.selectedBucket = bucket;
-
+        this.migrationForm.reset();
+        this.migrationForm.controls['execute'].setValue("true");
+        this.analysisForm.reset();
+        this.selectTime = true;
+        this.showAnalysis = false;
         this.bucketOption.forEach((value,index)=>{
             if(this.backendMap.get(value.label) !== this.backendMap.get(bucket.name)){
                 this.availbucketOption.push({
@@ -214,7 +214,7 @@ export class BucketsComponent implements OnInit{
             "srcBucket": this.selectedBucket.name,
             "destBucket": this.migrationForm.value.destBucket,
             "rule": this.migrationForm.value.rule ? this.migrationForm.value.rule:"--",
-            "deleteSrcObject": this.migrationForm.value.deleteSrcObject.length !== 0,
+            "deleteSrcObject": this.migrationForm.value.deleteSrcObject && this.migrationForm.value.deleteSrcObject.length !== 0,
         }
         if(!this.selectTime){
             let param2 = {
@@ -275,6 +275,7 @@ export class BucketsComponent implements OnInit{
     }
     showCreateForm(){
         this.createBucketDisplay = true;
+        this.createBucketForm.reset();
         this.getTypes();
     }
     deleteBucket(bucket){
