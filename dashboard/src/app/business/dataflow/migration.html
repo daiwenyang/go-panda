@@ -12,12 +12,12 @@
 </div>
 <p-dataTable [value]="allMigrations" [globalFilter]="searchByName" [(selection)]="selectedMigrations"  [showHeaderCheckbox]="true" expandableRows="true" rowExpandMode="single" [rows]="10" [paginator]="true" [pageLinks]="3" (onRowExpand)="onRowExpand($event)" [rowsPerPageOptions]="[10,20,50,100]">
     <p-column expander="true" styleClass="table-col-expander"></p-column>
-    <p-column header="Migration" >
+    <p-column header="Migration" [style]="{'width': '132px'}">
         <ng-template pTemplate="body" let-mig="rowData">
             <div style="display:inline-block;">
-                <img style="width:24px;display:inline-block;margin-right:10px;" src="assets/business/images/common/{{mig.srctype == 0 ? 'aws':'huawei'}}.svg" >
+                <img style="width:26px;display:inline-block;margin-right:10px;" src="assets/business/images/common/{{mig.srctype == 0 ? 'aws':mig.srctype == 1 ? 'private-cloud':'huawei'}}.svg" >
                 <span class="line-arrow-right-dataflow"></span>
-                <img style="width:24px;display:inline-block;margin-left:10px;" src="assets/business/images/common/{{mig.desttype == 0 ? 'aws':'huawei'}}.svg">
+                <img style="width:26px;display:inline-block;margin-left:10px;" src="assets/business/images/common/{{mig.desttype == 0 ? 'aws':mig.desttype == 1 ? 'private-cloud':'huawei'}}.svg">
             </div>
         </ng-template>
     </p-column>
