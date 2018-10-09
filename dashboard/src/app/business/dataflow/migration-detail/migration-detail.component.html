@@ -9,18 +9,18 @@
                 </div>
                 <div class="ui-grid-col-9 ui-text-adapt">
                     <div><span>{{migrationInstance.excutingTime | date:'medium'}}</span></div>
-                    <div><span>{{migrationInstance.endTime | date:'medium'}}</span></div>
+                    <div><span>{{(migrationInstance.endTime  | date:'medium') ? (migrationInstance.endTime  | date:'medium') :'--' }}</span></div>
                     <div><span>{{migrationInstance.rule}}</span></div>
                 </div>
             </div>
             <div class="ui-grid-col-2"></div>
             <div class="ui-grid-col-4 ">
-                <div class="ui-grid-col-4 ui-text-adapt">
+                <div class="ui-grid-col-5 ui-text-adapt">
                     <div><span>Migrated Capacity:</span></div>
                     <div><span>Migrated objects:</span></div>
                     <div><span>Analysis Cluster:</span></div>
                 </div>
-                <div class="ui-grid-col-8 ui-text-adapt">
+                <div class="ui-grid-col-7 ui-text-adapt">
                     <div><span>1.500TB</span></div>
                     <div><span>1102</span></div>
                     <div><span>{{migrationInstance.ana_status}}</span></div>
@@ -43,8 +43,9 @@
             </div>
             <div class="ui-grid-col-2" style="text-align: center">
                 <div class="ui-block-align-center">
-                    <span>Rate of progress:60%</span>
-                    <div style="width:90%" class="line-arrow-right enabled"></div>
+                    <span *ngIf="migrationInstance.status !== 'completed'">Rate of progress:60%</span>
+                    <div style="width:90%" *ngIf="migrationInstance.status !== 'completed'"  class="line-arrow-right enabled"></div>
+                    <div style="width:90%;margin-top: 32px;" *ngIf="migrationInstance.status === 'completed'" class="line-arrow-right enabled"></div>
                 </div>
             </div>
             <div class="ui-grid-col-4 item-content-backgroud">

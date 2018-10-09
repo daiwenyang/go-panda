@@ -27,7 +27,7 @@
     <p-column field="srcBucket" header="Source Bucket"></p-column>
     <p-column field="destBucket" header="Destination Bucket"></p-column>
     <p-column field="rule" header="Rules"></p-column>
-    <p-column header="{{I18N.keyID['sds_block_volume_operation']}}">
+    <p-column header="{{I18N.keyID['sds_block_volume_operation']}}" [style]="{'width': '166px'}">
         <ng-template pTemplate="body" let-migrate="rowData" let-i="rowIndex">
             <a (click)="deleteMigrate(migrate)">Delete</a>
             <a *ngIf="migrate.status ==='completed'">Remigrate</a>
