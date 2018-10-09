@@ -1,5 +1,5 @@
 module.exports = [
-    {"name":"bkend_log","type":"0","region":"default_region","endpoint":"135.102.111.122","bucket":"","accessKey":"","secretKey":"","id":"zrhUVPPfexLM0lAB","_id":"zrhUVPPfexLM0lAC"},
+    {"name":"bkend_log","type":"0","region":"us-west-2","endpoint":"s3.amazonaws.com","bucket":"bucket2","accessKey":"","secretKey":"","id":"zrhUVPPfexLM0lAB","_id":"zrhUVPPfexLM0lAC"},
     {"name":"Dorado_V3_01","type":"5","region":"default_region","endpoint":"135.102.110.132","bucket":"","accessKey":"","secretKey":"","id":"zrhUVPPfexLM0lAC","_id":"zrhUVPPfexLM0lAB"},
     {"name":"Dorado_V3_02","type":"5","region":"default_region","endpoint":"135.102.110.133","bucket":"","accessKey":"","secretKey":"","id":"zrhUVPPfexLM0lAD","_id":"zrhUVPPfexLM0lAD"},
 
