@@ -26,15 +26,14 @@ function reset(){
     })
   ).then(()=>{
     let presetFiles = "detail_record_2017_01_02_08_00_00,detail_record_2017_01_03_08_00_00,detail_record_2017_01_04_08_00_00,detail_record_2017_01_05_08_00_00,detail_record_2017_01_06_08_00_00,driver_behavior.jar,open_case.jpg,result.xlsx";
-    let fileNames = findSync('../uploads/');
+    let fileNames = findSync('uploads/');
     fileNames.forEach(item => {
       if(presetFiles.indexOf(item)==-1){
-        fse.removeSync("../uploads/"+ item);
+        fse.removeSync("uploads/"+ item);
       }
     })
 
-    console.log(fileNames);
-    console.log('init data success');
+    // console.log('Clear data success!');
   })
 }
 
