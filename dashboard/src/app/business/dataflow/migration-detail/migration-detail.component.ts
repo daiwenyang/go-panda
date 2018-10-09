@@ -30,7 +30,9 @@ export class MigrationDetailComponent implements OnInit {
     "_id": "urV3BwUkHVaLdvUf",
     "srcBackend": "",
     "destBackend": "",
-    "ana_status":""
+    "ana_status":"",
+    "objectnum":0,
+    "totalsize":"0 MB"
   }
 
   constructor(
