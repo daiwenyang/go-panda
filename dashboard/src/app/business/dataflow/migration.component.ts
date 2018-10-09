@@ -58,19 +58,21 @@ export class MigrationListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.allMigrations = [{
-            name:"migration_for_analytics",
-            status:"Migrating",
-            srcBucket:"bucket_hwc_dr",
-            destBucket:"bucket_s3",
-            rule:"files/doc/; files/obj;"
-        },{
-            name:"migration_for_analytics",
-            status:"Completed",
-            srcBucket:"bucket_hwc_dr",
-            destBucket:"bucket_s3",
-            rule:"files/doc/; files/obj;"
-        }]
+        this.allMigrations = [
+        //     {
+        //     name:"migration_for_analytics",
+        //     status:"Migrating",
+        //     srcBucket:"bucket_hwc_dr",
+        //     destBucket:"bucket_s3",
+        //     rule:"files/doc/; files/obj;"
+        // },{
+        //     name:"migration_for_analytics",
+        //     status:"Completed",
+        //     srcBucket:"bucket_hwc_dr",
+        //     destBucket:"bucket_s3",
+        //     rule:"files/doc/; files/obj;"
+        // }
+        ]
         this.getBuckets();
     }
     getBuckets() {

@@ -43,13 +43,14 @@ module.exports = function (router) {
                 if(req.body.jar){
                     req.body.ana_status = "completed";
                     let model = models.file;
+                    let date = new Date();
                     let newFile = {
                         id: '',
                         name: 'result.xlsx',
                         size: '10240',
-                        last_modified: '',
+                        last_modified: date,
                         bucket_id: srcBucket.id,
-                        location: ""
+                        location: srcBucket.backend
                     }
                     let rs = await model.insert(newFile);
                     newFile.id = rs._id;
