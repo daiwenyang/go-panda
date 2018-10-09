@@ -58,22 +58,26 @@ export class MigrationListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.allMigrations = [
-        //     {
-        //     name:"migration_for_analytics",
-        //     status:"Migrating",
-        //     srcBucket:"bucket_hwc_dr",
-        //     destBucket:"bucket_s3",
-        //     rule:"files/doc/; files/obj;"
-        // },{
-        //     name:"migration_for_analytics",
-        //     status:"Completed",
-        //     srcBucket:"bucket_hwc_dr",
-        //     destBucket:"bucket_s3",
-        //     rule:"files/doc/; files/obj;"
-        // }
-        ]
+        this.allMigrations = []
         this.getBuckets();
+    }
+    configCreateMigration(){
+        this.createMigrateShow=true;
+        this.migrationName = "";
+        this.srcBucket = "";
+        this.destBucket = "";
+        this.rule ="";
+        this.showAnalysis = false;
+        this.analysisCluster= "";
+        this.ak ="";
+        this.sk ="";
+        this.deleteSrcObject =[];
+        this.jarParam ="";
+        this.anaParam ="";
+        this.excute = ["true"];
+        this.selectTime = true;
+        this.dataAnalysis = [];
+        this.excutingTime="";
     }
     getBuckets() {
         this.bucketOption = [];
@@ -185,7 +189,11 @@ export class MigrationListComponent implements OnInit {
         }
     }
     remigration(migration){
-
+        let msg = "<div>Are you sure you want to Remigrate ?</div><h3>[ "+ migration.name +" ]</h3>";
+        let header ="Remigrate";
+        let acceptLabel = "Remigrate";
+        let warming = true;
+        this.confirmDialog([msg,header,acceptLabel,warming,"Remigrate"], migration)
     }
     confirmDialog([msg,header,acceptLabel,warming=true,func], migrate){
         this.confirmationService.confirm({
@@ -195,10 +203,17 @@ export class MigrationListComponent implements OnInit {
             isWarning: warming,
             accept: ()=>{
                 try {
-                    let id = migrate.id;
-                    this.MigrationService.deleteMigration(id).subscribe((res) => {
-                        this.ngOnInit();
-                    });
+                    if(func === "Remigrate"){
+                        this.http.post('v1beta/{project_id}/remigration',{"id":migrate.id}).subscribe((res)=>{
+                            this.getMigrations();
+                        });
+                    }
+                    else if(func === "delete"){
+                        let id = migrate.id;
+                        this.MigrationService.deleteMigration(id).subscribe((res) => {
+                            this.ngOnInit();
+                        });
+                    }
                 }
                 catch (e) {
                     console.log(e);

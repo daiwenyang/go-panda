@@ -64,14 +64,27 @@ module.exports = function (router) {
         }, parseInt(req.body.excutingTime) - currentTime);
     });
     router.post('/v1beta/:projectId/remigration', async (req, res) => {
-        let migration = await model.findOne({ _id: req.body.id });
         let model = models.migration;
+        let fileModel = models.file;
+        let bucketModel = models.bucket;
+        let migration = await model.findOne({ _id: req.body.id });
         let startTime = new Date().getTime();
         req.body.status = "migrating";
+        await model.update({ _id: req.body.id }, { $set: req.body });
+        let srcBucket = await bucketModel.findOne({name: migration.srcBucket});
+        let destBucket = await bucketModel.findOne({name: migration.destBucket});
+        let allFileSrcBucket = await fileModel.find({bucket_id: srcBucket.id });
+        allFileSrcBucket.forEach(async (srcFile) => {
+            if(srcFile.name !== "driver_behavior.jar" && srcFile.name !== "result.xlsx"){
+                srcFile.bucket_id = destBucket.id;
+                await fileModel.update({ _id: srcFile._id }, { $set: srcFile });
+            }
+        });
         setTimeout(async function(){
             req.body.status = "completed";
             model.update({ _id: req.body.id }, { $set: req.body });
         },30000);
+        res.send(migration);
     });
     router.restful(models.migration, '/v1beta/:projectId/');
 
