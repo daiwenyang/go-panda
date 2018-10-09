@@ -52,7 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit{
     menuItems_tenant = [
         {
             "title": "Home",
-            "description": "Resources statistics",
+            "description": "Resource statistics",
             "routerLink": "/home"
         },
         {
@@ -65,12 +65,12 @@ export class AppComponent implements OnInit, AfterViewInit{
     menuItems_admin = [
         {
             "title": "Home",
-            "description": "Resources statistics",
+            "description": "Resource statistics",
             "routerLink": "/home"
         },
         {
             "title": "Resource",
-            "description": "Volumes / Blocks",
+            "description": "Volumes / Buckets",
             "routerLink": "/block"
         },
         {
@@ -85,7 +85,7 @@ export class AppComponent implements OnInit, AfterViewInit{
         },
         {
             "title": "Infrastructure",
-            "description": "Regions, availability zones and storages",
+            "description": "Regions, availability zones and storage",
             "routerLink": "/resource"
         },
         {

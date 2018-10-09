@@ -51,6 +51,7 @@ export class BucketsComponent implements OnInit{
     showLife = false;
     backendsOption = [];
     lifeOperation = [];
+    lifeOperation1 = [];
     allBackends = [];
     allTypes = [];
     excute = [];
@@ -123,6 +124,14 @@ export class BucketsComponent implements OnInit{
         {
             label:'Delete',
             value:'Delete'
+        }];
+        this.lifeOperation1 =[
+        {
+            label:'Delete',
+            value:'Delete'
+        },{
+            label:'Migration',
+            value:'Migration'
         }];
         this.allBackends = [{
             label:'AWS S3',
@@ -252,10 +261,12 @@ export class BucketsComponent implements OnInit{
         this.allBackends = [];
         this.BucketService.getBckends().subscribe((res) => {
             res.json().forEach(element => {
-                this.allBackends.push({
-                    label: element.name,
-                    value: element.name
-                })
+                if(element.type != "5"){
+                    this.allBackends.push({
+                        label: element.name,
+                        value: element.name
+                    })
+                }
             });
         });
     }

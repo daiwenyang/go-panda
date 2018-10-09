@@ -1,4 +1,5 @@
-const fs = require('fs');                                                                                                                     
+const fs = require('fs'); 
+let fse = require('fs-extra');                                                                                               
 const multiparty = require('multiparty');
 
 module.exports = function (router) {
@@ -10,6 +11,19 @@ module.exports = function (router) {
     await model.update({ _id: rs._id }, { $set: req.body });
     let response = await model.findOne({ _id: rs._id });
     res.send(response);
+  });
+
+  router.delete('/v1beta/:projectId/file/:id', async (req, res) => {
+    let model = models.file;
+    let presetFiles = "detail_record_2017_01_02_08_00_00,detail_record_2017_01_03_08_00_00,detail_record_2017_01_04_08_00_00,detail_record_2017_01_05_08_00_00,detail_record_2017_01_06_08_00_00,driver_behavior.jar,open_case.jpg,result.xlsx";
+    let file = await model.findOne({_id: req.params.id});
+    await model.remove({_id: req.params.id});
+
+    if(presetFiles.indexOf(file.name)==-1){
+      await fse.removeSync("uploads/"+ file.name);
+    }
+
+    res.send({});
   });
 
   //上传后更新数据库

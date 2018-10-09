@@ -33,7 +33,7 @@
                 </ng-template>
             </p-column>
         </p-dataTable>
-        <p-dialog  header="Upload" [(visible)]="uploadDisplay" [width]="600" modal="modal">
+        <p-dialog styleClass="upload-dialog"  header="Upload" [(visible)]="uploadDisplay" [width]="600" modal="modal">
             <input type="file" placeholder="Please choose a file" (change)="selectedFileOnChanged($event)" />
             <div style="padding:20px 0">
                 <p-checkbox (onChange)="showDetail()" name="specify"  value="true" [(ngModel)]="selectedSpecify" label="Specify the location of data storage. If not specified, store it to default backend."></p-checkbox>

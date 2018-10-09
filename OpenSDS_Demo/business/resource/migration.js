@@ -60,7 +60,7 @@ module.exports = function (router) {
                 }
                 req.body.endTime = new Date().getTime();
                 model.update({ _id: rs._id }, { $set: req.body });
-            }, 30000);
+            }, 5000);
         }, parseInt(req.body.excutingTime) - currentTime);
     });
     router.post('/v1beta/:projectId/remigration', async (req, res) => {

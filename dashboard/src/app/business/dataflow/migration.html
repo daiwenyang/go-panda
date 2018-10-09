@@ -15,9 +15,9 @@
     <p-column header="Migration" >
         <ng-template pTemplate="body" let-mig="rowData">
             <div style="display:inline-block;">
-                <img style="width:24px;display:inline-block;margin-right:10px;" src="assets/business/images/common/{{mig.srctype == 0 ? 'aws':'huawei'}}.svg" >
+                <img style="height:28px;display:inline-block;margin-right:10px;" src="assets/business/images/common/{{mig.srctype == 0 ? 'aws.svg': mig.srctype == 2 ? 'huawei.svg': mig.srctype == 1 ? 'private-cloud.svg':'huawei.svg'}}" >
                 <span class="line-arrow-right-dataflow"></span>
-                <img style="width:24px;display:inline-block;margin-left:10px;" src="assets/business/images/common/{{mig.desttype == 0 ? 'aws':'huawei'}}.svg">
+                <img style="height:28px;display:inline-block;margin-left:10px;" src="assets/business/images/common/{{mig.desttype == 0 ? 'aws.svg': mig.desttype == 2 ? 'huawei.svg': mig.desttype == 1 ? 'private-cloud.svg':'huawei.svg'}}">
             </div>
         </ng-template>
     </p-column>
@@ -49,12 +49,12 @@
         <form-item label="Destination Bucket" >
             <p-dropdown [style]="{'min-width':'220px'}" [options]="destBuckets" placeholder="Please select" name="destBucket" [(ngModel)]="destBucket" ></p-dropdown>
         </form-item>
-        <form-item label="Excuting Time" >
+        <form-item label="Execution Time" >
             <p-calendar [disabled]="selectTime" [showTime]="true" name="excutingTime" [(ngModel)]="excutingTime"></p-calendar>
             <p-checkbox (onChange)="showcalendar()" name="excuteTime" [(ngModel)]="excute"  value="true" label="Immediately"></p-checkbox>
         </form-item>
         <div style="margin-bottom: 10px;"><span style="font-size: 16px;font-style: normal">Rule</span></div>
-        <span style="display:inline-block;margin-bottom: 10px;color: rgb(136, 147, 166);">Without rules, all of them are migrated, otherwise only migrate objects with this rule.</span>
+        <span style="display:inline-block;margin-bottom: 10px;color: rgb(136, 147, 166);">Without a rule, all objects in the source bucket will be migrated; otherwise only objects selected based on the rule will be migrated.</span>
         <textarea [rows]="2" [cols]="78" pInputTextarea name="rule" [(ngModel)]="rule"></textarea>
         <div style="margin:10px 0">
             <p-checkbox (onChange)="showDetail()" name="analysis"  value="true" [(ngModel)]="dataAnalysis" label="Config Data analysis"></p-checkbox>

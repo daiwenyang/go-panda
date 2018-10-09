@@ -38,7 +38,7 @@ import { AvailabilityZonesService } from '../resource.service';
 export class StorageComponent implements OnInit{
 
     storages = [];
-    typeJSON = {};
+    typeJSON = {'5': "Local Storage"};
     constructor(
         public I18N: I18NService,
         private http: Http,
