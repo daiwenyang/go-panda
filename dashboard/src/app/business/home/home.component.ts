@@ -412,11 +412,19 @@ export class HomeComponent implements OnInit {
         });
     }
     deleteBackend(backend){
-        let msg = "<div>Are you sure you want to delete the selected backend?</div><h3>[ "+ backend.name +" ]</h3>";
-        let header ="Delete ";
-        let acceptLabel = "Delete";
-        let warming = true;
-        this.confirmDialog([msg,header,acceptLabel,warming,backend])
+        if(backend.canDelete){
+            let msg = "<div>you can't delete the backend with bucket</h3>";
+            let header ="Prompt ";
+            let acceptLabel = "Close";
+            let warming = true;
+            this.confirmDialog([msg,header,acceptLabel,warming,"close"])
+        }else{
+            let msg = "<div>Are you sure you want to delete the selected backend?</div><h3>[ "+ backend.name +" ]</h3>";
+            let header ="Delete ";
+            let acceptLabel = "Delete";
+            let warming = true;
+            this.confirmDialog([msg,header,acceptLabel,warming,backend])
+        }
     }
     confirmDialog([msg,header,acceptLabel,warming=true,backend]){
         this.ConfirmationService.confirm({
@@ -426,11 +434,15 @@ export class HomeComponent implements OnInit {
             isWarning: warming,
             accept: ()=>{
                 try {
-                    let url = 'v1beta/{project_id}/backend/'+backend.id;
-                    this.http.delete(url).subscribe((res)=>{
-                        this.showBackendsDeatil(this.selectedType);
-                        this.listStorage();
-                    });
+                    if(backend == "close"){
+                        return;
+                    }else{
+                        let url = 'v1beta/{project_id}/backend/'+backend.id;
+                        this.http.delete(url).subscribe((res)=>{
+                            this.showBackendsDeatil(this.selectedType);
+                            this.listStorage();
+                        });
+                    }
                 }
                 catch (e) {
                     console.log(e);
