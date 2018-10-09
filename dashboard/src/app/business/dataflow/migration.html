@@ -12,7 +12,7 @@
 </div>
 <p-dataTable [value]="allMigrations" [globalFilter]="searchByName" [(selection)]="selectedMigrations"  [showHeaderCheckbox]="true" expandableRows="true" rowExpandMode="single" [rows]="10" [paginator]="true" [pageLinks]="3" (onRowExpand)="onRowExpand($event)" [rowsPerPageOptions]="[10,20,50,100]">
     <p-column expander="true" styleClass="table-col-expander"></p-column>
-    <p-column header="Migration" [style]="{'width': '132px'}">
+    <p-column header="Migration" [style]="{'width': '160px'}">
         <ng-template pTemplate="body" let-mig="rowData">
             <div style="display:inline-block;">
                 <img style="height:28px;display:inline-block;margin-right:10px;" src="assets/business/images/common/{{mig.srctype == 0 ? 'aws.svg': mig.srctype == 2 ? 'huawei.svg': mig.srctype == 1 ? 'private-cloud.svg':'huawei.svg'}}" >
@@ -37,7 +37,7 @@
         <migration-detail [migrationId]="migrationId"></migration-detail>
     </ng-template>
 </p-dataTable>
-<p-dialog header="Migrate" [(visible)]="createMigrateShow" [width]="650" modal="modal">
+<p-dialog styleClass="create-migrate-dialog" header="Migrate" [(visible)]="createMigrateShow" [width]="650" modal="modal">
     <form [grid]="{label: 'ui-g-3', content:'ui-g-20'}" >
         <div style="margin-bottom: 18px;"><span style="font-size: 16px;font-style: normal">Basic Information</span></div>
         <form-item label="Plan Name" >

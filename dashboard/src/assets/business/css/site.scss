@@ -1805,11 +1805,14 @@ a {
 #home-backend-detail{
     & th{
         color:#8fb2e8;
-        background-color:#2c3f61;
+        background-color:#3c5482;
     }
     & td{
         color:#FFFFFF;
         background-color: #2c3f61
+    }
+    .ui-datatable .ui-datatable-tablewrapper{
+        border-bottom: 1px solid #3f5682;
     }
 }
 .line-arrow-right-dataflow{ 
@@ -1839,5 +1842,16 @@ a {
 .upload-dialog{
     .ui-dialog-content{
         height: 295px;
+    }
+}
+.create-bucket-dialog{
+    .ui-dialog-content{
+        height: 295px;
+    }
+}
+
+.create-migrate-dialog{
+    .ui-dialog-content{
+        height: 420px;
     }
 }

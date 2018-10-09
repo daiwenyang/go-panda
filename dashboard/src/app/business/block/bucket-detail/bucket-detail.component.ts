@@ -199,14 +199,14 @@ export class BucketDetailComponent implements OnInit {
               try {
                 switch(func){
                   case "delete":
-                    let id = file.id;
+                    let id = file._id;
                     this.BucketService.deleteFile(id).subscribe((res) => {
                         this.getFile();
                     });
                     break;
                   case "deleteMilti":
                    file.forEach(element => {
-                      this.BucketService.deleteFile(element.id).subscribe((res) => {
+                      this.BucketService.deleteFile(element._id).subscribe((res) => {
                         this.getFile();
                       });
                    });
