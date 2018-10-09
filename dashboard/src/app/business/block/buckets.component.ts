@@ -9,6 +9,7 @@ import { MenuItem ,ConfirmationService} from '../../components/common/api';
 import { BucketService} from './buckets.service';
 import { debug } from 'util';
 import { MigrationService } from './../dataflow/migration.service';
+import { Http } from '@angular/http';
 
 @Component({
     selector: 'bucket-list',
@@ -67,6 +68,7 @@ export class BucketsComponent implements OnInit{
         id:""
     };
     selectType;
+    engineOption = [];
     constructor(
         public I18N: I18NService,
         private router: Router,
@@ -74,7 +76,8 @@ export class BucketsComponent implements OnInit{
         private confirmationService: ConfirmationService,
         private fb:FormBuilder,
         private BucketService: BucketService,
-        private MigrationService:MigrationService
+        private MigrationService:MigrationService,
+        private http:Http,
     ){
         this.createBucketForm = this.fb.group({
             "backend":[""],
@@ -92,7 +95,9 @@ export class BucketsComponent implements OnInit{
         this.analysisForm = this.fb.group({
             "analysisCluster":[""],
             "ak":[""],
-            "sk":[""]
+            "sk":[""],
+            "jar":[""],
+            "anaparam":[""]
         });
     }
 
@@ -162,6 +167,19 @@ export class BucketsComponent implements OnInit{
                 });
             }
         });
+        this.engineOption = [];
+        this.http.get("v1beta/{project_id}/file?bucket_id="+bucket.id).subscribe((res)=>{
+            let allFile = res.json();
+            for(let item of allFile){
+                if(item.name == "driver_behavior.jar"){
+                    this.engineOption = [{
+                        label:"driver_behavior.jar",
+                        value:"driver_behavior.jar"
+                    }];
+                    break;
+                }
+            }
+        });
     }
     getBuckets() {
         this.allBuckets = [];
@@ -195,7 +213,7 @@ export class BucketsComponent implements OnInit{
             "name": this.migrationForm.value.migrationName,
             "srcBucket": this.selectedBucket.name,
             "destBucket": this.migrationForm.value.destBucket,
-            "rule": this.migrationForm.value.rule,
+            "rule": this.migrationForm.value.rule ? this.migrationForm.value.rule:"--",
             "deleteSrcObject": this.migrationForm.value.deleteSrcObject.length !== 0,
         }
         if(!this.selectTime){
@@ -209,6 +227,8 @@ export class BucketsComponent implements OnInit{
                 "analysisCluster": this.analysisForm.value.analysisCluster,
                 "ak": this.analysisForm.value.ak,
                 "sk": this.analysisForm.value.sk,
+                "jar":this.analysisForm.value.jar,
+                "anaparam":this.analysisForm.value.anaparam,
             }
             Object.assign(param,param3);
         }
