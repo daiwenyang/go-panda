@@ -6,6 +6,7 @@ import { Observable } from "rxjs/Rx";
 import { I18NService } from 'app/shared/api';
 import { ReactiveFormsModule, FormsModule,FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MenuItem ,ConfirmationService,ConfirmDialogModule} from '../../components/common/api';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './home.component.html',
@@ -52,7 +53,8 @@ export class HomeComponent implements OnInit {
         private profileService: ProfileService,
         private I18N: I18NService,
         private fb:FormBuilder,
-        private ConfirmationService:ConfirmationService
+        private ConfirmationService:ConfirmationService,
+        private router: Router,
     ) { }
 
     ngOnInit() {
