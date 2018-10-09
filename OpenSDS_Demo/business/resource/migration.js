@@ -13,6 +13,8 @@ module.exports = function (router) {
             console.log("延迟" + (parseInt(req.body.excutingTime) - currentTime) + "毫秒后执行迁移任务");
             let startTime = new Date().getTime();
             req.body.status = "migrating";
+            req.body.totalsize = "0 MB";
+            req.body.objectnum = "0";
             if(req.body.jar){
                 req.body.ana_status = "waiting";
             }else{
@@ -26,11 +28,15 @@ module.exports = function (router) {
             let srcBucket = await bucketModel.findOne({name: req.body.srcBucket});
             let destBucket = await bucketModel.findOne({name: req.body.destBucket});
             let allFileSrcBucket = await fileModel.find({bucket_id: srcBucket.id });
+            let count = 0;
+            let totalSize = 0;
             allFileSrcBucket.forEach(async (srcFile) => {
                 if(srcFile.name !== "driver_behavior.jar" && srcFile.name !== "result.xlsx"){
                     srcFile.bucket_id = destBucket.id;
                     delete srcFile._id;
                     await fileModel.insert(srcFile);
+                    totalSize += srcFile.size;
+                    count++;
                 }
                 if(req.body.deleteSrcObject && srcFile.name !== "driver_behavior.jar" && srcFile.name !== "result.xlsx"){
                     await fileModel.remove({_id: srcFile.id});
@@ -59,6 +65,8 @@ module.exports = function (router) {
                     req.body.ana_status = "Not configured";
                 }
                 req.body.endTime = new Date().getTime();
+                req.body.totalsize = Math.round(totalSize/1024/1024*100)/100+" MB";
+                req.body.objectnum = count;
                 model.update({ _id: rs._id }, { $set: req.body });
             }, 5000);
         }, parseInt(req.body.excutingTime) - currentTime);
